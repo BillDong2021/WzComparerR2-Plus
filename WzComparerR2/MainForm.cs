@@ -3645,12 +3645,38 @@ namespace WzComparerR2
         {
             if(Entry != null)
             {
-                if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
-                    GetNode(Entry.FullPathToFile2()).ExtractPng().Save(FolderName + "\\" + Entry.GetPathD() + ".png");
+                //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
+                if (Entry.Value is Wz_Png)
+                {
+                    string str = this.SplitString(SplitLastDot(Entry.GetPathD()), ".img");
+                    GetNode(Entry.FullPathToFile2()).ExtractPng().Save(FolderName + "\\" + str +".png");
+                    Console.WriteLine($"导出图片 : {str}");
+                }
+
                 foreach(var E in Entry.Nodes)
                     if(!(E.Value is Wz_Image))
                         DumpPngs(FolderName,E);
             }
+        }
+
+        //除去字符串中最后一个.之后的内容
+        public string SplitLastDot(string str)
+        {
+            int index = str.LastIndexOf('.');
+            if (index > 0)
+                return str.Substring(0, index);
+            else
+                return str;
+        }
+
+        //除去字符串中间的给定的字符串
+        public string SplitString(string str, string split)
+        {
+            int index = str.IndexOf(split);
+            if (index > 0)
+                return str.Substring(0, index) + str.Substring(index + split.Length);
+            else
+                return str;
         }
 
         public static Wz_Node SelectedNode;
@@ -3686,6 +3712,38 @@ namespace WzComparerR2
                 return;
             DumpPngs(dlg.SelectedPath,GetNode(SelectedNode.FullPathToFile2()));
         }
+
+        void SavePngButtonClickNew(object sender, EventArgs e)
+        {
+            //var dlg = new FolderBrowserDialog();
+            //dlg.SelectedPath = System.Environment.CurrentDirectory;
+            //dlg.Description = "選擇儲存路徑";
+            //if ((dlg.ShowDialog(new Form() { TopMost = true }) != DialogResult.OK))
+            //    return;
+            
+            string p = "Character/Weapon/";
+            for (int i = 01302000; i < 01702213 + 1; i++)
+            //for (int i = 1302000; i < 1302002 + 1; i++)
+            {
+                string nodePath = p + i.ToString().PadLeft(8, '0') + ".img";
+                var node =  GetNode(nodePath);
+                if (node != null)
+                {
+                    string finalPath = "D:/Games/MapleStory/WzPicture/072new/Weapon/" + i.ToString().PadLeft(8, '0');
+                    EnsureFolder(finalPath);
+                    DumpPngs(finalPath, node);
+                }
+            }
+        }
+
+        void EnsureFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
         void SearchWzButtonClick(object sender,EventArgs e)
         {
             if(SearchWzForm.Instance == null)
@@ -3847,7 +3905,7 @@ namespace WzComparerR2
 
             ImageViewerButton = new DevComponents.DotNetBar.ButtonItem();
             ImageViewerButton.Text = "圖片瀏覽";
-            ImageViewerButton.FixedSize = new Size(58,65);
+            ImageViewerButton.FixedSize = new Size(1810,50);
             ImageViewerButton.Click += new System.EventHandler(this.ImageViewerButtonClick);
             var ImageViewerRibbonBar = new DevComponents.DotNetBar.RibbonBar();
             ImageViewerRibbonBar.Location = new Point(1910,10);
@@ -3865,6 +3923,17 @@ namespace WzComparerR2
             this.AniNamesBox.Name = "AniNamesBox1";
             this.AniNamesBox.SelectedIndexChanged += new System.EventHandler(this.AniNamesBox_SelectedIndexChanged);
             this.ribbonBar5.Items.Add(AniNamesBox);
+            //
+            SavePngButton = new DevComponents.DotNetBar.ButtonItem();
+            SavePngButton.Text = "批量存储PNG";
+            SavePngButton.FixedSize = new Size(81, 65);
+            SavePngButton.Click += new System.EventHandler(this.SavePngButtonClickNew);
+            SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
+            SavePngRibbonBar.Location = new Point(1410, 10);
+            SavePngRibbonBar.Text = "Batch Save Pngs";
+            SavePngRibbonBar.MinimumSize = new Size(90, 50);
+            SavePngRibbonBar.Items.Add(SavePngButton);
+            this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
         }
     }
 

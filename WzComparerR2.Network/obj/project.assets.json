@@ -1,19 +1,23 @@
 {
   "version": 3,
   "targets": {
-    ".NETFramework,Version=v4.5.2": {
+    ".NETFramework,Version=v4.8": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -47,19 +51,23 @@
         }
       }
     },
-    ".NETFramework,Version=v4.5.2/win": {
+    ".NETFramework,Version=v4.8/win": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -93,19 +101,23 @@
         }
       }
     },
-    ".NETFramework,Version=v4.5.2/win-x64": {
+    ".NETFramework,Version=v4.8/win-x64": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -139,19 +151,23 @@
         }
       }
     },
-    ".NETFramework,Version=v4.5.2/win-x86": {
+    ".NETFramework,Version=v4.8/win-x86": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/Newtonsoft.Json.dll": {}
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -231,51 +247,56 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETFramework,Version=v4.5.2": [
+    ".NETFramework,Version=v4.8": [
       "Newtonsoft.Json >= 13.0.1",
       "WzComparerR2.Common >= 1.0.0",
       "WzComparerR2.PluginBase >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\elen8\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WzComparerR2-kms\\WzComparerR2.Network\\WzComparerR2.Network.csproj",
+      "projectUniqueName": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Network\\WzComparerR2.Network.csproj",
       "projectName": "WzComparerR2.Network",
-      "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.Network\\WzComparerR2.Network.csproj",
-      "packagesPath": "C:\\Users\\elen8\\.nuget\\packages\\",
-      "outputPath": "D:\\WzComparerR2-kms\\WzComparerR2.Network\\obj\\",
+      "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Network\\WzComparerR2.Network.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Network\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\elen8\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net452"
+        "net48"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net452": {
+        "net48": {
           "projectReferences": {
-            "D:\\WzComparerR2-kms\\WzComparerR2.Common\\WzComparerR2.Common.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.Common\\WzComparerR2.Common.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Common\\WzComparerR2.Common.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Common\\WzComparerR2.Common.csproj"
             },
-            "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
             }
           }
         }
       }
     },
     "frameworks": {
-      "net452": {
+      "net48": {
         "dependencies": {
           "Newtonsoft.Json": {
             "target": "Package",

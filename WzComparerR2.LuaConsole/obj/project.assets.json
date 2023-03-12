@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    ".NETFramework,Version=v4.6": {
+    ".NETFramework,Version=v4.8": {
       "ICSharpCode.TextEditor/3.2.1.6466": {
         "type": "package",
         "compile": {
@@ -14,10 +14,14 @@
       "KeraLua/1.3.1": {
         "type": "package",
         "compile": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/net46/KeraLua.targets": {}
@@ -103,7 +107,7 @@
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -137,7 +141,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6/win": {
+    ".NETFramework,Version=v4.8/win": {
       "ICSharpCode.TextEditor/3.2.1.6466": {
         "type": "package",
         "compile": {
@@ -150,10 +154,14 @@
       "KeraLua/1.3.1": {
         "type": "package",
         "compile": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/net46/KeraLua.targets": {}
@@ -173,7 +181,7 @@
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -207,7 +215,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6/win-x64": {
+    ".NETFramework,Version=v4.8/win-x64": {
       "ICSharpCode.TextEditor/3.2.1.6466": {
         "type": "package",
         "compile": {
@@ -220,10 +228,14 @@
       "KeraLua/1.3.1": {
         "type": "package",
         "compile": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "native": {
           "runtimes/win-x64/native/lua54.dll": {}
@@ -246,7 +258,7 @@
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -280,7 +292,7 @@
         }
       }
     },
-    ".NETFramework,Version=v4.6/win-x86": {
+    ".NETFramework,Version=v4.8/win-x86": {
       "ICSharpCode.TextEditor/3.2.1.6466": {
         "type": "package",
         "compile": {
@@ -293,10 +305,14 @@
       "KeraLua/1.3.1": {
         "type": "package",
         "compile": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/KeraLua.dll": {}
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
         },
         "native": {
           "runtimes/win-x86/native/lua54.dll": {}
@@ -319,7 +335,7 @@
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -474,7 +490,7 @@
     }
   },
   "projectFileDependencyGroups": {
-    ".NETFramework,Version=v4.6": [
+    ".NETFramework,Version=v4.8": [
       "ICSharpCode.TextEditor >= 3.2.1.6466",
       "KeraLua >= 1.3.1",
       "NLua >= 1.6.0",
@@ -482,41 +498,46 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\elen8\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WzComparerR2-kms\\WzComparerR2.LuaConsole\\WzComparerR2.LuaConsole.csproj",
+      "projectUniqueName": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.LuaConsole\\WzComparerR2.LuaConsole.csproj",
       "projectName": "WzComparerR2.LuaConsole",
-      "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.LuaConsole\\WzComparerR2.LuaConsole.csproj",
-      "packagesPath": "C:\\Users\\elen8\\.nuget\\packages\\",
-      "outputPath": "D:\\WzComparerR2-kms\\WzComparerR2.LuaConsole\\obj\\",
+      "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.LuaConsole\\WzComparerR2.LuaConsole.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.LuaConsole\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\elen8\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net46"
+        "net48"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net46": {
+        "net48": {
           "projectReferences": {
-            "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
             }
           }
         }
       }
     },
     "frameworks": {
-      "net46": {
+      "net48": {
         "dependencies": {
           "ICSharpCode.TextEditor": {
             "target": "Package",

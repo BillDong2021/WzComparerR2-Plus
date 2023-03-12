@@ -5,10 +5,14 @@
       "ManagedBass/3.1.0": {
         "type": "package",
         "compile": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MonoGame.Framework.WindowsDX/3.8.0.1641": {
@@ -23,10 +27,14 @@
           "SharpDX.XInput": "4.0.1"
         },
         "compile": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/MonoGame.Framework.WindowsDX.targets": {}
@@ -35,10 +43,14 @@
       "SharpDX/4.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct2D1/4.0.1": {
@@ -48,10 +60,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D11/4.0.1": {
@@ -61,10 +77,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D9/4.0.1": {
@@ -73,10 +93,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.DXGI/4.0.1": {
@@ -85,10 +109,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Mathematics/4.0.1": {
@@ -97,10 +125,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.MediaFoundation/4.0.1": {
@@ -112,10 +144,14 @@
           "SharpDX.Mathematics": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XAudio2/4.0.1": {
@@ -124,10 +160,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XInput/4.0.1": {
@@ -136,15 +176,19 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -182,10 +226,14 @@
       "ManagedBass/3.1.0": {
         "type": "package",
         "compile": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MonoGame.Framework.WindowsDX/3.8.0.1641": {
@@ -200,10 +248,14 @@
           "SharpDX.XInput": "4.0.1"
         },
         "compile": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/MonoGame.Framework.WindowsDX.targets": {}
@@ -212,10 +264,14 @@
       "SharpDX/4.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct2D1/4.0.1": {
@@ -225,10 +281,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D11/4.0.1": {
@@ -238,10 +298,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D9/4.0.1": {
@@ -250,10 +314,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.DXGI/4.0.1": {
@@ -262,10 +330,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Mathematics/4.0.1": {
@@ -274,10 +346,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.MediaFoundation/4.0.1": {
@@ -289,10 +365,14 @@
           "SharpDX.Mathematics": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XAudio2/4.0.1": {
@@ -301,10 +381,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XInput/4.0.1": {
@@ -313,15 +397,19 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -359,10 +447,14 @@
       "ManagedBass/3.1.0": {
         "type": "package",
         "compile": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MonoGame.Framework.WindowsDX/3.8.0.1641": {
@@ -377,10 +469,14 @@
           "SharpDX.XInput": "4.0.1"
         },
         "compile": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/MonoGame.Framework.WindowsDX.targets": {}
@@ -389,10 +485,14 @@
       "SharpDX/4.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct2D1/4.0.1": {
@@ -402,10 +502,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D11/4.0.1": {
@@ -415,10 +519,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D9/4.0.1": {
@@ -427,10 +535,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.DXGI/4.0.1": {
@@ -439,10 +551,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Mathematics/4.0.1": {
@@ -451,10 +567,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.MediaFoundation/4.0.1": {
@@ -466,10 +586,14 @@
           "SharpDX.Mathematics": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XAudio2/4.0.1": {
@@ -478,10 +602,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XInput/4.0.1": {
@@ -490,15 +618,19 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -536,10 +668,14 @@
       "ManagedBass/3.1.0": {
         "type": "package",
         "compile": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/ManagedBass.dll": {}
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
         }
       },
       "MonoGame.Framework.WindowsDX/3.8.0.1641": {
@@ -554,10 +690,14 @@
           "SharpDX.XInput": "4.0.1"
         },
         "compile": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net452/MonoGame.Framework.dll": {}
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/MonoGame.Framework.WindowsDX.targets": {}
@@ -566,10 +706,14 @@
       "SharpDX/4.0.1": {
         "type": "package",
         "compile": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.dll": {}
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct2D1/4.0.1": {
@@ -579,10 +723,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct2D1.dll": {}
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D11/4.0.1": {
@@ -592,10 +740,14 @@
           "SharpDX.DXGI": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D11.dll": {}
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Direct3D9/4.0.1": {
@@ -604,10 +756,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Direct3D9.dll": {}
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.DXGI/4.0.1": {
@@ -616,10 +772,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.DXGI.dll": {}
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.Mathematics/4.0.1": {
@@ -628,10 +788,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.Mathematics.dll": {}
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.MediaFoundation/4.0.1": {
@@ -643,10 +807,14 @@
           "SharpDX.Mathematics": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.MediaFoundation.dll": {}
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XAudio2/4.0.1": {
@@ -655,10 +823,14 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XAudio2.dll": {}
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
         }
       },
       "SharpDX.XInput/4.0.1": {
@@ -667,15 +839,19 @@
           "SharpDX": "4.0.1"
         },
         "compile": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net45/SharpDX.XInput.dll": {}
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
         }
       },
       "WzComparerR2.Common/1.0.0": {
         "type": "project",
-        "framework": ".NETFramework,Version=v4.5.2",
+        "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
           "WzComparerR2.WzLib": "1.0.0"
         },
@@ -969,20 +1145,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\elen8\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
+    "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WzComparerR2-kms\\WzComparerR2\\WzComparerR2.csproj",
+      "projectUniqueName": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2\\WzComparerR2.csproj",
       "projectName": "WzComparerR2",
-      "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2\\WzComparerR2.csproj",
-      "packagesPath": "C:\\Users\\elen8\\.nuget\\packages\\",
-      "outputPath": "D:\\WzComparerR2-kms\\WzComparerR2\\obj\\",
+      "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2\\WzComparerR2.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
+      "fallbackFolders": [
+        "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\elen8\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -995,14 +1176,14 @@
       "frameworks": {
         "net48": {
           "projectReferences": {
-            "D:\\WzComparerR2-kms\\WzComparerR2.Common\\WzComparerR2.Common.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.Common\\WzComparerR2.Common.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Common\\WzComparerR2.Common.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.Common\\WzComparerR2.Common.csproj"
             },
-            "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.PluginBase\\WzComparerR2.PluginBase.csproj"
             },
-            "D:\\WzComparerR2-kms\\WzComparerR2.WzLib\\WzComparerR2.WzLib.csproj": {
-              "projectPath": "D:\\WzComparerR2-kms\\WzComparerR2.WzLib\\WzComparerR2.WzLib.csproj"
+            "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.WzLib\\WzComparerR2.WzLib.csproj": {
+              "projectPath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.WzLib\\WzComparerR2.WzLib.csproj"
             }
           }
         }
