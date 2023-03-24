@@ -32,9 +32,9 @@ using System.Runtime.InteropServices;
 
 namespace WzComparerR2
 {
-    public partial class MainForm:Office2007RibbonForm, PluginContextProvider
+    public partial class MainForm : Office2007RibbonForm, PluginContextProvider
     {
-        [DllImport("kernel32",CharSet = CharSet.Unicode,SetLastError = true)]
+        [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool DeleteFile(string name);
         public bool Unblock(string fileName)
@@ -46,10 +46,10 @@ namespace WzComparerR2
         {
             InitializeComponent();
             Form.CheckForIllegalCrossThreadCalls = false;
-            this.MinimumSize = new Size(600,450);
-            string[] Files = Directory.GetFiles(@System.Environment.CurrentDirectory,"*.*",SearchOption.AllDirectories);
+            this.MinimumSize = new Size(600, 450);
+            string[] Files = Directory.GetFiles(@System.Environment.CurrentDirectory, "*.*", SearchOption.AllDirectories);
             //dll檔自動解除封鎖
-            for(int i = 0;i < Files.Length;i++)
+            for (int i = 0; i < Files.Length; i++)
             {
                 Unblock(Files[i]);
             }
@@ -85,8 +85,8 @@ namespace WzComparerR2
 
         //compare
         Thread compareThread;
-        public static Dictionary<string,string> SetEffectList = new Dictionary<string,string>();
-        public static Dictionary<string,string> ItemEffectList = new Dictionary<string,string>();
+        public static Dictionary<string, string> SetEffectList = new Dictionary<string, string>();
+        public static Dictionary<string, string> ItemEffectList = new Dictionary<string, string>();
 
         private void initFields()
         {
@@ -112,17 +112,17 @@ namespace WzComparerR2
             charaSimCtrl.UIEquip.Visible = false;
             charaSimCtrl.UIEquip.VisibleChanged += new EventHandler(afrm_VisibleChanged);
 
-            string[] images = new string[] { "dir","mp3","num","png","str","uol","vector","img" };
-            foreach(string img in images)
+            string[] images = new string[] { "dir", "mp3", "num", "png", "str", "uol", "vector", "img" };
+            foreach (string img in images)
             {
-                imageList1.Images.Add(img,(Image)Properties.Resources.ResourceManager.GetObject(img));
+                imageList1.Images.Add(img, (Image)Properties.Resources.ResourceManager.GetObject(img));
             }
 
             soundPlayer = new BassSoundPlayer();
-            if(!soundPlayer.Init())
+            if (!soundPlayer.Init())
             {
                 ManagedBass.Errors error = soundPlayer.GetLastError();
-                MessageBoxEx.Show("Bass 初始化失敗\r\n\r\nerrorCode : " + (int)error + "(" + error + ")","오류");
+                MessageBoxEx.Show("Bass 初始化失敗\r\n\r\nerrorCode : " + (int)error + "(" + error + ")", "오류");
             }
             soundTimer = new Timer(120d);
             soundTimer.Elapsed += new System.Timers.ElapsedEventHandler(soundTimer_Elapsed);
@@ -130,7 +130,7 @@ namespace WzComparerR2
 
             PluginBase.PluginManager.WzFileFinding += new FindWzEventHandler(CharaSimLoader_WzFileFinding);
 
-            foreach(WzPngComparison comp in Enum.GetValues(typeof(WzPngComparison)))
+            foreach (WzPngComparison comp in Enum.GetValues(typeof(WzPngComparison)))
             {
                 cmbComparePng.Items.Add(comp);
             }
@@ -169,22 +169,22 @@ namespace WzComparerR2
             {
                 //  this.WindowState = (FormWindowState)UIStateConfig.Default.WindowState.Value;
                 //  this.Size = new Size(UIStateConfig.Default.WindowWidth, UIStateConfig.Default.WindowHeight);
-                if(this.ribbonControl1.Expanded = UIStateConfig.Default.RibbonExpanded)
+                if (this.ribbonControl1.Expanded = UIStateConfig.Default.RibbonExpanded)
                 {
-                    switch(UIStateConfig.Default.SelectedRibbonTabIndex)
+                    switch (UIStateConfig.Default.SelectedRibbonTabIndex)
                     {
-                    case 1:
-                        this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem1;
-                        break;
-                    case 2:
-                        this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem2;
-                        break;
-                    case 3:
-                        this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem3;
-                        break;
-                    default:
-                        this.ribbonControl1.SelectFirstVisibleRibbonTab();
-                        break;
+                        case 1:
+                            this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem1;
+                            break;
+                        case 2:
+                            this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem2;
+                            break;
+                        case 3:
+                            this.ribbonControl1.SelectedRibbonTabItem = this.ribbonTabItem3;
+                            break;
+                        default:
+                            this.ribbonControl1.SelectFirstVisibleRibbonTab();
+                            break;
                     }
                 }
                 this.expandableSplitter1.SplitPosition = UIStateConfig.Default.SplitterPosition1;
@@ -198,10 +198,10 @@ namespace WzComparerR2
                 this.columnHeader9.Width = UIStateConfig.Default.ColumnWidth9;
                 // this.dotNetBarManager1.LayoutDefinition = UIStateConfig.Default.BarLayout;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.WindowState = FormWindowState.Normal;
-                this.Size = new Size(1200,800); // = new Size(766, 520);
+                this.Size = new Size(1200, 800); // = new Size(766, 520);
                 this.ribbonControl1.Expanded = false; // = false;
                 this.expandableSplitter1.SplitPosition = 468; // = 233;
                 this.expandableSplitter2.SplitPosition = 230; // = 255;
@@ -233,7 +233,7 @@ namespace WzComparerR2
             //杂项配置
             labelItemAutoSaveFolder.Text = ImageHandlerConfig.Default.AutoSavePictureFolder;
             buttonItemAutoSave.Checked = ImageHandlerConfig.Default.AutoSaveEnabled;
-            comboBoxItemLanguage.SelectedIndex = Clamp(CharaSimConfig.Default.SelectedFontIndex,0,comboBoxItemLanguage.Items.Count);
+            comboBoxItemLanguage.SelectedIndex = Clamp(CharaSimConfig.Default.SelectedFontIndex, 0, comboBoxItemLanguage.Items.Count);
 
 
             //更新界面颜色
@@ -282,46 +282,46 @@ namespace WzComparerR2
             Wz_Structure.DefaultImgCheckDisabled = config.ImgCheckDisabled;
         }
 
-        void CharaSimLoader_WzFileFinding(object sender,FindWzEventArgs e)
+        void CharaSimLoader_WzFileFinding(object sender, FindWzEventArgs e)
         {
             string[] fullPath = null;
-            if(!string.IsNullOrEmpty(e.FullPath)) //用fullpath作为输入参数
+            if (!string.IsNullOrEmpty(e.FullPath)) //用fullpath作为输入参数
             {
-                fullPath = e.FullPath.Split('/','\\');
-                e.WzType = Enum.TryParse<Wz_Type>(fullPath[0],true,out var wzType) ? wzType : Wz_Type.Unknown;
+                fullPath = e.FullPath.Split('/', '\\');
+                e.WzType = Enum.TryParse<Wz_Type>(fullPath[0], true, out var wzType) ? wzType : Wz_Type.Unknown;
             }
 
             List<Wz_Node> preSearch = new List<Wz_Node>();
-            if(e.WzType != Wz_Type.Unknown) //用wztype作为输入参数
+            if (e.WzType != Wz_Type.Unknown) //用wztype作为输入参数
             {
                 IEnumerable<Wz_Structure> preSearchWz = e.WzFile?.WzStructure != null ?
-                    Enumerable.Repeat(e.WzFile.WzStructure,1) :
+                    Enumerable.Repeat(e.WzFile.WzStructure, 1) :
                     this.openedWz;
-                foreach(var wzs in preSearchWz)
+                foreach (var wzs in preSearchWz)
                 {
                     Wz_File baseWz = null;
                     bool find = false;
-                    foreach(Wz_File wz_f in wzs.wz_files)
+                    foreach (Wz_File wz_f in wzs.wz_files)
                     {
-                        if(wz_f.Type == e.WzType)
+                        if (wz_f.Type == e.WzType)
                         {
                             preSearch.Add(wz_f.Node);
                             find = true;
                             //e.WzFile = wz_f;
                         }
-                        if(wz_f.Type == Wz_Type.Base)
+                        if (wz_f.Type == Wz_Type.Base)
                         {
                             baseWz = wz_f;
                         }
                     }
 
                     // detect data.wz
-                    if(baseWz != null && !find)
+                    if (baseWz != null && !find)
                     {
                         string key = e.WzType.ToString();
-                        foreach(Wz_Node node in baseWz.Node.Nodes)
+                        foreach (Wz_Node node in baseWz.Node.Nodes)
                         {
-                            if(node.Text == key && node.Nodes.Count > 0)
+                            if (node.Text == key && node.Nodes.Count > 0)
                             {
                                 preSearch.Add(node);
                             }
@@ -330,9 +330,9 @@ namespace WzComparerR2
                 }
             }
 
-            if(fullPath == null || fullPath.Length <= 1)
+            if (fullPath == null || fullPath.Length <= 1)
             {
-                if(e.WzType != Wz_Type.Unknown && preSearch.Count > 0) //返回wzFile
+                if (e.WzType != Wz_Type.Unknown && preSearch.Count > 0) //返回wzFile
                 {
                     e.WzNode = preSearch[0];
                     e.WzFile = preSearch[0].Value as Wz_File;
@@ -340,25 +340,25 @@ namespace WzComparerR2
                 return;
             }
 
-            if(preSearch.Count <= 0)
+            if (preSearch.Count <= 0)
             {
                 return;
             }
 
-            foreach(var wzFileNode in preSearch)
+            foreach (var wzFileNode in preSearch)
             {
                 var searchNode = wzFileNode;
-                for(int i = 1;i < fullPath.Length && searchNode != null;i++)
+                for (int i = 1; i < fullPath.Length && searchNode != null; i++)
                 {
                     searchNode = searchNode.Nodes[fullPath[i]];
                     var img = searchNode.GetValueEx<Wz_Image>(null);
-                    if(img != null)
+                    if (img != null)
                     {
                         searchNode = img.TryExtract() ? img.Node : null;
                     }
                 }
 
-                if(searchNode != null)
+                if (searchNode != null)
                 {
                     e.WzNode = searchNode;
                     e.WzFile = wzFileNode.Value as Wz_File;
@@ -373,19 +373,19 @@ namespace WzComparerR2
         private void createStyleItems()
         {
             //添加菜单
-            foreach(eStyle style in Enum.GetValues(typeof(eStyle)).OfType<eStyle>().Distinct())
+            foreach (eStyle style in Enum.GetValues(typeof(eStyle)).OfType<eStyle>().Distinct())
             {
-                var buttonItemStyle = new ButtonItem() { Tag = style,Text = style.ToString(),Checked = (styleManager1.ManagerStyle == style) };
+                var buttonItemStyle = new ButtonItem() { Tag = style, Text = style.ToString(), Checked = (styleManager1.ManagerStyle == style) };
                 buttonItemStyle.Click += new EventHandler(buttonItemStyle_Click);
                 this.buttonItemStyle.SubItems.Add(buttonItemStyle);
             }
 
-            var styleColorPicker = new ColorPickerDropDown() { Text = "StyleColorTint",BeginGroup = true,SelectedColor = styleManager1.ManagerColorTint };
+            var styleColorPicker = new ColorPickerDropDown() { Text = "StyleColorTint", BeginGroup = true, SelectedColor = styleManager1.ManagerColorTint };
             styleColorPicker.SelectedColorChanged += new EventHandler(styleColorPicker_SelectedColorChanged);
             buttonItemStyle.SubItems.Add(styleColorPicker);
         }
 
-        private void buttonItemStyle_Click(object sender,EventArgs e)
+        private void buttonItemStyle_Click(object sender, EventArgs e)
         {
             var style = (eStyle)((sender as ButtonItem).Tag);
             styleManager1.ManagerStyle = style;
@@ -397,17 +397,17 @@ namespace WzComparerR2
 
         private void UpdateButtonItemStyles()
         {
-            foreach(BaseItem item in buttonItemStyle.SubItems)
+            foreach (BaseItem item in buttonItemStyle.SubItems)
             {
                 ButtonItem buttonItem = item as ButtonItem;
-                if(buttonItem != null)
+                if (buttonItem != null)
                 {
                     buttonItem.Checked = (buttonItem.Tag as eStyle?) == styleManager1.ManagerStyle;
                 }
             }
         }
 
-        private void styleColorPicker_SelectedColorChanged(object sender,EventArgs e)
+        private void styleColorPicker_SelectedColorChanged(object sender, EventArgs e)
         {
             var color = (sender as ColorPickerDropDown).SelectedColor;
             styleManager1.ManagerColorTint = color;
@@ -420,14 +420,14 @@ namespace WzComparerR2
         #region 读取wz相关方法
         private Node createNode(Wz_Node wzNode)
         {
-            if(wzNode == null)
+            if (wzNode == null)
                 return null;
 
             Node parentNode = new Node(wzNode.Text) { Tag = new WeakReference(wzNode) };
-            foreach(Wz_Node subNode in wzNode.Nodes)
+            foreach (Wz_Node subNode in wzNode.Nodes)
             {
                 Node subTreeNode = createNode(subNode);
-                if(subTreeNode != null)
+                if (subTreeNode != null)
                     parentNode.Nodes.Add(subTreeNode);
             }
             return parentNode;
@@ -435,14 +435,14 @@ namespace WzComparerR2
 
         private void sortWzNode(Wz_Node wzNode)
         {
-            this.sortWzNode(wzNode,WcR2Config.Default.SortWzByImgID);
+            this.sortWzNode(wzNode, WcR2Config.Default.SortWzByImgID);
         }
 
-        private void sortWzNode(Wz_Node wzNode,bool sortByImgID)
+        private void sortWzNode(Wz_Node wzNode, bool sortByImgID)
         {
-            if(wzNode.Nodes.Count > 1)
+            if (wzNode.Nodes.Count > 1)
             {
-                if(sortByImgID)
+                if (sortByImgID)
                 {
                     wzNode.Nodes.SortByImgID();
                 }
@@ -451,27 +451,27 @@ namespace WzComparerR2
                     wzNode.Nodes.Sort();
                 }
             }
-            foreach(Wz_Node subNode in wzNode.Nodes)
+            foreach (Wz_Node subNode in wzNode.Nodes)
             {
-                sortWzNode(subNode,sortByImgID);
+                sortWzNode(subNode, sortByImgID);
             }
         }
         #endregion
 
         #region wz提取右侧
-        private void cmbItemAniNames_SelectedIndexChanged(object sender,EventArgs e)
+        private void cmbItemAniNames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(this.cmbItemAniNames.SelectedIndex > -1 && this.pictureBoxEx1.Items.Count > 0)
+            if (this.cmbItemAniNames.SelectedIndex > -1 && this.pictureBoxEx1.Items.Count > 0)
             {
                 var aniItem = this.pictureBoxEx1.Items[0] as Animation.SpineAnimator;
-                if(aniItem != null)
+                if (aniItem != null)
                 {
                     string aniName = this.cmbItemAniNames.SelectedItem as string;
                     aniItem.SelectedAnimationName = aniName;
                     this.cmbItemAniNames.Tooltip = aniName;
                 }
                 var aniItem2 = this.pictureBoxEx1.Items[0] as Animation.MultiFrameAnimator;
-                if(aniItem2 != null)
+                if (aniItem2 != null)
                 {
                     string aniName = this.cmbItemAniNames.SelectedItem as string;
                     aniItem2.SelectedAnimationName = aniName;
@@ -480,12 +480,12 @@ namespace WzComparerR2
             }
         }
 
-        private void cmbItemSkins_SelectedIndexChanged(object sender,EventArgs e)
+        private void cmbItemSkins_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(this.cmbItemSkins.SelectedIndex > -1 && this.pictureBoxEx1.Items.Count > 0)
+            if (this.cmbItemSkins.SelectedIndex > -1 && this.pictureBoxEx1.Items.Count > 0)
             {
                 var aniItem = this.pictureBoxEx1.Items[0] as Animation.SpineAnimator;
-                if(aniItem != null)
+                if (aniItem != null)
                 {
                     string skinName = this.cmbItemSkins.SelectedItem as string;
                     aniItem.SelectedSkin = skinName;
@@ -494,74 +494,74 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemSaveImage_Click(object sender,EventArgs e)
+        private void buttonItemSaveImage_Click(object sender, EventArgs e)
         {
             this.OnSaveImage(false);
         }
 
-        private void buttonItemSaveWithOptions_Click(object sender,EventArgs e)
+        private void buttonItemSaveWithOptions_Click(object sender, EventArgs e)
         {
             this.OnSaveImage(true);
         }
 
-        private Node handleUol(Node currentNode,string uolString)
+        private Node handleUol(Node currentNode, string uolString)
         {
-            if(currentNode == null || currentNode.Parent == null || string.IsNullOrEmpty(uolString))
+            if (currentNode == null || currentNode.Parent == null || string.IsNullOrEmpty(uolString))
                 return null;
             string[] dirs = uolString.Split('/');
             currentNode = currentNode.Parent;
 
-            for(int i = 0;i < dirs.Length;i++)
+            for (int i = 0; i < dirs.Length; i++)
             {
                 string dir = dirs[i];
-                if(dir == "..")
+                if (dir == "..")
                 {
                     currentNode = currentNode.Parent;
                 }
                 else
                 {
                     bool find = false;
-                    foreach(Node child in currentNode.Nodes)
+                    foreach (Node child in currentNode.Nodes)
                     {
-                        if(child.Text == dir)
+                        if (child.Text == dir)
                         {
                             currentNode = child;
                             find = true;
                             break;
                         }
                     }
-                    if(!find)
+                    if (!find)
                         currentNode = null;
                 }
-                if(currentNode == null)
+                if (currentNode == null)
                     return null;
             }
             return currentNode;
         }
 
-        private void labelItemAutoSaveFolder_Click(object sender,EventArgs e)
+        private void labelItemAutoSaveFolder_Click(object sender, EventArgs e)
         {
             string dir = ImageHandlerConfig.Default.AutoSavePictureFolder;
-            if(!string.IsNullOrEmpty(dir))
+            if (!string.IsNullOrEmpty(dir))
             {
-                System.Diagnostics.Process.Start("explorer.exe",dir);
+                System.Diagnostics.Process.Start("explorer.exe", dir);
             }
         }
 
-        private void buttonItemGif_Click(object sender,EventArgs e)
+        private void buttonItemGif_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
 
             Wz_Node node = advTree3.SelectedNode.AsWzNode();
             string aniName = GetSelectedNodeImageName();
 
             //添加到动画控件
-            if(node.Text.EndsWith(".atlas",StringComparison.OrdinalIgnoreCase))
+            if (node.Text.EndsWith(".atlas", StringComparison.OrdinalIgnoreCase))
             {
                 var spineData = this.pictureBoxEx1.LoadSpineAnimation(node);
 
-                if(spineData != null)
+                if (spineData != null)
                 {
                     this.pictureBoxEx1.ShowAnimation(spineData);
                     var aniItem = this.pictureBoxEx1.Items[0] as Animation.SpineAnimator;
@@ -581,7 +581,7 @@ namespace WzComparerR2
             {
                 var frameData = this.pictureBoxEx1.LoadFrameAnimation(node);
 
-                if(frameData != null)
+                if (frameData != null)
                 {
                     this.pictureBoxEx1.ShowAnimation(frameData);
                     this.cmbItemAniNames.Items.Clear();
@@ -591,7 +591,7 @@ namespace WzComparerR2
                 {
                     var multiData = this.pictureBoxEx1.LoadMultiFrameAnimation(node);
 
-                    if(multiData != null)
+                    if (multiData != null)
                     {
                         this.pictureBoxEx1.ShowAnimation(multiData);
                         var aniItem = this.pictureBoxEx1.Items[0] as Animation.MultiFrameAnimator;
@@ -610,31 +610,31 @@ namespace WzComparerR2
             Wz_Node node = advTree3.SelectedNode.AsWzNode();
 
             string aniName;
-            switch(ImageHandlerConfig.Default.ImageNameMethod.Value)
+            switch (ImageHandlerConfig.Default.ImageNameMethod.Value)
             {
-            default:
-            case ImageNameMethod.Default:
-                advTree3.PathSeparator = ".";
-                aniName = advTree3.SelectedNode.FullPath;
-                break;
+                default:
+                case ImageNameMethod.Default:
+                    advTree3.PathSeparator = ".";
+                    aniName = advTree3.SelectedNode.FullPath;
+                    break;
 
-            case ImageNameMethod.PathToImage:
-                aniName = node.FullPath.Replace('\\','.');
-                break;
+                case ImageNameMethod.PathToImage:
+                    aniName = node.FullPath.Replace('\\', '.');
+                    break;
 
-            case ImageNameMethod.PathToWz:
-                aniName = node.FullPathToFile.Replace('\\','.');
-                break;
+                case ImageNameMethod.PathToWz:
+                    aniName = node.FullPathToFile.Replace('\\', '.');
+                    break;
             }
 
             return aniName;
         }
 
-        private void buttonItemGifSetting_Click(object sender,EventArgs e)
+        private void buttonItemGifSetting_Click(object sender, EventArgs e)
         {
             FrmGifSetting frm = new FrmGifSetting();
             frm.Load(ImageHandlerConfig.Default);
-            if(frm.ShowDialog() == DialogResult.OK)
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 ConfigManager.Reload();
                 frm.Save(ImageHandlerConfig.Default);
@@ -642,20 +642,20 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemAutoSave_Click(object sender,EventArgs e)
+        private void buttonItemAutoSave_Click(object sender, EventArgs e)
         {
             ConfigManager.Reload();
             ImageHandlerConfig.Default.AutoSaveEnabled = buttonItemAutoSave.Checked;
             ConfigManager.Save();
         }
 
-        private void buttonItemAutoSaveFolder_Click(object sender,EventArgs e)
+        private void buttonItemAutoSaveFolder_Click(object sender, EventArgs e)
         {
-            using(FolderBrowserDialog dlg = new FolderBrowserDialog())
+            using (FolderBrowserDialog dlg = new FolderBrowserDialog())
             {
                 dlg.Description = "請選擇自動儲存圖片的資料夾";
                 dlg.SelectedPath = ImageHandlerConfig.Default.AutoSavePictureFolder;
-                if(DialogResult.OK == dlg.ShowDialog())
+                if (DialogResult.OK == dlg.ShowDialog())
                 {
                     labelItemAutoSaveFolder.Text = dlg.SelectedPath;
                     ConfigManager.Reload();
@@ -667,14 +667,14 @@ namespace WzComparerR2
 
         private void OnSaveImage(bool options)
         {
-            if(this.pictureBoxEx1.Items.Count <= 0)
+            if (this.pictureBoxEx1.Items.Count <= 0)
             {
                 return;
             }
 
             var aniItem = this.pictureBoxEx1.Items[0];
             var frameData = (aniItem as FrameAnimator)?.Data;
-            if(frameData != null && frameData.Frames.Count == 1)
+            if (frameData != null && frameData.Frames.Count == 1)
             {
                 // save still picture as png
                 this.OnSavePngFile(frameData.Frames[0]);
@@ -682,27 +682,27 @@ namespace WzComparerR2
             else
             {
                 // save as gif/apng
-                this.OnSaveGifFile(aniItem,options);
+                this.OnSaveGifFile(aniItem, options);
             }
         }
 
         private void OnSavePngFile(Frame frame)
         {
-            if(frame.Png != null)
+            if (frame.Png != null)
             {
                 var config = ImageHandlerConfig.Default;
                 string pngFileName = pictureBoxEx1.PictureName + ".png";
 
-                if(config.AutoSaveEnabled)
+                if (config.AutoSaveEnabled)
                 {
-                    pngFileName = Path.Combine(config.AutoSavePictureFolder,string.Join("_",pngFileName.Split(Path.GetInvalidFileNameChars(),StringSplitOptions.None)));
+                    pngFileName = Path.Combine(config.AutoSavePictureFolder, string.Join("_", pngFileName.Split(Path.GetInvalidFileNameChars(), StringSplitOptions.None)));
                 }
                 else
                 {
                     var dlg = new SaveFileDialog();
                     dlg.Filter = "PNG (*.png)|*.png|全部檔案 (*.*)|*.*";
                     dlg.FileName = pngFileName;
-                    if(dlg.ShowDialog() != DialogResult.OK)
+                    if (dlg.ShowDialog() != DialogResult.OK)
                     {
                         return;
                     }
@@ -710,9 +710,9 @@ namespace WzComparerR2
                     pngFileName = dlg.FileName;
                 }
 
-                using(var bmp = frame.Png.ExtractPng())
+                using (var bmp = frame.Png.ExtractPng())
                 {
-                    bmp.Save(pngFileName,System.Drawing.Imaging.ImageFormat.Png);
+                    bmp.Save(pngFileName, System.Drawing.Imaging.ImageFormat.Png);
                 }
                 labelItemStatus.Text = "圖片儲存於: " + pngFileName;
             }
@@ -722,7 +722,7 @@ namespace WzComparerR2
             }
         }
 
-        private void OnSaveGifFile(AnimationItem aniItem,bool options)
+        private void OnSaveGifFile(AnimationItem aniItem, bool options)
         {
             var config = ImageHandlerConfig.Default;
             var encParams = AnimateEncoderFactory.GetEncoderParams(config.GifEncoder.Value);
@@ -732,14 +732,14 @@ namespace WzComparerR2
                     + (string.IsNullOrEmpty(aniName) ? "" : ("." + aniName))
                     + encParams.FileExtension;
 
-            if(config.AutoSaveEnabled)
+            if (config.AutoSaveEnabled)
             {
-                var fullFileName = Path.Combine(config.AutoSavePictureFolder,string.Join("_",aniFileName.Split(Path.GetInvalidFileNameChars(),StringSplitOptions.None)));
+                var fullFileName = Path.Combine(config.AutoSavePictureFolder, string.Join("_", aniFileName.Split(Path.GetInvalidFileNameChars(), StringSplitOptions.None)));
                 int i = 1;
-                while(File.Exists(fullFileName))
+                while (File.Exists(fullFileName))
                 {
-                    fullFileName = Path.Combine(config.AutoSavePictureFolder,string.Format("{0}({1}){2}",
-                        Path.GetFileNameWithoutExtension(aniFileName),i,Path.GetExtension(aniFileName)));
+                    fullFileName = Path.Combine(config.AutoSavePictureFolder, string.Format("{0}({1}){2}",
+                        Path.GetFileNameWithoutExtension(aniFileName), i, Path.GetExtension(aniFileName)));
                     i++;
                 }
                 aniFileName = fullFileName;
@@ -748,10 +748,10 @@ namespace WzComparerR2
             {
                 var dlg = new SaveFileDialog();
 
-                dlg.Filter = string.Format("{0} (*{1})|*{1}|全部檔案(*.*)|*.*",encParams.FileDescription,encParams.FileExtension);
+                dlg.Filter = string.Format("{0} (*{1})|*{1}|全部檔案(*.*)|*.*", encParams.FileDescription, encParams.FileExtension);
                 dlg.FileName = aniFileName;
 
-                if(dlg.ShowDialog() != DialogResult.OK)
+                if (dlg.ShowDialog() != DialogResult.OK)
                 {
                     return;
                 }
@@ -759,7 +759,7 @@ namespace WzComparerR2
             }
 
             var clonedAniItem = (AnimationItem)aniItem.Clone();
-            if(this.pictureBoxEx1.SaveAsGif(clonedAniItem,aniFileName,config,options))
+            if (this.pictureBoxEx1.SaveAsGif(clonedAniItem, aniFileName, config, options))
             {
                 labelItemStatus.Text = "圖片儲存於: " + aniFileName;
             }
@@ -769,13 +769,13 @@ namespace WzComparerR2
         #region File菜单的事件
 
 
-        private void btnItemOpenWz_Click(object sender,EventArgs e)
+        private void btnItemOpenWz_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog dlg = new OpenFileDialog())
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Wz檔";
                 dlg.Filter = "Base.wz|*.wz";
-                if(dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     openWz(dlg.FileName);
                     /*
@@ -802,22 +802,22 @@ namespace WzComparerR2
 
         private void openWz(string wzFilePath)
         {
-            foreach(Wz_Structure wzs in openedWz)
+            foreach (Wz_Structure wzs in openedWz)
             {
-                foreach(Wz_File wz_f in wzs.wz_files)
+                foreach (Wz_File wz_f in wzs.wz_files)
                 {
-                    if(string.Compare(wz_f.Header.FileName,wzFilePath,true) == 0)
+                    if (string.Compare(wz_f.Header.FileName, wzFilePath, true) == 0)
                     {
-                        MessageBoxEx.Show("已經開啟的wz","OK");
+                        MessageBoxEx.Show("已經開啟的wz", "OK");
                         return;
                     }
                 }
             }
 
             var Path = System.IO.Path.GetDirectoryName(wzFilePath);
-            if(File.Exists(Path + "\\Skill001.wz"))
+            if (File.Exists(Path + "\\Skill001.wz"))
                 HasSkill001 = true;
-            if(File.Exists(Path + "\\Mob001.wz"))
+            if (File.Exists(Path + "\\Mob001.wz"))
                 HasMob001 = true;
 
 
@@ -827,16 +827,16 @@ namespace WzComparerR2
             advTree1.BeginUpdate();
             try
             {
-                if(wz.IsKMST1125WzFormat(wzFilePath))
+                if (wz.IsKMST1125WzFormat(wzFilePath))
                 {
                     wz.LoadKMST1125DataWz(wzFilePath);
                 }
                 else
                 {
-                    wz.Load(wzFilePath,true);
+                    wz.Load(wzFilePath, true);
                 }
 
-                if(WcR2Config.Default.SortWzOnOpened)
+                if (WcR2Config.Default.SortWzOnOpened)
                 {
                     sortWzNode(wz.WzNode);
                 }
@@ -847,21 +847,21 @@ namespace WzComparerR2
                 this.openedWz.Add(wz);
                 OnWzOpened(new WzStructureEventArgs(wz)); //触发事件
                 QueryPerformance.End();
-                labelItemStatus.Text = "Wz讀取成功,用時" + (Math.Round(QueryPerformance.GetLastInterval(),4) * 1000) + "ms, " + wz.img_number + "個img";
+                labelItemStatus.Text = "Wz讀取成功,用時" + (Math.Round(QueryPerformance.GetLastInterval(), 4) * 1000) + "ms, " + wz.img_number + "個img";
 
                 ConfigManager.Reload();
                 WcR2Config.Default.RecentDocuments.Remove(wzFilePath);
-                WcR2Config.Default.RecentDocuments.Insert(0,wzFilePath);
+                WcR2Config.Default.RecentDocuments.Insert(0, wzFilePath);
                 ConfigManager.Save();
                 refreshRecentDocItems();
             }
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
-                MessageBoxEx.Show("檔案沒找到","OK");
+                MessageBoxEx.Show("檔案沒找到", "OK");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBoxEx.Show(ex.ToString(),"OK");
+                MessageBoxEx.Show(ex.ToString(), "OK");
                 wz.Clear();
             }
             finally
@@ -869,28 +869,28 @@ namespace WzComparerR2
                 advTree1.EndUpdate();
             }
 
-            if(PluginManager.FindWz(Wz_Type.Base) != null)
+            if (PluginManager.FindWz(Wz_Type.Base) != null)
             {
-                foreach(var Iter in GetNode("Effect/SetEff.img").Nodes)
-                    foreach(var Iter2 in Iter.Nodes)
-                        if(Iter2.Text == "info")
-                            foreach(var Iter3 in Iter2.Nodes)
-                                foreach(var Iter4 in Iter3.Nodes)
-                                    SetEffectList.AddOrReplace("0" + Iter4.Value.ToString(),Iter.FullPathToFile2());
+                foreach (var Iter in GetNode("Effect/SetEff.img").Nodes)
+                    foreach (var Iter2 in Iter.Nodes)
+                        if (Iter2.Text == "info")
+                            foreach (var Iter3 in Iter2.Nodes)
+                                foreach (var Iter4 in Iter3.Nodes)
+                                    SetEffectList.AddOrReplace("0" + Iter4.Value.ToString(), Iter.FullPathToFile2());
                 //
-                foreach(var Iter in GetNode("Effect/ItemEff.img").Nodes)
-                    ItemEffectList.AddOrReplace("0" + Iter.Text,Iter.FullPathToFile2());
+                foreach (var Iter in GetNode("Effect/ItemEff.img").Nodes)
+                    ItemEffectList.AddOrReplace("0" + Iter.Text, Iter.FullPathToFile2());
             }
 
         }
 
-        private void btnItemOpenImg_Click(object sender,EventArgs e)
+        private void btnItemOpenImg_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog dlg = new OpenFileDialog())
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 dlg.Title = "Img 檔案...";
                 dlg.Filter = "*.img|*.img|*.wz|*.wz";
-                if(dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     openImg(dlg.FileName);
                 }
@@ -899,13 +899,13 @@ namespace WzComparerR2
 
         private void openImg(string imgFileName)
         {
-            foreach(Wz_Structure wzs in openedWz)
+            foreach (Wz_Structure wzs in openedWz)
             {
-                foreach(Wz_File wz_f in wzs.wz_files)
+                foreach (Wz_File wz_f in wzs.wz_files)
                 {
-                    if(StringComparer.OrdinalIgnoreCase.Equals(wz_f.Header.FileName,imgFileName))
+                    if (StringComparer.OrdinalIgnoreCase.Equals(wz_f.Header.FileName, imgFileName))
                     {
-                        MessageBoxEx.Show("已經開啟的wz","OK");
+                        MessageBoxEx.Show("已經開啟的wz", "OK");
                         return;
                     }
                 }
@@ -927,13 +927,13 @@ namespace WzComparerR2
                 labelItemStatus.Text = $"Img讀取成功,用時 {sw.ElapsedMilliseconds}ms";
                 refreshRecentDocItems();
             }
-            catch(FileNotFoundException)
+            catch (FileNotFoundException)
             {
-                MessageBoxEx.Show("檔案沒找到","OK");
+                MessageBoxEx.Show("檔案沒找到", "OK");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBoxEx.Show(ex.ToString(),"OK");
+                MessageBoxEx.Show(ex.ToString(), "OK");
                 wz.Clear();
             }
             finally
@@ -942,18 +942,18 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemClose_Click(object sender,EventArgs e)
+        private void buttonItemClose_Click(object sender, EventArgs e)
         {
-            if(advTree1.SelectedNode == null)
+            if (advTree1.SelectedNode == null)
             {
-                MessageBoxEx.Show("沒有選中要關閉的wz","OK");
+                MessageBoxEx.Show("沒有選中要關閉的wz", "OK");
                 return;
             }
 
             Node baseWzNode = advTree1.SelectedNode;
-            while(baseWzNode.Parent != null)
+            while (baseWzNode.Parent != null)
                 baseWzNode = baseWzNode.Parent;
-            if(baseWzNode.Text.ToLower() == "list.wz")
+            if (baseWzNode.Text.ToLower() == "list.wz")
             {
                 advTree1.Nodes.Remove(baseWzNode);
                 labelItemStatus.Text = "已經關閉List.wz";
@@ -961,9 +961,9 @@ namespace WzComparerR2
             }
 
             Wz_File wz_f = advTree1.SelectedNode.AsWzNode()?.GetNodeWzFile();
-            if(wz_f == null)
+            if (wz_f == null)
             {
-                MessageBoxEx.Show("沒有正確選擇要關閉的wz","OK");
+                MessageBoxEx.Show("沒有正確選擇要關閉的wz", "OK");
                 return;
             }
             Wz_Structure wz = wz_f.WzStructure;
@@ -973,14 +973,14 @@ namespace WzComparerR2
             listViewExWzDetail.Items.Clear();
 
             Wz_Image image = null;
-            if(advTree2.Nodes.Count > 0
+            if (advTree2.Nodes.Count > 0
                 && (image = advTree2.Nodes[0].AsWzNode()?.GetValue<Wz_Image>()) != null
                 && image.WzFile.WzStructure == wz)
             {
                 advTree2.Nodes.Clear();
             }
 
-            if(advTree3.Nodes.Count > 0
+            if (advTree3.Nodes.Count > 0
                 && (image = advTree3.Nodes[0].AsWzNode()?.GetNodeWzImage()) != null
                 && image.WzFile.WzStructure == wz)
             {
@@ -989,18 +989,18 @@ namespace WzComparerR2
 
             OnWzClosing(new WzStructureEventArgs(wz));
             wz.Clear();
-            if(this.openedWz.Remove(wz))
+            if (this.openedWz.Remove(wz))
                 labelItemStatus.Text = "已經關閉所選Wz";
             else
                 labelItemStatus.Text = "Wz已經關閉,但是發生了詭異的錯誤";
         }
 
-        private void buttonItemCloseAll_Click(object sender,EventArgs e)
+        private void buttonItemCloseAll_Click(object sender, EventArgs e)
         {
             advTree1.ClearAndDisposeAllNodes();
             advTree2.ClearAndDisposeAllNodes();
             advTree3.ClearAndDisposeAllNodes();
-            foreach(Wz_Structure wz in openedWz)
+            foreach (Wz_Structure wz in openedWz)
             {
                 OnWzClosing(new WzStructureEventArgs(wz));
                 wz.Clear();
@@ -1015,9 +1015,9 @@ namespace WzComparerR2
         private void refreshRecentDocItems()
         {
             List<BaseItem> items = new List<BaseItem>();
-            foreach(BaseItem item in galleryContainerRecent.SubItems)
+            foreach (BaseItem item in galleryContainerRecent.SubItems)
             {
-                if(item is ButtonItem)
+                if (item is ButtonItem)
                 {
                     items.Add(item);
                 }
@@ -1025,35 +1025,35 @@ namespace WzComparerR2
             galleryContainerRecent.SubItems.RemoveRange(items.ToArray());
             items.Clear();
 
-            foreach(var doc in WcR2Config.Default.RecentDocuments)
+            foreach (var doc in WcR2Config.Default.RecentDocuments)
             {
-                ButtonItem item = new ButtonItem() { Text = "&" + (items.Count + 1) + ". " + Path.GetFileName(doc),Tooltip = doc,Tag = doc };
+                ButtonItem item = new ButtonItem() { Text = "&" + (items.Count + 1) + ". " + Path.GetFileName(doc), Tooltip = doc, Tag = doc };
                 item.Click += new EventHandler(buttonItemRecentDocument_Click);
                 items.Add(item);
             }
             galleryContainerRecent.SubItems.AddRange(items.ToArray());
         }
 
-        void buttonItemRecentDocument_Click(object sender,EventArgs e)
+        void buttonItemRecentDocument_Click(object sender, EventArgs e)
         {
             ButtonItem btnItem = sender as ButtonItem;
             string path;
-            if(btnItem == null || (path = btnItem.Tag as string) == null)
+            if (btnItem == null || (path = btnItem.Tag as string) == null)
                 return;
             openWz(path);
         }
         #endregion
 
         #region wzView和提取的事件和方法
-        private void advTree1_DragEnter(object sender,DragEventArgs e)
+        private void advTree1_DragEnter(object sender, DragEventArgs e)
         {
             string[] types = e.Data.GetFormats();
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach(string file in files)
+                foreach (string file in files)
                 {
-                    if(Path.GetExtension(file) != ".wz")
+                    if (Path.GetExtension(file) != ".wz")
                     {
                         e.Effect = DragDropEffects.None;
                         return;
@@ -1067,12 +1067,12 @@ namespace WzComparerR2
             }
         }
 
-        private void advTree1_DragDrop(object sender,DragEventArgs e)
+        private void advTree1_DragDrop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                foreach(string file in files)
+                foreach (string file in files)
                 {
                     openWz(file);
                 }
@@ -1081,42 +1081,42 @@ namespace WzComparerR2
 
         void SearchAnim(Wz_Node Entry)
         {
-            if(Entry != null)
+            if (Entry != null)
             {
-                if(Entry.Text == "1")
+                if (Entry.Text == "1")
                 {
-                    if(Entry.GetNodeWzFile().Type == Wz_Type.Map)
+                    if (Entry.GetNodeWzFile().Type == Wz_Type.Map)
                     {
-                        if(Char.IsNumber(Entry.ParentNode.Text,0))
+                        if (Char.IsNumber(Entry.ParentNode.Text, 0))
                         {
-                            if(!this.AniNamesBox.Items.Contains(Entry.ParentNode.FullPathToFile2()))
+                            if (!this.AniNamesBox.Items.Contains(Entry.ParentNode.FullPathToFile2()))
                                 this.AniNamesBox.Items.Add(Entry.ParentNode.FullPathToFile2());
                         }
                     }
                     else
                     {
                         var Child = Entry.ParentNode;
-                        if(!Char.IsNumber(Child.Text,0))
+                        if (!Char.IsNumber(Child.Text, 0))
                         {
-                            if(!this.AniNamesBox.Items.Contains(Child.FullPathToFile2()))
+                            if (!this.AniNamesBox.Items.Contains(Child.FullPathToFile2()))
                                 this.AniNamesBox.Items.Add(Child.FullPathToFile2());
                         }
                     }
                 }
 
-                foreach(var E in Entry.Nodes)
+                foreach (var E in Entry.Nodes)
                 {
                     SearchAnim(E);
                 }
             }
         }
         bool FirstSearchAnim;
-        private void advTree1_AfterNodeSelect(object sender,AdvTreeNodeEventArgs e)
+        private void advTree1_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
         {
             Wz_Node selectedNode = e.Node.AsWzNode();
 
 
-            if(selectedNode == null)
+            if (selectedNode == null)
             {
                 return;
             }
@@ -1126,43 +1126,43 @@ namespace WzComparerR2
             FirstSearchAnim = true;
             AniNamesBox.Items.Clear();
             SearchAnim(GetNode(selectedNode.FullPathToFile2()));
-            if(AniNamesBox.Items.Count > 0)
+            if (AniNamesBox.Items.Count > 0)
                 AniNamesBox.SelectedIndex = 0;
 
             listViewExWzDetail.BeginUpdate();
             listViewExWzDetail.Items.Clear();
 
-            if(selectedNode.Value == null)
+            if (selectedNode.Value == null)
             {
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Dir Name",Path.GetFileName(e.Node.Text) }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Dir Name", Path.GetFileName(e.Node.Text) }));
                 autoResizeColumns(listViewExWzDetail);
             }
-            else if(selectedNode.Value is Wz_File wzFile)
+            else if (selectedNode.Value is Wz_File wzFile)
             {
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Name",wzFile.Header.FileName }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Size",wzFile.Header.FileSize + " bytes" }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Copyright",wzFile.Header.Copyright }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Version",wzFile.GetMergedVersion().ToString() }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Wz Type",wzFile.IsSubDir ? "SubDir" : wzFile.Type.ToString() }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Name", wzFile.Header.FileName }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Size", wzFile.Header.FileSize + " bytes" }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Copyright", wzFile.Header.Copyright }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Version", wzFile.GetMergedVersion().ToString() }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Wz Type", wzFile.IsSubDir ? "SubDir" : wzFile.Type.ToString() }));
 
-                foreach(Wz_File subFile in wzFile.MergedWzFiles)
+                foreach (Wz_File subFile in wzFile.MergedWzFiles)
                 {
                     listViewExWzDetail.Items.Add(" ");
-                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Name",subFile.Header.FileName }));
-                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Size",subFile.Header.FileSize + " bytes" }));
-                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Copyright",subFile.Header.Copyright }));
-                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Version",subFile.Header.WzVersion.ToString() }));
+                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Name", subFile.Header.FileName }));
+                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "File Size", subFile.Header.FileSize + " bytes" }));
+                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Copyright", subFile.Header.Copyright }));
+                    listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Version", subFile.Header.WzVersion.ToString() }));
                 }
 
                 autoResizeColumns(listViewExWzDetail);
             }
-            else if(selectedNode.Value is Wz_Image wzImage)
+            else if (selectedNode.Value is Wz_Image wzImage)
             {
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Name",wzImage.Name }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Size",wzImage.Size + " bytes" }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Offset",wzImage.Offset + " bytes" }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Path",wzImage.Node.FullPathToFile }));
-                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Check Sum",wzImage.Checksum.ToString() }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Name", wzImage.Name }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Size", wzImage.Size + " bytes" }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Image Offset", wzImage.Offset + " bytes" }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Path", wzImage.Node.FullPathToFile }));
+                listViewExWzDetail.Items.Add(new ListViewItem(new string[] { "Check Sum", wzImage.Checksum.ToString() }));
                 autoResizeColumns(listViewExWzDetail);
 
                 advTree2.ClearAndDisposeAllNodes();
@@ -1172,12 +1172,12 @@ namespace WzComparerR2
                 try
                 {
                     Exception ex;
-                    if(wzImage.TryExtract(out ex))
+                    if (wzImage.TryExtract(out ex))
                     {
                         advTree2.Nodes.Add(createNode(wzImage.Node));
                         advTree2.Nodes[0].Expand();
                         QueryPerformance.End();
-                        double ms = (Math.Round(QueryPerformance.GetLastInterval(),4) * 1000);
+                        double ms = (Math.Round(QueryPerformance.GetLastInterval(), 4) * 1000);
 
                         labelItemStatus.Text = "讀取image成功~用時" + ms + "ms...";
 
@@ -1188,7 +1188,7 @@ namespace WzComparerR2
                         labelItemStatus.Text = "讀取image失敗..." + ex.Message;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     labelItemStatus.Text = "讀取image失敗...:" + ex.Message;
                 }
@@ -1199,21 +1199,21 @@ namespace WzComparerR2
         private void autoResizeColumns(ListViewEx listView)
         {
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            foreach(System.Windows.Forms.ColumnHeader column in listView.Columns)
+            foreach (System.Windows.Forms.ColumnHeader column in listView.Columns)
             {
                 column.Width += (int)(listView.Font.Size * 2);
             }
         }
 
-        private void advTree2_NodeDoubleClick(object sender,TreeNodeMouseEventArgs e)
+        private void advTree2_NodeDoubleClick(object sender, TreeNodeMouseEventArgs e)
         {
-            if(e.Node == null || e.Button != MouseButtons.Left)
+            if (e.Node == null || e.Button != MouseButtons.Left)
                 return;
             historyNodeList.Clear();
             advTree3.Nodes.Clear();
 
             var selectedNode = e.Node.AsWzNode();
-            if(selectedNode != null)
+            if (selectedNode != null)
             {
                 advTree3.BeginUpdate();
                 try
@@ -1235,13 +1235,13 @@ namespace WzComparerR2
             Node newNode = new Node(parentNode.Text);
             newNode.Tag = parentNode.Tag;
             Wz_Node wzNode = newNode.AsWzNode();
-            if(wzNode != null)
+            if (wzNode != null)
             {
                 newNode.Cells.Add(new Cell(wzNode.Value == null ? "<" + parentNode.Nodes.Count + ">" : getValueString(wzNode.Value)));
                 newNode.Cells.Add(new Cell(wzNode.Value == null ? null : wzNode.Value.GetType().Name));
                 newNode.ImageKey = wzNode.Value == null ? "dir" : (getValueImageKey(wzNode.Value) ?? "num");
             }
-            foreach(Node subNode in parentNode.Nodes)
+            foreach (Node subNode in parentNode.Nodes)
             {
                 newNode.Nodes.Add(createNodeDetail(subNode));
             }
@@ -1256,32 +1256,32 @@ namespace WzComparerR2
             Wz_Uol uol;
             Wz_Image img;
 
-            if((png = value as Wz_Png) != null)
+            if ((png = value as Wz_Png) != null)
             {
                 return "PNG " + png.Width + "*" + png.Height + " (" + png.Form + ")";
             }
-            else if((vector = value as Wz_Vector) != null)
+            else if ((vector = value as Wz_Vector) != null)
             {
                 return "(" + vector.X + ", " + vector.Y + ")";
             }
-            else if((uol = value as Wz_Uol) != null)
+            else if ((uol = value as Wz_Uol) != null)
             {
                 return uol.Uol;
             }
-            else if((sound = value as Wz_Sound) != null)
+            else if ((sound = value as Wz_Sound) != null)
             {
                 return "오디오 " + sound.Ms + "ms";
             }
-            else if((img = value as Wz_Image) != null)
+            else if ((img = value as Wz_Image) != null)
             {
                 return "<" + img.Node.Nodes.Count + ">";
             }
             else
             {
                 String cellVal = Convert.ToString(value);
-                if(cellVal != null && cellVal.Length > 50)
+                if (cellVal != null && cellVal.Length > 50)
                 {
-                    cellVal = cellVal.Substring(0,50);
+                    cellVal = cellVal.Substring(0, 50);
                 }
                 return cellVal;
             }
@@ -1289,28 +1289,28 @@ namespace WzComparerR2
 
         private string getValueImageKey(object value)
         {
-            if(value is Wz_Png)
+            if (value is Wz_Png)
                 return "png";
-            else if(value is String)
+            else if (value is String)
                 return "str";
-            else if(value is Wz_Vector)
+            else if (value is Wz_Vector)
                 return "vector";
-            else if(value is Wz_Uol)
+            else if (value is Wz_Uol)
                 return "uol";
-            else if(value is Wz_Sound)
+            else if (value is Wz_Sound)
                 return "mp3";
-            else if(value is Wz_Image)
+            else if (value is Wz_Image)
                 return "img";
             else
                 return null;
         }
 
-        private void advTree3_AfterNodeSelect(object sender,AdvTreeNodeEventArgs e)
+        private void advTree3_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
         {
-            if(e.Node == null)
+            if (e.Node == null)
                 return;
             this.pictureBoxEx1.Items.Clear();
-            if(!historySelecting && (historyNodeList.Count == 0 || e.Node != historyNodeList.Current))
+            if (!historySelecting && (historyNodeList.Count == 0 || e.Node != historyNodeList.Current))
             {
                 historyNodeList.Add(e.Node);
             }
@@ -1320,7 +1320,7 @@ namespace WzComparerR2
             }
 
             Wz_Node selectedNode = e.Node.AsWzNode();
-            if(selectedNode == null)
+            if (selectedNode == null)
                 return;
 
             Wz_Png png;
@@ -1328,7 +1328,7 @@ namespace WzComparerR2
             Wz_Vector vector;
             Wz_Uol uol;
 
-            if((png = selectedNode.Value as Wz_Png) != null)
+            if ((png = selectedNode.Value as Wz_Png) != null)
             {
                 pictureBoxEx1.PictureName = GetSelectedNodeImageName();
                 pictureBoxEx1.ShowImage(png);
@@ -1340,15 +1340,15 @@ namespace WzComparerR2
                     "png format: " + png.Form;
 
                 var linkNode = selectedNode.GetLinkedSourceNode(PluginManager.FindWz);
-                if(linkNode != selectedNode)
+                if (linkNode != selectedNode)
                 {
                     png = linkNode.GetValueEx<Wz_Png>(null);
-                    if(png != null)
+                    if (png != null)
                     {
                         string valueStr = Convert.ToString((selectedNode.Nodes["source"] ?? selectedNode.Nodes["_inlink"] ?? selectedNode.Nodes["_outlink"])?.Value);
-                        if(valueStr != null && valueStr.Contains("\n") && !valueStr.Contains("\r\n"))
+                        if (valueStr != null && valueStr.Contains("\n") && !valueStr.Contains("\r\n"))
                         {
-                            valueStr = valueStr.Replace("\n","\r\n");
+                            valueStr = valueStr.Replace("\n", "\r\n");
                         }
                         textBoxX1.AppendText("\r\n\r\n" + Convert.ToString(valueStr));
 
@@ -1363,18 +1363,18 @@ namespace WzComparerR2
                     }
                 }
             }
-            else if((vector = selectedNode.Value as Wz_Vector) != null)
+            else if ((vector = selectedNode.Value as Wz_Vector) != null)
             {
                 textBoxX1.Text = "x: " + vector.X + " px\r\n" +
                     "y: " + vector.Y + " px";
             }
-            else if((uol = selectedNode.Value as Wz_Uol) != null)
+            else if ((uol = selectedNode.Value as Wz_Uol) != null)
             {
                 textBoxX1.Text = "uolPath: " + uol.Uol;
             }
-            else if((sound = selectedNode.Value as Wz_Sound) != null)
+            else if ((sound = selectedNode.Value as Wz_Sound) != null)
             {
-                preLoadSound(sound,selectedNode.Text);
+                preLoadSound(sound, selectedNode.Text);
                 textBoxX1.Text = "dataLength: " + sound.DataLength + " bytes\r\n" +
                     "offset: " + sound.Offset + "\r\n" +
                     "time: " + sound.Ms + " ms\r\n" +
@@ -1382,50 +1382,50 @@ namespace WzComparerR2
                     "freq: " + sound.Frequency + " Hz\r\n" +
                     "type: " + sound.SoundType.ToString();
             }
-            else if(selectedNode.Value is Wz_Image)
+            else if (selectedNode.Value is Wz_Image)
             {
                 //do nothing;
             }
             else
             {
                 string valueStr = Convert.ToString(selectedNode.Value);
-                if(valueStr != null && valueStr.Contains("\n") && !valueStr.Contains("\r\n"))
+                if (valueStr != null && valueStr.Contains("\n") && !valueStr.Contains("\r\n"))
                 {
-                    valueStr = valueStr.Replace("\n","\r\n");
+                    valueStr = valueStr.Replace("\n", "\r\n");
                 }
                 textBoxX1.Text = Convert.ToString(valueStr);
 
-                switch(selectedNode.Text)
+                switch (selectedNode.Text)
                 {
-                case "source":
-                case "_inlink":
-                case "_outlink":
-                {
-                    var parentNode = selectedNode.ParentNode;
-                    if(parentNode != null && parentNode.Value is Wz_Png)
-                    {
-                        var linkNode = parentNode.GetLinkedSourceNode(PluginManager.FindWz);
-                        png = linkNode.GetValueEx<Wz_Png>(null);
-
-                        if(png != null)
+                    case "source":
+                    case "_inlink":
+                    case "_outlink":
                         {
-                            pictureBoxEx1.PictureName = GetSelectedNodeImageName();
-                            pictureBoxEx1.ShowImage(png);
-                            this.cmbItemAniNames.Items.Clear();
-                            advTree3.PathSeparator = ".";
-                            textBoxX1.AppendText("\r\n\r\ndataLength: " + png.DataLength + " bytes\r\n" +
-                                "offset: " + png.Offset + "\r\n" +
-                                "size: " + png.Width + "*" + png.Height + "\r\n" +
-                                "png format: " + png.Form);
+                            var parentNode = selectedNode.ParentNode;
+                            if (parentNode != null && parentNode.Value is Wz_Png)
+                            {
+                                var linkNode = parentNode.GetLinkedSourceNode(PluginManager.FindWz);
+                                png = linkNode.GetValueEx<Wz_Png>(null);
+
+                                if (png != null)
+                                {
+                                    pictureBoxEx1.PictureName = GetSelectedNodeImageName();
+                                    pictureBoxEx1.ShowImage(png);
+                                    this.cmbItemAniNames.Items.Clear();
+                                    advTree3.PathSeparator = ".";
+                                    textBoxX1.AppendText("\r\n\r\ndataLength: " + png.DataLength + " bytes\r\n" +
+                                        "offset: " + png.Offset + "\r\n" +
+                                        "size: " + png.Width + "*" + png.Height + "\r\n" +
+                                        "png format: " + png.Form);
+                                }
+                            }
                         }
-                    }
-                }
-                break;
+                        break;
                 }
             }
         }
 
-        private void pictureBox1_MouseDoubleClick(object sender,MouseEventArgs e)
+        private void pictureBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             /*
             if (pictureBox1.Image != null && e.Button == MouseButtons.Left)
@@ -1448,21 +1448,21 @@ namespace WzComparerR2
             }*/
         }
 
-        private void listViewExString_MouseDoubleClick(object sender,MouseEventArgs e)
+        private void listViewExString_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 this.listViewExStringFind();
             }
         }
 
-        private void listViewExString_KeyDown(object sender,KeyEventArgs e)
+        private void listViewExString_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 this.listViewExStringFind();
             }
-            else if(e.KeyCode == Keys.C && e.Control)
+            else if (e.KeyCode == Keys.C && e.Control)
             {
                 this.listViewExStringCopy();
             }
@@ -1470,25 +1470,25 @@ namespace WzComparerR2
 
         private void listViewExStringFind()
         {
-            if(listViewExString.SelectedItems.Count == 0 || advTree1.Nodes.Count == 0)
+            if (listViewExString.SelectedItems.Count == 0 || advTree1.Nodes.Count == 0)
             {
                 return;
             }
             string id = listViewExString.SelectedItems[0].Text;
             string nodePath = listViewExString.SelectedItems[0].SubItems[3].Text;
-            List<string[]> objPathList = detectObjPathByStringPath(id,nodePath);
+            List<string[]> objPathList = detectObjPathByStringPath(id, nodePath);
 
             //分离wz路径和img路径
-            foreach(string[] fullPath in objPathList)
+            foreach (string[] fullPath in objPathList)
             {
                 //寻找所有可能的wzfile
                 List<Wz_Node> allWzFile = new List<Wz_Node>();
                 Wz_Type wzType = ParseType(fullPath[0]);
-                foreach(var wzs in this.openedWz)
+                foreach (var wzs in this.openedWz)
                 {
-                    foreach(var wzf in wzs.wz_files)
+                    foreach (var wzf in wzs.wz_files)
                     {
-                        if(wzf.Type == wzType)
+                        if (wzf.Type == wzType)
                         {
                             allWzFile.Add(wzf.Node);
                         }
@@ -1496,10 +1496,10 @@ namespace WzComparerR2
                 }
 
                 //开始搜索
-                foreach(var wzFileNode in allWzFile)
+                foreach (var wzFileNode in allWzFile)
                 {
-                    Wz_Node node = SearchNode(wzFileNode,fullPath,1);
-                    if(node != null)
+                    Wz_Node node = SearchNode(wzFileNode, fullPath, 1);
+                    if (node != null)
                     {
                         OnSelectedWzNode(node); //遇到第一个 选中 返回
                         return;
@@ -1509,9 +1509,9 @@ namespace WzComparerR2
 
             //失败
             string path;
-            if(objPathList.Count == 1)
+            if (objPathList.Count == 1)
             {
-                path = string.Join("\\",objPathList[0]);
+                path = string.Join("\\", objPathList[0]);
             }
             else
             {
@@ -1520,40 +1520,40 @@ namespace WzComparerR2
             labelItemStatus.Text = "無法找到imageNode : " + path;
         }
 
-        private Wz_Node SearchNode(Wz_Node parent,string[] path,int startIndex)
+        private Wz_Node SearchNode(Wz_Node parent, string[] path, int startIndex)
         {
-            if(startIndex >= path.Length)
+            if (startIndex >= path.Length)
             {
                 return null;
             }
-            if(parent.Value is Wz_Image)
+            if (parent.Value is Wz_Image)
             {
                 Wz_Image img = parent.GetValue<Wz_Image>();
-                if(!img.TryExtract())
+                if (!img.TryExtract())
                 {
                     return null;
                 }
                 parent = img.Node;
             }
             string nodeName = path[startIndex];
-            if(!string.IsNullOrEmpty(nodeName))
+            if (!string.IsNullOrEmpty(nodeName))
             {
-                Wz_Node child = parent.FindNodeByPath(false,true,nodeName);
-                if(child != null)
+                Wz_Node child = parent.FindNodeByPath(false, true, nodeName);
+                if (child != null)
                 {
-                    return (startIndex == path.Length - 1) ? child : SearchNode(child,path,startIndex + 1);
+                    return (startIndex == path.Length - 1) ? child : SearchNode(child, path, startIndex + 1);
                 }
             }
             else //遍历全部
             {
-                foreach(Wz_Node child in parent.Nodes)
+                foreach (Wz_Node child in parent.Nodes)
                 {
-                    if(child.Nodes.Count == 0) //只过滤文件夹 未来有需求再改
+                    if (child.Nodes.Count == 0) //只过滤文件夹 未来有需求再改
                     {
                         continue;
                     }
-                    Wz_Node find = SearchNode(child,path,startIndex + 1);
-                    if(find != null)
+                    Wz_Node find = SearchNode(child, path, startIndex + 1);
+                    if (find != null)
                     {
                         return (startIndex == path.Length - 1) ? null : find;
                     }
@@ -1568,37 +1568,37 @@ namespace WzComparerR2
         {
             Wz_File wzFile = wzNode.GetNodeWzFile();
             string[] path = wzNode.FullPathToFile.Split('\\');
-            if(wzFile == null)
+            if (wzFile == null)
             {
                 return false;
             }
 
             Node treeNode = findWzFileTreeNode(wzFile);
-            if(treeNode == null)
+            if (treeNode == null)
             {
                 return false;
             }
 
-            for(int i = 1;i < path.Length;i++)
+            for (int i = 1; i < path.Length; i++)
             {
                 Node find = null;
-                foreach(Node child in treeNode.Nodes)
+                foreach (Node child in treeNode.Nodes)
                 {
-                    if(child.Text == path[i])
+                    if (child.Text == path[i])
                     {
                         find = child;
                         break;
                     }
                 }
-                if(find == null)
+                if (find == null)
                 {
                     return false;
                 }
 
-                if(find.AsWzNode()?.Value is Wz_Image)
+                if (find.AsWzNode()?.Value is Wz_Image)
                 {
                     advTree1.SelectedNode = find;
-                    if(advTree2.Nodes.Count > 0)
+                    if (advTree2.Nodes.Count > 0)
                     {
                         treeNode = advTree2.Nodes[0];
                     }
@@ -1619,22 +1619,22 @@ namespace WzComparerR2
 
         private void listViewExStringCopy()
         {
-            if(listViewExString.SelectedItems.Count == 0 || advTree1.Nodes.Count == 0)
+            if (listViewExString.SelectedItems.Count == 0 || advTree1.Nodes.Count == 0)
             {
                 return;
             }
 
             StringBuilder sb = new StringBuilder();
-            foreach(ListViewItem.ListViewSubItem item in listViewExString.SelectedItems[0].SubItems)
+            foreach (ListViewItem.ListViewSubItem item in listViewExString.SelectedItems[0].SubItems)
             {
                 sb.Append(item.Text).Append(" ");
             }
-            sb.Remove(sb.Length - 1,1);
-            Clipboard.SetText(sb.ToString(),TextDataFormat.UnicodeText);
+            sb.Remove(sb.Length - 1, 1);
+            Clipboard.SetText(sb.ToString(), TextDataFormat.UnicodeText);
             labelItemStatus.Text = "已複製string條目到剪貼簿";
         }
 
-        private List<string[]> detectObjPathByStringPath(string id,string stringNodePath)
+        private List<string[]> detectObjPathByStringPath(string id, string stringNodePath)
         {
             List<string[]> pathList = new List<string[]>();
 
@@ -1650,106 +1650,106 @@ namespace WzComparerR2
             };
 
             string[] pathArray = stringNodePath.Split('\\');
-            switch(pathArray[0])
+            switch (pathArray[0])
             {
-            case "Cash.img":
-            case "Consume.img":
-            case "Etc.img":
-            case "Pet.img":
-                wzPath.Add("Item");
-                wzPath.Add(pathArray[0].Substring(0,pathArray[0].IndexOf(".img")));
-                if(pathArray[0] == "Pet.img")
-                {
-                    wzPath.Add(id.TrimStart('0') + ".img");
-                }
-                else
-                {
-                    id = id.PadLeft(8,'0');
-                    wzPath.Add(id.Substring(0,4) + ".img");
+                case "Cash.img":
+                case "Consume.img":
+                case "Etc.img":
+                case "Pet.img":
+                    wzPath.Add("Item");
+                    wzPath.Add(pathArray[0].Substring(0, pathArray[0].IndexOf(".img")));
+                    if (pathArray[0] == "Pet.img")
+                    {
+                        wzPath.Add(id.TrimStart('0') + ".img");
+                    }
+                    else
+                    {
+                        id = id.PadLeft(8, '0');
+                        wzPath.Add(id.Substring(0, 4) + ".img");
+                        imagePath.Add(id);
+                    }
+                    addPath();
+                    break;
+
+                case "Ins.img": //KMST1066
+                    wzPath.Add("Item");
+                    wzPath.Add("Install");
+                    wzPath.Add("");
+                    id = id.PadLeft(8, '0');
                     imagePath.Add(id);
-                }
-                addPath();
-                break;
+                    for (int len = 4; len <= 6; len++)
+                    {
+                        wzPath[2] = id.Substring(0, len) + ".img";
+                        addPath();
+                    }
+                    break;
 
-            case "Ins.img": //KMST1066
-                wzPath.Add("Item");
-                wzPath.Add("Install");
-                wzPath.Add("");
-                id = id.PadLeft(8,'0');
-                imagePath.Add(id);
-                for(int len = 4;len <= 6;len++)
-                {
-                    wzPath[2] = id.Substring(0,len) + ".img";
+                case "Eqp.img":
+                    wzPath.Add("Character");
+                    if (pathArray[2] == "Taming")
+                    {
+                        wzPath.Add("TamingMob");
+                    }
+                    else if (pathArray[2] != "Skin")
+                    {
+                        wzPath.Add(pathArray[2]);
+                    }
+                    wzPath.Add(id.PadLeft(8, '0') + ".img");
                     addPath();
-                }
-                break;
-
-            case "Eqp.img":
-                wzPath.Add("Character");
-                if(pathArray[2] == "Taming")
-                {
-                    wzPath.Add("TamingMob");
-                }
-                else if(pathArray[2] != "Skin")
-                {
-                    wzPath.Add(pathArray[2]);
-                }
-                wzPath.Add(id.PadLeft(8,'0') + ".img");
-                addPath();
-                //往往这个不靠谱。。 加一个任意门备用
-                wzPath[1] = "";
-                addPath();
-                break;
-
-            case "Map.img":
-                id = id.PadLeft(9,'0');
-                wzPath.AddRange(new string[] { "Map","Map","Map" + id[0],id + ".img" });
-                addPath();
-                break;
-
-            case "Mob.img":
-                wzPath.Add("Mob");
-                wzPath.Add(id.PadLeft(7,'0') + ".img");
-                addPath();
-                break;
-
-            case "Npc.img":
-                wzPath.Add("Npc");
-                wzPath.Add(id.PadLeft(7,'0') + ".img");
-                addPath();
-                break;
-
-            case "Skill.img":
-                id = id.PadLeft(7,'0');
-                wzPath.Add("Skill");
-                //old skill
-                wzPath.Add(id.Substring(0,id.Length - 4) + ".img");
-                imagePath.Add("skill");
-                imagePath.Add(id);
-                addPath();
-                if(Regex.IsMatch(id,@"80\d{6}")) //kmst new skill
-                {
-                    wzPath[1] = id.Substring(0,6) + ".img";
+                    //往往这个不靠谱。。 加一个任意门备用
+                    wzPath[1] = "";
                     addPath();
-                }
-                break;
+                    break;
 
-            case "0910.img":
-                wzPath.Add("Item");
-                wzPath.Add("Special");
-                wzPath.Add("0910.img");
-                imagePath.Add(id);
-                addPath();
-                break;
+                case "Map.img":
+                    id = id.PadLeft(9, '0');
+                    wzPath.AddRange(new string[] { "Map", "Map", "Map" + id[0], id + ".img" });
+                    addPath();
+                    break;
 
-            case "SetItemInfo.img":
-                wzPath.Add("Etc");
-                wzPath.Add("SetItemInfo.img");
-                imagePath.Add(id);
-                addPath();
-                break;
-            default:
-                break;
+                case "Mob.img":
+                    wzPath.Add("Mob");
+                    wzPath.Add(id.PadLeft(7, '0') + ".img");
+                    addPath();
+                    break;
+
+                case "Npc.img":
+                    wzPath.Add("Npc");
+                    wzPath.Add(id.PadLeft(7, '0') + ".img");
+                    addPath();
+                    break;
+
+                case "Skill.img":
+                    id = id.PadLeft(7, '0');
+                    wzPath.Add("Skill");
+                    //old skill
+                    wzPath.Add(id.Substring(0, id.Length - 4) + ".img");
+                    imagePath.Add("skill");
+                    imagePath.Add(id);
+                    addPath();
+                    if (Regex.IsMatch(id, @"80\d{6}")) //kmst new skill
+                    {
+                        wzPath[1] = id.Substring(0, 6) + ".img";
+                        addPath();
+                    }
+                    break;
+
+                case "0910.img":
+                    wzPath.Add("Item");
+                    wzPath.Add("Special");
+                    wzPath.Add("0910.img");
+                    imagePath.Add(id);
+                    addPath();
+                    break;
+
+                case "SetItemInfo.img":
+                    wzPath.Add("Etc");
+                    wzPath.Add("SetItemInfo.img");
+                    imagePath.Add(id);
+                    addPath();
+                    break;
+                default:
+                    break;
             }
 
             return pathList;
@@ -1763,19 +1763,19 @@ namespace WzComparerR2
         private Node findWzFileTreeNode(string wzName)
         {
             Wz_Type type = ParseType(wzName);
-            if(type == Wz_Type.Unknown)
+            if (type == Wz_Type.Unknown)
             {
                 return null;
             }
 
-            foreach(var wzs in this.openedWz)
+            foreach (var wzs in this.openedWz)
             {
-                foreach(var wzf in wzs.wz_files)
+                foreach (var wzf in wzs.wz_files)
                 {
-                    if(wzf.Type == type)
+                    if (wzf.Type == type)
                     {
                         Node node = findWzFileTreeNode(wzf);
-                        if(node != null)
+                        if (node != null)
                         {
                             return node;
                         }
@@ -1791,7 +1791,7 @@ namespace WzComparerR2
             Wz_Type type;
             try
             {
-                type = (Wz_Type)Enum.Parse(typeof(Wz_Type),wzName,true);
+                type = (Wz_Type)Enum.Parse(typeof(Wz_Type), wzName, true);
             }
             catch
             {
@@ -1803,20 +1803,20 @@ namespace WzComparerR2
 
         private Node findWzFileTreeNode(Wz_File wzFile)
         {
-            foreach(Node baseNode in advTree1.Nodes)
+            foreach (Node baseNode in advTree1.Nodes)
             {
                 Wz_File wz_f = baseNode.AsWzNode()?.Value as Wz_File;
-                if(wz_f != null)
+                if (wz_f != null)
                 {
-                    if(wz_f == wzFile)
+                    if (wz_f == wzFile)
                     {
                         return baseNode;
                     }
-                    else if(wz_f.Type == Wz_Type.Base)
+                    else if (wz_f.Type == Wz_Type.Base)
                     {
-                        foreach(Node wzNode in baseNode.Nodes)
+                        foreach (Node wzNode in baseNode.Nodes)
                         {
-                            if((wz_f = wzNode.AsWzNode()?.Value as Wz_File) != null && wz_f == wzFile)
+                            if ((wz_f = wzNode.AsWzNode()?.Value as Wz_File) != null && wz_f == wzFile)
                             {
                                 return wzNode;
                             }
@@ -1827,23 +1827,23 @@ namespace WzComparerR2
             return null;
         }
 
-        private Node findChildTreeNode(Node parent,string[] path)
+        private Node findChildTreeNode(Node parent, string[] path)
         {
-            if(parent == null || path == null)
+            if (parent == null || path == null)
                 return null;
-            for(int i = 0;i < path.Length;i++)
+            for (int i = 0; i < path.Length; i++)
             {
                 bool find = false;
-                foreach(Node subNode in parent.Nodes)
+                foreach (Node subNode in parent.Nodes)
                 {
-                    if(subNode.Text == path[i])
+                    if (subNode.Text == path[i])
                     {
                         parent = subNode;
                         find = true;
                         break;
                     }
                 }
-                if(!find)
+                if (!find)
                 {
                     return null;
                 }
@@ -1853,16 +1853,16 @@ namespace WzComparerR2
         #endregion
 
         #region contextMenuStrip1
-        private void tsmi1Sort_Click(object sender,EventArgs e)
+        private void tsmi1Sort_Click(object sender, EventArgs e)
         {
-            if(openedWz.Count > 0)
+            if (openedWz.Count > 0)
             {
                 var sw = Stopwatch.StartNew();
                 advTree1.BeginUpdate();
                 try
                 {
                     advTree1.ClearAndDisposeAllNodes();
-                    foreach(Wz_Structure wz in openedWz)
+                    foreach (Wz_Structure wz in openedWz)
                     {
                         sortWzNode(wz.WzNode);
                         Node node = createNode(wz.WzNode);
@@ -1884,10 +1884,10 @@ namespace WzComparerR2
             }
         }
 
-        private void tsmi1Export_Click(object sender,EventArgs e)
+        private void tsmi1Export_Click(object sender, EventArgs e)
         {
             Wz_Image img = advTree1.SelectedNode?.AsWzNode()?.GetValue<Wz_Image>();
-            if(img == null)
+            if (img == null)
             {
                 MessageBoxEx.Show("沒有選中一個用於導出的wz_im");
                 return;
@@ -1896,31 +1896,31 @@ namespace WzComparerR2
             dlg.DefaultExt = ".img";
             dlg.FileName = img.Name;
             dlg.Filter = "IMG (*.img)|*.img";
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = null;
                 try
                 {
-                    fs = new FileStream(dlg.FileName,FileMode.Create,FileAccess.Write);
+                    fs = new FileStream(dlg.FileName, FileMode.Create, FileAccess.Write);
                     FileStream fsWz = img.WzFile.FileStream;
-                    fsWz.Seek(img.Offset,SeekOrigin.Begin);
+                    fsWz.Seek(img.Offset, SeekOrigin.Begin);
                     byte[] buffer = new byte[2048];
                     int count, size = img.Size;
-                    while(size > 0 &&
-                        (count = fsWz.Read(buffer,0,Math.Min(size,buffer.Length))) > 0)
+                    while (size > 0 &&
+                        (count = fsWz.Read(buffer, 0, Math.Min(size, buffer.Length))) > 0)
                     {
-                        fs.Write(buffer,0,count);
+                        fs.Write(buffer, 0, count);
                         size -= count;
                     }
                     labelItemStatus.Text = img.Name + "導出完畢: ";
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBoxEx.Show(ex.ToString(),"錯了");
+                    MessageBoxEx.Show(ex.ToString(), "錯了");
                 }
                 finally
                 {
-                    if(fs != null)
+                    if (fs != null)
                     {
                         fs.Close();
                     }
@@ -1928,10 +1928,10 @@ namespace WzComparerR2
             }
         }
 
-        private void tsmi1DumpAsXml_Click(object sender,EventArgs e)
+        private void tsmi1DumpAsXml_Click(object sender, EventArgs e)
         {
             Wz_Image img = advTree1.SelectedNode?.AsWzNode()?.GetValue<Wz_Image>();
-            if(img == null)
+            if (img == null)
             {
                 MessageBoxEx.Show("沒有選中一個用於導出的wz_img");
                 return;
@@ -1939,13 +1939,13 @@ namespace WzComparerR2
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.DefaultExt = ".xml";
             dlg.Filter = "XML (*.xml)|*.xml";
-            dlg.FileName = img.Node.FullPathToFile.Replace('\\','.') + ".xml";
-            if(dlg.ShowDialog() == DialogResult.OK)
+            dlg.FileName = img.Node.FullPathToFile.Replace('\\', '.') + ".xml";
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = null;
                 try
                 {
-                    fs = new FileStream(dlg.FileName,FileMode.Create,FileAccess.Write);
+                    fs = new FileStream(dlg.FileName, FileMode.Create, FileAccess.Write);
                     var xsetting = new XmlWriterSettings()
                     {
                         CloseOutput = false,
@@ -1955,7 +1955,7 @@ namespace WzComparerR2
                         NewLineChars = Environment.NewLine,
                         NewLineOnAttributes = false,
                     };
-                    var writer = XmlWriter.Create(fs,xsetting);
+                    var writer = XmlWriter.Create(fs, xsetting);
                     writer.WriteStartDocument(true);
                     img.Node.DumpAsXml(writer);
                     writer.WriteEndDocument();
@@ -1963,13 +1963,13 @@ namespace WzComparerR2
 
                     labelItemStatus.Text = img.Name + "導出完畢";
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBoxEx.Show(ex.ToString(),"錯了");
+                    MessageBoxEx.Show(ex.ToString(), "錯了");
                 }
                 finally
                 {
-                    if(fs != null)
+                    if (fs != null)
                     {
                         fs.Close();
                     }
@@ -1979,58 +1979,58 @@ namespace WzComparerR2
         #endregion
 
         #region Tools菜单事件和方法
-        private void buttonItemSearchWz_Click(object sender,EventArgs e)
+        private void buttonItemSearchWz_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(textBoxItemSearchWz.Text))
+            if (string.IsNullOrEmpty(textBoxItemSearchWz.Text))
                 return;
-            if(comboBoxItem1.SelectedIndex == -1)
+            if (comboBoxItem1.SelectedIndex == -1)
             {
                 comboBoxItem1.SelectedIndex = 0;
             }
 
-            switch(comboBoxItem1.SelectedIndex)
+            switch (comboBoxItem1.SelectedIndex)
             {
-            case 0:
-                searchAdvTree(advTree1,0,textBoxItemSearchWz.Text,checkBoxItemExact1.Checked,checkBoxItemRegex1.Checked);
-                break;
-            case 1:
-                searchAdvTree(advTree2,0,textBoxItemSearchWz.Text,checkBoxItemExact1.Checked,checkBoxItemRegex1.Checked);
-                break;
-            case 2:
-                searchAdvTree(advTree3,1,textBoxItemSearchWz.Text,checkBoxItemExact1.Checked,checkBoxItemRegex1.Checked);
-                break;
+                case 0:
+                    searchAdvTree(advTree1, 0, textBoxItemSearchWz.Text, checkBoxItemExact1.Checked, checkBoxItemRegex1.Checked);
+                    break;
+                case 1:
+                    searchAdvTree(advTree2, 0, textBoxItemSearchWz.Text, checkBoxItemExact1.Checked, checkBoxItemRegex1.Checked);
+                    break;
+                case 2:
+                    searchAdvTree(advTree3, 1, textBoxItemSearchWz.Text, checkBoxItemExact1.Checked, checkBoxItemRegex1.Checked);
+                    break;
             }
         }
 
-        private void searchAdvTree(AdvTree advTree,int cellIndex,string searchText,bool exact,bool regex)
+        private void searchAdvTree(AdvTree advTree, int cellIndex, string searchText, bool exact, bool regex)
         {
-            if(string.IsNullOrEmpty(searchText))
+            if (string.IsNullOrEmpty(searchText))
                 return;
 
             try
             {
-                Node searchNode = searchAdvTree(advTree,cellIndex,searchText,exact,regex,true);
+                Node searchNode = searchAdvTree(advTree, cellIndex, searchText, exact, regex, true);
                 advTree.SelectedNode = searchNode;
-                if(searchNode == null)
-                    MessageBoxEx.Show("已經搜尋到末尾","OK");
+                if (searchNode == null)
+                    MessageBoxEx.Show("已經搜尋到末尾", "OK");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBoxEx.Show(this,ex.Message,"錯了",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBoxEx.Show(this, ex.Message, "錯了", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private Node searchAdvTree(AdvTree advTree,int cellIndex,string searchText,bool exact,bool isRegex,bool ignoreCase)
+        private Node searchAdvTree(AdvTree advTree, int cellIndex, string searchText, bool exact, bool isRegex, bool ignoreCase)
         {
-            if(advTree.Nodes.Count == 0)
+            if (advTree.Nodes.Count == 0)
                 return null;
 
-            if(isRegex)
+            if (isRegex)
             {
-                Regex r = new Regex(searchText,ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
-                foreach(var node in findNextNode(advTree))
+                Regex r = new Regex(searchText, ignoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
+                foreach (var node in findNextNode(advTree))
                 {
-                    if(node != null && node.Cells.Count > cellIndex && r.IsMatch(node.Cells[cellIndex].Text))
+                    if (node != null && node.Cells.Count > cellIndex && r.IsMatch(node.Cells[cellIndex].Text))
                     {
                         return node;
                     }
@@ -2039,9 +2039,9 @@ namespace WzComparerR2
             else
             {
                 string[] pattern = searchText.Split('\\');
-                foreach(var node in findNextNode(advTree))
+                foreach (var node in findNextNode(advTree))
                 {
-                    if(checkSearchNodeText(node,cellIndex,pattern,exact,ignoreCase))
+                    if (checkSearchNodeText(node, cellIndex, pattern, exact, ignoreCase))
                     {
                         return node;
                     }
@@ -2054,7 +2054,7 @@ namespace WzComparerR2
         private IEnumerable<Node> findNextNode(AdvTree advTree)
         {
             var node = advTree.SelectedNode;
-            if(node == null)
+            if (node == null)
             {
                 node = advTree.Nodes[0];
                 yield return node;
@@ -2063,9 +2063,9 @@ namespace WzComparerR2
             var levelStack = new Stack<int>();
             int index = node.Index + 1;
 
-            while(true)
+            while (true)
             {
-                if(node.Nodes.Count > 0)
+                if (node.Nodes.Count > 0)
                 {
                     levelStack.Push(index);
                     index = 0;
@@ -2075,14 +2075,14 @@ namespace WzComparerR2
 
                 NodeCollection owner;
 
-                while(index >= (owner = (node.Parent?.Nodes ?? advTree.Nodes)).Count)
+                while (index >= (owner = (node.Parent?.Nodes ?? advTree.Nodes)).Count)
                 {
                     node = node.Parent;
-                    if(node == null)
+                    if (node == null)
                     {
                         yield break;
                     }
-                    if(levelStack.Count > 0)
+                    if (levelStack.Count > 0)
                     {
                         index = levelStack.Pop();
                     }
@@ -2096,22 +2096,22 @@ namespace WzComparerR2
             }
         }
 
-        private bool checkSearchNodeText(Node node,int cellIndex,string[] searchTextArray,bool exact,bool ignoreCase)
+        private bool checkSearchNodeText(Node node, int cellIndex, string[] searchTextArray, bool exact, bool ignoreCase)
         {
-            if(node == null || searchTextArray == null || searchTextArray.Length == 0)
+            if (node == null || searchTextArray == null || searchTextArray.Length == 0)
                 return false;
-            for(int i = searchTextArray.Length - 1;i >= 0;i--)
+            for (int i = searchTextArray.Length - 1; i >= 0; i--)
             {
-                if(node == null || node.Cells.Count <= cellIndex)
+                if (node == null || node.Cells.Count <= cellIndex)
                     return false;
-                if(exact)
+                if (exact)
                 {
-                    if(string.Compare(node.Cells[cellIndex].Text,searchTextArray[i],ignoreCase) != 0)
+                    if (string.Compare(node.Cells[cellIndex].Text, searchTextArray[i], ignoreCase) != 0)
                         return false;
                 }
                 else
                 {
-                    if(ignoreCase ? node.Cells[cellIndex].Text.IndexOf(searchTextArray[i],StringComparison.CurrentCultureIgnoreCase) < 0 :
+                    if (ignoreCase ? node.Cells[cellIndex].Text.IndexOf(searchTextArray[i], StringComparison.CurrentCultureIgnoreCase) < 0 :
                         !node.Cells[cellIndex].Text.Contains(searchTextArray[i]))
                         return false;
                 }
@@ -2121,82 +2121,82 @@ namespace WzComparerR2
             return true;
         }
 
-        private void textBoxItemSearchWz_KeyDown(object sender,KeyEventArgs e)
+        private void textBoxItemSearchWz_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
-                buttonItemSearchWz_Click(buttonItemSearchWz,EventArgs.Empty);
+                buttonItemSearchWz_Click(buttonItemSearchWz, EventArgs.Empty);
             }
         }
 
-        private void buttonItemSearchString_Click(object sender,EventArgs e)
+        private void buttonItemSearchString_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(textBoxItemSearchString.Text))
+            if (string.IsNullOrEmpty(textBoxItemSearchString.Text))
                 return;
             QueryPerformance.Start();
-            if(!this.stringLinker.HasValues)
+            if (!this.stringLinker.HasValues)
             {
-                if(!this.stringLinker.Load(findStringWz(),findItemWz(),findEtcWz()))
+                if (!this.stringLinker.Load(findStringWz(), findItemWz(), findEtcWz()))
                 {
-                    MessageBoxEx.Show("沒有初始化string鏈接，請手動指定一個Base.wz","OK");
+                    MessageBoxEx.Show("沒有初始化string鏈接，請手動指定一個Base.wz", "OK");
                     return;
                 }
                 QueryPerformance.End();
-                double ms = (Math.Round(QueryPerformance.GetLastInterval(),4) * 1000);
+                double ms = (Math.Round(QueryPerformance.GetLastInterval(), 4) * 1000);
                 labelItemStatus.Text = "初始化StringLinker成功: 耗時:" + ms + "ms";
             }
-            if(comboBoxItem2.SelectedIndex < 0)
+            if (comboBoxItem2.SelectedIndex < 0)
                 comboBoxItem2.SelectedIndex = 0;
 
-            List<Dictionary<int,StringResult>> dicts = new List<Dictionary<int,StringResult>>();
-            switch(comboBoxItem2.SelectedIndex)
+            List<Dictionary<int, StringResult>> dicts = new List<Dictionary<int, StringResult>>();
+            switch (comboBoxItem2.SelectedIndex)
             {
-            case 0:
-                dicts.Add(stringLinker.StringEqp);
-                dicts.Add(stringLinker.StringItem);
-                dicts.Add(stringLinker.StringMap);
-                dicts.Add(stringLinker.StringMob);
-                dicts.Add(stringLinker.StringNpc);
-                dicts.Add(stringLinker.StringSkill);
-                dicts.Add(stringLinker.StringSetItem);
-                break;
-            case 1:
-                dicts.Add(stringLinker.StringEqp);
-                break;
-            case 2:
-                dicts.Add(stringLinker.StringItem);
-                break;
-            case 3:
-                dicts.Add(stringLinker.StringMap);
-                break;
-            case 4:
-                dicts.Add(stringLinker.StringMob);
-                break;
-            case 5:
-                dicts.Add(stringLinker.StringNpc);
-                break;
-            case 6:
-                dicts.Add(stringLinker.StringSkill);
-                break;
-            case 7:
-                dicts.Add(stringLinker.StringSetItem);
-                break;
+                case 0:
+                    dicts.Add(stringLinker.StringEqp);
+                    dicts.Add(stringLinker.StringItem);
+                    dicts.Add(stringLinker.StringMap);
+                    dicts.Add(stringLinker.StringMob);
+                    dicts.Add(stringLinker.StringNpc);
+                    dicts.Add(stringLinker.StringSkill);
+                    dicts.Add(stringLinker.StringSetItem);
+                    break;
+                case 1:
+                    dicts.Add(stringLinker.StringEqp);
+                    break;
+                case 2:
+                    dicts.Add(stringLinker.StringItem);
+                    break;
+                case 3:
+                    dicts.Add(stringLinker.StringMap);
+                    break;
+                case 4:
+                    dicts.Add(stringLinker.StringMob);
+                    break;
+                case 5:
+                    dicts.Add(stringLinker.StringNpc);
+                    break;
+                case 6:
+                    dicts.Add(stringLinker.StringSkill);
+                    break;
+                case 7:
+                    dicts.Add(stringLinker.StringSetItem);
+                    break;
             }
 
             listViewExString.BeginUpdate();
             try
             {
                 listViewExString.Items.Clear();
-                IEnumerable<KeyValuePair<int,StringResult>> results = searchStringLinker(dicts,textBoxItemSearchString.Text,checkBoxItemExact2.Checked,checkBoxItemRegex2.Checked);
-                foreach(KeyValuePair<int,StringResult> kv in results)
+                IEnumerable<KeyValuePair<int, StringResult>> results = searchStringLinker(dicts, textBoxItemSearchString.Text, checkBoxItemExact2.Checked, checkBoxItemRegex2.Checked);
+                foreach (KeyValuePair<int, StringResult> kv in results)
                 {
-                    string[] item = new string[] { kv.Key.ToString(),kv.Value.Name,kv.Value.Desc,kv.Value.FullPath };
+                    string[] item = new string[] { kv.Key.ToString(), kv.Value.Name, kv.Value.Desc, kv.Value.FullPath };
                     listViewExString.Items.Add(new ListViewItem(item));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBoxEx.Show(ex.Message,"오류",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBoxEx.Show(ex.Message, "오류", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -2206,11 +2206,11 @@ namespace WzComparerR2
 
         private Wz_File findStringWz()
         {
-            foreach(Wz_Structure wz in openedWz)
+            foreach (Wz_Structure wz in openedWz)
             {
-                foreach(Wz_File file in wz.wz_files)
+                foreach (Wz_File file in wz.wz_files)
                 {
-                    if(file.Type == Wz_Type.String)
+                    if (file.Type == Wz_Type.String)
                     {
                         return file;
                     }
@@ -2221,11 +2221,11 @@ namespace WzComparerR2
 
         private Wz_File findItemWz()
         {
-            foreach(Wz_Structure wz in openedWz)
+            foreach (Wz_Structure wz in openedWz)
             {
-                foreach(Wz_File file in wz.wz_files)
+                foreach (Wz_File file in wz.wz_files)
                 {
-                    if(file.Type == Wz_Type.Item)
+                    if (file.Type == Wz_Type.Item)
                     {
                         return file;
                     }
@@ -2236,11 +2236,11 @@ namespace WzComparerR2
 
         private Wz_File findEtcWz()
         {
-            foreach(Wz_Structure wz in openedWz)
+            foreach (Wz_Structure wz in openedWz)
             {
-                foreach(Wz_File file in wz.wz_files)
+                foreach (Wz_File file in wz.wz_files)
                 {
-                    if(file.Type == Wz_Type.Etc)
+                    if (file.Type == Wz_Type.Etc)
                     {
                         return file;
                     }
@@ -2249,27 +2249,27 @@ namespace WzComparerR2
             return null;
         }
 
-        private IEnumerable<KeyValuePair<int,StringResult>> searchStringLinker(IEnumerable<Dictionary<int,StringResult>> dicts,string key,bool exact,bool isRegex)
+        private IEnumerable<KeyValuePair<int, StringResult>> searchStringLinker(IEnumerable<Dictionary<int, StringResult>> dicts, string key, bool exact, bool isRegex)
         {
-            string[] match = key.Split(new char[] { ' ' },StringSplitOptions.RemoveEmptyEntries);
+            string[] match = key.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             Regex re = null;
-            if(isRegex)
+            if (isRegex)
             {
-                re = new Regex(key,RegexOptions.IgnoreCase);
+                re = new Regex(key, RegexOptions.IgnoreCase);
             }
 
-            foreach(Dictionary<int,StringResult> dict in dicts)
+            foreach (Dictionary<int, StringResult> dict in dicts)
             {
-                foreach(KeyValuePair<int,StringResult> kv in dict)
+                foreach (KeyValuePair<int, StringResult> kv in dict)
                 {
-                    if(exact)
+                    if (exact)
                     {
-                        if(kv.Key.ToString() == key || kv.Value.Name == key)
+                        if (kv.Key.ToString() == key || kv.Value.Name == key)
                             yield return kv;
                     }
-                    else if(isRegex)
+                    else if (isRegex)
                     {
-                        if(re.IsMatch(kv.Key.ToString()) || (!string.IsNullOrEmpty(kv.Value.Name) && re.IsMatch(kv.Value.Name)))
+                        if (re.IsMatch(kv.Key.ToString()) || (!string.IsNullOrEmpty(kv.Value.Name) && re.IsMatch(kv.Value.Name)))
                         {
                             yield return kv;
                         }
@@ -2278,15 +2278,15 @@ namespace WzComparerR2
                     {
                         string id = kv.Key.ToString();
                         bool r = true;
-                        foreach(string str in match)
+                        foreach (string str in match)
                         {
-                            if(!(id.Contains(str) || (!string.IsNullOrEmpty(kv.Value.Name) && kv.Value.Name.Contains(str))))
+                            if (!(id.Contains(str) || (!string.IsNullOrEmpty(kv.Value.Name) && kv.Value.Name.Contains(str))))
                             {
                                 r = false;
                                 break;
                             }
                         }
-                        if(r)
+                        if (r)
                         {
                             yield return kv;
                         }
@@ -2295,49 +2295,49 @@ namespace WzComparerR2
             }
         }
 
-        private void textBoxItemSearchString_KeyDown(object sender,KeyEventArgs e)
+        private void textBoxItemSearchString_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
-                buttonItemSearchString_Click(buttonItemSearchString,EventArgs.Empty);
+                buttonItemSearchString_Click(buttonItemSearchString, EventArgs.Empty);
             }
         }
 
-        private void buttonItemSelectStringWz_Click(object sender,EventArgs e)
+        private void buttonItemSelectStringWz_Click(object sender, EventArgs e)
         {
             Wz_File stringWzFile = advTree1.SelectedNode?.AsWzNode()?.FindNodeByPath("String").GetNodeWzFile();
             Wz_File itemWzFile = advTree1.SelectedNode?.AsWzNode()?.FindNodeByPath("Item").GetNodeWzFile();
             Wz_File etcWzFile = advTree1.SelectedNode?.AsWzNode()?.FindNodeByPath("Etc").GetNodeWzFile();
-            if(stringWzFile == null || itemWzFile == null || etcWzFile == null)
+            if (stringWzFile == null || itemWzFile == null || etcWzFile == null)
             {
-                MessageBoxEx.Show("沒有開啟Base.wz","OK");
+                MessageBoxEx.Show("沒有開啟Base.wz", "OK");
                 return;
             }
             QueryPerformance.Start();
-            bool r = stringLinker.Load(stringWzFile,itemWzFile,etcWzFile);
+            bool r = stringLinker.Load(stringWzFile, itemWzFile, etcWzFile);
             QueryPerformance.End();
-            if(r)
+            if (r)
             {
-                double ms = (Math.Round(QueryPerformance.GetLastInterval(),4) * 1000);
+                double ms = (Math.Round(QueryPerformance.GetLastInterval(), 4) * 1000);
                 labelItemStatus.Text = "初始化StringLinker成功, 耗時 " + ms + "ms";
             }
             else
             {
-                MessageBoxEx.Show("初始化StringLinker失敗","OK");
+                MessageBoxEx.Show("初始化StringLinker失敗", "OK");
             }
         }
 
-        private void buttonItemClearStringWz_Click(object sender,EventArgs e)
+        private void buttonItemClearStringWz_Click(object sender, EventArgs e)
         {
             stringLinker.Clear();
             labelItemStatus.Text = "StringLinker已經清空";
         }
 
-        private void buttonItemPatcher_Click(object sender,EventArgs e)
+        private void buttonItemPatcher_Click(object sender, EventArgs e)
         {
-            foreach(Form form in Application.OpenForms)
+            foreach (Form form in Application.OpenForms)
             {
-                if(form is FrmPatcher && !form.IsDisposed)
+                if (form is FrmPatcher && !form.IsDisposed)
                 {
                     form.Show();
                     form.BringToFront();
@@ -2351,72 +2351,72 @@ namespace WzComparerR2
         #endregion
 
         #region soundPlayer相关事件
-        private void preLoadSound(Wz_Sound sound,string soundName)
+        private void preLoadSound(Wz_Sound sound, string soundName)
         {
             byte[] data = sound.ExtractSound();
-            if(data == null || data.Length <= 0)
+            if (data == null || data.Length <= 0)
             {
                 return;
             }
             soundPlayer.PreLoad(data);
             labelItemSoundTitle.Text = soundName;
 
-            switch(sound.SoundType)
+            switch (sound.SoundType)
             {
-            case Wz_SoundType.Mp3:
-                soundName += ".mp3";
-                break;
-            case Wz_SoundType.WavRaw:
-                soundName += ".wav";
-                break;
+                case Wz_SoundType.Mp3:
+                    soundName += ".mp3";
+                    break;
+                case Wz_SoundType.WavRaw:
+                    soundName += ".wav";
+                    break;
             }
             soundPlayer.PlayingSoundName = soundName;
             labelItemSoundTitle.Tooltip = soundName;
         }
 
-        private void sliderItemSoundTime_ValueChanged(object sender,EventArgs e)
+        private void sliderItemSoundTime_ValueChanged(object sender, EventArgs e)
         {
-            if(!timerChangeValue)
+            if (!timerChangeValue)
                 soundPlayer.SoundPosition = sliderItemSoundTime.Value;
         }
 
-        private void sliderItemSoundVol_ValueChanged(object sender,EventArgs e)
+        private void sliderItemSoundVol_ValueChanged(object sender, EventArgs e)
         {
             soundPlayer.Volume = sliderItemSoundVol.Value;
         }
 
-        private void buttonItemLoadSound_Click(object sender,EventArgs e)
+        private void buttonItemLoadSound_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog dlg = new OpenFileDialog())
+            using (OpenFileDialog dlg = new OpenFileDialog())
             {
                 List<string> supportExt = new List<string>();
                 supportExt.Add("Sound File(*.mp3;*.ogg;*.wav)|*.mp3;*.ogg;*.wav");
-                foreach(string ext in this.soundPlayer.GetPluginSupportedExt())
+                foreach (string ext in this.soundPlayer.GetPluginSupportedExt())
                 {
                     supportExt.Add(ext);
                 }
                 supportExt.Add("Any File (*.*)|*.*");
 
                 dlg.Title = "請選擇一個聲音文件";
-                dlg.Filter = string.Join("|",supportExt.ToArray());
+                dlg.Filter = string.Join("|", supportExt.ToArray());
                 dlg.Multiselect = false;
 
-                if(DialogResult.OK == dlg.ShowDialog())
+                if (DialogResult.OK == dlg.ShowDialog())
                 {
                     loadCostumSoundFile(dlg.FileName);
                 }
             }
         }
 
-        private void buttonItemSoundPlay_Click(object sender,EventArgs e)
+        private void buttonItemSoundPlay_Click(object sender, EventArgs e)
         {
-            if(soundPlayer.State == PlayState.Playing)
+            if (soundPlayer.State == PlayState.Playing)
             {
                 soundPlayer.Pause();
                 buttonItemSoundPlay.Image = WzComparerR2.Properties.Resources.Play;
                 //buttonItemSoundPlay.Text = " Play";
             }
-            else if(soundPlayer.State == PlayState.Paused)
+            else if (soundPlayer.State == PlayState.Paused)
             {
                 soundPlayer.Resume();
                 //buttonItemSoundPlay.Text = "Pause";
@@ -2430,43 +2430,43 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemSoundStop_Click(object sender,EventArgs e)
+        private void buttonItemSoundStop_Click(object sender, EventArgs e)
         {
             soundPlayer.Stop();
             //buttonItemSoundPlay.Text = " Play";
             buttonItemSoundPlay.Image = WzComparerR2.Properties.Resources.Play;
         }
 
-        private void buttonItemSoundSave_Click(object sender,EventArgs e)
+        private void buttonItemSoundSave_Click(object sender, EventArgs e)
         {
             byte[] data = soundPlayer.Data;
-            if(data == null)
+            if (data == null)
                 return;
 
-            using(SaveFileDialog dlg = new SaveFileDialog())
+            using (SaveFileDialog dlg = new SaveFileDialog())
             {
                 dlg.AddExtension = true;
                 dlg.Title = "請選擇儲存路徑";
                 dlg.Filter = "(*.*)|*.*";
                 dlg.AddExtension = false;
                 dlg.FileName = soundPlayer.PlayingSoundName;
-                if(dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     FileStream fs = null;
                     try
                     {
-                        fs = new FileStream(dlg.FileName,FileMode.Create);
-                        fs.Write(data,0,data.Length);
+                        fs = new FileStream(dlg.FileName, FileMode.Create);
+                        fs.Write(data, 0, data.Length);
 
                         MessageBoxEx.Show("儲存成功");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        MessageBoxEx.Show("儲存失敗\r\n\r\n" + ex.ToString(),"OK");
+                        MessageBoxEx.Show("儲存失敗\r\n\r\n" + ex.ToString(), "OK");
                     }
                     finally
                     {
-                        if(fs != null)
+                        if (fs != null)
                         {
                             fs.Close();
                         }
@@ -2475,28 +2475,28 @@ namespace WzComparerR2
             }
         }
 
-        private void checkBoxItemSoundLoop_CheckedChanged(object sender,CheckBoxChangeEventArgs e)
+        private void checkBoxItemSoundLoop_CheckedChanged(object sender, CheckBoxChangeEventArgs e)
         {
             soundPlayer.Loop = checkBoxItemSoundLoop.Checked;
         }
 
-        private void soundTimer_Elapsed(object sender,System.Timers.ElapsedEventArgs e)
+        private void soundTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             TimeSpan currentTime = TimeSpan.FromSeconds(soundPlayer.SoundPosition);
             TimeSpan totalTime = TimeSpan.FromSeconds(soundPlayer.SoundLength);
             labelItemSoundTime.Text = string.Format("{0:d2}:{1:d2}:{2:d2}.{3:d3} / {4:d2}:{5:d2}:{6:d2}.{7:d3}",
-                currentTime.Hours,currentTime.Minutes,currentTime.Seconds,currentTime.Milliseconds,
-                totalTime.Hours,totalTime.Minutes,totalTime.Seconds,totalTime.Milliseconds);
+                currentTime.Hours, currentTime.Minutes, currentTime.Seconds, currentTime.Milliseconds,
+                totalTime.Hours, totalTime.Minutes, totalTime.Seconds, totalTime.Milliseconds);
             timerChangeValue = true;
             sliderItemSoundTime.Maximum = (int)totalTime.TotalSeconds;
             sliderItemSoundTime.Value = (int)currentTime.TotalSeconds;
             timerChangeValue = false;
         }
 
-        private void ribbonBar3_DragEnter(object sender,DragEventArgs e)
+        private void ribbonBar3_DragEnter(object sender, DragEventArgs e)
         {
             string[] types = e.Data.GetFormats();
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 e.Effect = DragDropEffects.Move;
             }
@@ -2506,9 +2506,9 @@ namespace WzComparerR2
             }
         }
 
-        private void ribbonBar3_DragDrop(object sender,DragEventArgs e)
+        private void ribbonBar3_DragDrop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 loadCostumSoundFile(files[0]);
@@ -2517,7 +2517,7 @@ namespace WzComparerR2
 
         private void loadCostumSoundFile(string fileName)
         {
-            CustomSoundFile soundFile = new CustomSoundFile(fileName,0,(int)(new FileInfo(fileName).Length));
+            CustomSoundFile soundFile = new CustomSoundFile(fileName, 0, (int)(new FileInfo(fileName).Length));
             soundPlayer.PreLoad(soundFile);
             soundPlayer.PlayingSoundName = Path.GetFileName(fileName);
             labelItemSoundTitle.Text = "(載入檔案) " + soundPlayer.PlayingSoundName;
@@ -2526,68 +2526,68 @@ namespace WzComparerR2
         #endregion
 
         #region contextMenuStrip2
-        private void tsmi2SaveAs_Click(object sender,EventArgs e)
+        private void tsmi2SaveAs_Click(object sender, EventArgs e)
         {
             object item = advTree3.SelectedNode?.AsWzNode()?.Value;
 
-            if(item == null)
+            if (item == null)
                 return;
 
-            if(item is string)
+            if (item is string)
             {
                 SaveFileDialog dlg = new SaveFileDialog();
                 dlg.FileName = advTree3.SelectedNode.Text;
-                if(!dlg.FileName.Contains("."))
+                if (!dlg.FileName.Contains("."))
                 {
                     dlg.FileName += ".txt";
                 }
                 dlg.Filter = "(*.*)|*.*";
-                if(dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        File.WriteAllText(dlg.FileName,(string)item);
+                        File.WriteAllText(dlg.FileName, (string)item);
                         this.labelItemStatus.Text = "儲存成功";
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        MessageBoxEx.Show("儲存失敗\r\n" + ex.ToString(),"오류");
+                        MessageBoxEx.Show("儲存失敗\r\n" + ex.ToString(), "오류");
                     }
                 }
             }
-            else if(item is Wz_Sound)
+            else if (item is Wz_Sound)
             {
                 var wzSound = (Wz_Sound)item;
                 SaveFileDialog dlg = new SaveFileDialog();
                 dlg.FileName = advTree3.SelectedNode.Text;
-                if(!dlg.FileName.Contains("."))
+                if (!dlg.FileName.Contains("."))
                 {
-                    switch(wzSound.SoundType)
+                    switch (wzSound.SoundType)
                     {
-                    case Wz_SoundType.Mp3:
-                        dlg.FileName += ".mp3";
-                        break;
-                    case Wz_SoundType.WavRaw:
-                        dlg.FileName += ".wav";
-                        break;
+                        case Wz_SoundType.Mp3:
+                            dlg.FileName += ".mp3";
+                            break;
+                        case Wz_SoundType.WavRaw:
+                            dlg.FileName += ".wav";
+                            break;
                     }
                 }
                 dlg.Filter = "(*.*)|*.*";
-                if(dlg.ShowDialog() == DialogResult.OK)
+                if (dlg.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
-                        using(var f = File.Create(dlg.FileName))
+                        using (var f = File.Create(dlg.FileName))
                         {
-                            wzSound.WzFile.FileStream.Seek(wzSound.Offset,SeekOrigin.Begin);
+                            wzSound.WzFile.FileStream.Seek(wzSound.Offset, SeekOrigin.Begin);
                             byte[] buffer = new byte[4096];
                             int bytes = wzSound.DataLength;
-                            while(bytes > 0)
+                            while (bytes > 0)
                             {
-                                int count = wzSound.WzFile.FileStream.Read(buffer,0,Math.Min(buffer.Length,bytes));
-                                if(count > 0)
+                                int count = wzSound.WzFile.FileStream.Read(buffer, 0, Math.Min(buffer.Length, bytes));
+                                if (count > 0)
                                 {
-                                    f.Write(buffer,0,count);
+                                    f.Write(buffer, 0, count);
                                     bytes -= count;
                                 }
                                 else
@@ -2598,26 +2598,26 @@ namespace WzComparerR2
                         }
                         this.labelItemStatus.Text = "儲存成功";
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        MessageBoxEx.Show("儲存失敗\r\n" + ex.ToString(),"OK");
+                        MessageBoxEx.Show("儲存失敗\r\n" + ex.ToString(), "OK");
                     }
                 }
             }
         }
 
 
-        private void tsmi2HandleUol_Click(object sender,EventArgs e)
+        private void tsmi2HandleUol_Click(object sender, EventArgs e)
         {
             Wz_Uol uol = advTree3.SelectedNode?.AsWzNode()?.Value as Wz_Uol;
-            if(uol == null)
+            if (uol == null)
             {
                 labelItemStatus.Text = "沒有選中適當的uol節點";
                 return;
             }
 
-            Node uolNode = handleUol(advTree3.SelectedNode,uol.Uol);
-            if(uolNode == null)
+            Node uolNode = handleUol(advTree3.SelectedNode, uol.Uol);
+            if (uolNode == null)
             {
                 labelItemStatus.Text = "沒有找到uol對應的節點...請試著載入更底層的父節點重新執行";
                 return;
@@ -2628,9 +2628,9 @@ namespace WzComparerR2
             }
         }
 
-        private void tsmi2ExpandAll_Click(object sender,EventArgs e)
+        private void tsmi2ExpandAll_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
             advTree3.BeginUpdate();
             advTree3.SelectedNode.ExpandAll();
@@ -2638,9 +2638,9 @@ namespace WzComparerR2
             advTree3.EndUpdate();
         }
 
-        private void tsmi2CollapseAll_Click(object sender,EventArgs e)
+        private void tsmi2CollapseAll_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
             advTree3.BeginUpdate();
             advTree3.SelectedNode.Collapse();
@@ -2648,26 +2648,26 @@ namespace WzComparerR2
             advTree3.EndUpdate();
         }
 
-        private void tsmi2ExpandLevel_Click(object sender,EventArgs e)
+        private void tsmi2ExpandLevel_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
 
             advTree3.BeginUpdate();
-            foreach(Node node in getEqualLevelNode(advTree3.SelectedNode))
+            foreach (Node node in getEqualLevelNode(advTree3.SelectedNode))
             {
                 node.Expand();
             }
             advTree3.EndUpdate();
         }
 
-        private void tsmi2CollapseLevel_Click(object sender,EventArgs e)
+        private void tsmi2CollapseLevel_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
 
             advTree3.BeginUpdate();
-            foreach(Node node in getEqualLevelNode(advTree3.SelectedNode))
+            foreach (Node node in getEqualLevelNode(advTree3.SelectedNode))
             {
                 node.Collapse();
             }
@@ -2676,53 +2676,53 @@ namespace WzComparerR2
 
         private IEnumerable<Node> getEqualLevelNode(Node currentNode)
         {
-            if(currentNode == null)
+            if (currentNode == null)
                 yield break;
             int level = currentNode.Level;
             Node parent = currentNode;
-            while(parent != null && parent.Parent != null)
+            while (parent != null && parent.Parent != null)
             {
                 parent = parent.Parent;
             }
             Queue<Node> nodeList = new Queue<Node>();
             nodeList.Enqueue(parent);
-            for(int i = 0;i < level;i++)
+            for (int i = 0; i < level; i++)
             {
                 int count = nodeList.Count;
-                for(int j = 0;j < count;j++)
+                for (int j = 0; j < count; j++)
                 {
                     Node node = nodeList.Dequeue();
-                    foreach(Node child in node.Nodes)
+                    foreach (Node child in node.Nodes)
                         nodeList.Enqueue(child);
                 }
             }
 
-            while(nodeList.Count > 0)
+            while (nodeList.Count > 0)
             {
                 yield return nodeList.Dequeue();
             }
         }
 
-        private void tsmi2ExpandType_Click(object sender,EventArgs e)
+        private void tsmi2ExpandType_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
 
             advTree3.BeginUpdate();
-            foreach(Node node in getEqualTypeNode(advTree3.SelectedNode))
+            foreach (Node node in getEqualTypeNode(advTree3.SelectedNode))
             {
                 node.Expand();
             }
             advTree3.EndUpdate();
         }
 
-        private void tsmi2CollapseType_Click(object sender,EventArgs e)
+        private void tsmi2CollapseType_Click(object sender, EventArgs e)
         {
-            if(advTree3.SelectedNode == null)
+            if (advTree3.SelectedNode == null)
                 return;
 
             advTree3.BeginUpdate();
-            foreach(Node node in getEqualTypeNode(advTree3.SelectedNode))
+            foreach (Node node in getEqualTypeNode(advTree3.SelectedNode))
             {
                 node.Collapse();
             }
@@ -2731,63 +2731,63 @@ namespace WzComparerR2
 
         private IEnumerable<Node> getEqualTypeNode(Node currentNode)
         {
-            if(currentNode == null)
+            if (currentNode == null)
                 yield break;
             Type type = currentNode.AsWzNode()?.Value?.GetType();
             Node parent = currentNode;
-            while(parent != null && parent.Parent != null)
+            while (parent != null && parent.Parent != null)
             {
                 parent = parent.Parent;
             }
             Queue<Node> nodeList = new Queue<Node>();
             nodeList.Enqueue(parent);
-            while(nodeList.Count > 0)
+            while (nodeList.Count > 0)
             {
                 int count = nodeList.Count;
-                for(int i = 0;i < count;i++)
+                for (int i = 0; i < count; i++)
                 {
                     Node node = nodeList.Dequeue();
-                    if(node.AsWzNode()?.Value?.GetType() == type)
+                    if (node.AsWzNode()?.Value?.GetType() == type)
                     {
                         yield return node;
                     }
-                    foreach(Node child in node.Nodes)
+                    foreach (Node child in node.Nodes)
                         nodeList.Enqueue(child);
                 }
             }
         }
 
-        private void tsmi2Prev_Click(object sender,EventArgs e)
+        private void tsmi2Prev_Click(object sender, EventArgs e)
         {
-            if(historyNodeList.PrevCount > 0)
+            if (historyNodeList.PrevCount > 0)
             {
                 historySelecting = true;
                 advTree3.SelectedNode = historyNodeList.MovePrev();
             }
         }
 
-        private void tsmi2Next_Click(object sender,EventArgs e)
+        private void tsmi2Next_Click(object sender, EventArgs e)
         {
-            if(historyNodeList.NextCount > 0)
+            if (historyNodeList.NextCount > 0)
             {
                 historySelecting = true;
                 advTree3.SelectedNode = historyNodeList.MoveNext();
             }
         }
 
-        private void contextMenuStrip2_Opening(object sender,CancelEventArgs e)
+        private void contextMenuStrip2_Opening(object sender, CancelEventArgs e)
         {
             var node = advTree3.SelectedNode.AsWzNode();
             tsmi2SaveAs.Visible = false;
             tsmi2HandleUol.Visible = false;
-            if(node != null)
+            if (node != null)
             {
-                if(node.Value is Wz_Sound || node.Value is Wz_Png || node.Value is string)
+                if (node.Value is Wz_Sound || node.Value is Wz_Png || node.Value is string)
                 {
                     tsmi2SaveAs.Visible = true;
                     tsmi2SaveAs.Enabled = true;
                 }
-                else if(node.Value is Wz_Uol)
+                else if (node.Value is Wz_Uol)
                 {
                     tsmi2HandleUol.Visible = true;
                 }
@@ -2801,23 +2801,23 @@ namespace WzComparerR2
         #endregion
 
         #region charaSim相关
-        private void buttonItemQuickView_Click(object sender,EventArgs e)
+        private void buttonItemQuickView_Click(object sender, EventArgs e)
         {
             quickView();
         }
         bool ShowEffectLinkForm;
         void CheckEffectLink(Wz_Node Node)
         {
-            if(!ShowEffectLinkForm)
+            if (!ShowEffectLinkForm)
             {
                 new EffectLinkForm().Show();
                 ShowEffectLinkForm = true;
             }
 
             var ID = Node.Text;
-            ID = ID.Replace(".img","");
+            ID = ID.Replace(".img", "");
 
-            if(ItemEffectList.ContainsKey(ID) || SetEffectList.ContainsKey(ID))
+            if (ItemEffectList.ContainsKey(ID) || SetEffectList.ContainsKey(ID))
             {
                 EffectLinkForm.Instance.Show();
                 EffectLinkForm.Instance.BringToFront();
@@ -2825,39 +2825,39 @@ namespace WzComparerR2
             else
                 EffectLinkForm.Instance.Visible = false;
             // 
-            if(ItemEffectList.ContainsKey(ID))
+            if (ItemEffectList.ContainsKey(ID))
                 EffectLinkForm.Instance.button1.Text = ItemEffectList[ID];
-            if(SetEffectList.ContainsKey(ID))
+            if (SetEffectList.ContainsKey(ID))
                 EffectLinkForm.Instance.button1.Text = SetEffectList[ID];
         }
 
-        private void advTree1_AfterNodeSelect_2(object sender,AdvTreeNodeEventArgs e)
+        private void advTree1_AfterNodeSelect_2(object sender, AdvTreeNodeEventArgs e)
         {
-            if(advTree1.Nodes.Count > 0)
+            if (advTree1.Nodes.Count > 0)
             {
                 SelectedNode = advTree1.SelectedNode.AsWzNode();
 
                 var Path = SelectedNode.FullPath;
-                if(Path.Contains(".img"))
+                if (Path.Contains(".img"))
                     SavePngButton.Enabled = true;
                 else
                     SavePngButton.Enabled = false;
             }
 
             lastSelectedTree = advTree1;
-            if(buttonItemAutoQuickView.Checked)
+            if (buttonItemAutoQuickView.Checked)
             {
                 quickView(advTree1.SelectedNode);
             }
             CheckEffectLink(SelectedNode);
         }
 
-        private void advTree2_AfterNodeSelect_2(object sender,AdvTreeNodeEventArgs e)
+        private void advTree2_AfterNodeSelect_2(object sender, AdvTreeNodeEventArgs e)
         {
             this.pictureBoxEx1.Items.Clear();
             SelectedNode = advTree1.SelectedNode.AsWzNode();
             lastSelectedTree = advTree2;
-            if(buttonItemAutoQuickView.Checked)
+            if (buttonItemAutoQuickView.Checked)
             {
                 quickView(advTree2.SelectedNode);
             }
@@ -2866,7 +2866,7 @@ namespace WzComparerR2
 
         private void quickView()
         {
-            if(lastSelectedTree != null)
+            if (lastSelectedTree != null)
             {
                 quickView(lastSelectedTree.SelectedNode);
             }
@@ -2875,7 +2875,7 @@ namespace WzComparerR2
         private void quickView(Node node)
         {
             Wz_Node selectedNode = node.AsWzNode();
-            if(selectedNode == null)
+            if (selectedNode == null)
             {
                 return;
             }
@@ -2883,140 +2883,140 @@ namespace WzComparerR2
             Wz_Image image;
 
             Wz_File wzf = selectedNode.GetNodeWzFile();
-            if(wzf == null)
+            if (wzf == null)
             {
                 labelItemStatus.Text = "沒有查詢到節點所屬的Wz";
                 return;
             }
 
-            if(!this.stringLinker.HasValues)
+            if (!this.stringLinker.HasValues)
             {
-                this.stringLinker.Load(findStringWz(),findItemWz(),findEtcWz());
+                this.stringLinker.Load(findStringWz(), findItemWz(), findEtcWz());
             }
 
             object obj = null;
             string fileName = null;
-            switch(wzf.Type)
+            switch (wzf.Type)
             {
-            case Wz_Type.Character:
-                if((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
-                    return;
-                CharaSimLoader.LoadSetItemsIfEmpty();
-                CharaSimLoader.LoadExclusiveEquipsIfEmpty();
-                CharaSimLoader.LoadCommoditiesIfEmpty();
-                var gear = Gear.CreateFromNode(image.Node,PluginManager.FindWz);
-                obj = gear;
-                if(gear != null)
-                {
-                    fileName = gear.ItemID + ".png";
-                }
-                break;
-            case Wz_Type.Item:
-                CharaSimLoader.LoadCommoditiesIfEmpty();
-                Wz_Node itemNode = selectedNode;
-                if(Regex.IsMatch(itemNode.FullPathToFile,@"^Item\\(Cash|Consume|Etc|Install|Cash)\\\d{4,6}.img\\\d+$") || Regex.IsMatch(itemNode.FullPathToFile,@"^Item\\Special\\0910.img\\\d+$"))
-                {
-                    var item = Item.CreateFromNode(itemNode,PluginManager.FindWz);
-                    obj = item;
-                    if(item != null)
-                    {
-                        fileName = item.ItemID + ".png";
-                    }
-                }
-                else if(Regex.IsMatch(itemNode.FullPathToFile,@"^Item\\Pet\\\d{7}.img"))
-                {
-                    if(CharaSimLoader.LoadedSetItems.Count == 0) //宠物 预读套装
-                    {
-                        CharaSimLoader.LoadSetItemsIfEmpty();
-                    }
-                    if((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
+                case Wz_Type.Character:
+                    if ((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
                         return;
-                    var item = Item.CreateFromNode(image.Node,PluginManager.FindWz);
-                    obj = item;
-                    if(item != null)
+                    CharaSimLoader.LoadSetItemsIfEmpty();
+                    CharaSimLoader.LoadExclusiveEquipsIfEmpty();
+                    CharaSimLoader.LoadCommoditiesIfEmpty();
+                    var gear = Gear.CreateFromNode(image.Node, PluginManager.FindWz);
+                    obj = gear;
+                    if (gear != null)
                     {
-                        fileName = item.ItemID + ".png";
+                        fileName = gear.ItemID + ".png";
                     }
-                }
-
-                break;
-            case Wz_Type.Skill:
-                Wz_Node skillNode = selectedNode;
-                //模式路径分析
-                if(Regex.IsMatch(skillNode.FullPathToFile,@"^Skill\d*\\Recipe_\d+.img\\\d+$"))
-                {
-                    Recipe recipe = Recipe.CreateFromNode(skillNode);
-                    obj = recipe;
-                    if(recipe != null)
+                    break;
+                case Wz_Type.Item:
+                    CharaSimLoader.LoadCommoditiesIfEmpty();
+                    Wz_Node itemNode = selectedNode;
+                    if (Regex.IsMatch(itemNode.FullPathToFile, @"^Item\\(Cash|Consume|Etc|Install|Cash)\\\d{4,6}.img\\\d+$") || Regex.IsMatch(itemNode.FullPathToFile, @"^Item\\Special\\0910.img\\\d+$"))
                     {
-                        fileName = "recipe_" + recipe.RecipeID + ".png";
-                    }
-                }
-                else if(Regex.IsMatch(skillNode.FullPathToFile,@"^Skill\d*\\\d+.img\\skill\\\d+$"))
-                {
-                    Skill skill = Skill.CreateFromNode(skillNode,PluginManager.FindWz);
-                    if(skill != null)
-                    {
-                        switch(this.skillDefaultLevel)
+                        var item = Item.CreateFromNode(itemNode, PluginManager.FindWz);
+                        obj = item;
+                        if (item != null)
                         {
-                        case DefaultLevel.Level0:
-                            skill.Level = 0;
-                            break;
-                        case DefaultLevel.Level1:
-                            skill.Level = 1;
-                            break;
-                        case DefaultLevel.LevelMax:
-                            skill.Level = skill.MaxLevel;
-                            break;
-                        case DefaultLevel.LevelMaxWithCO:
-                            skill.Level = skill.MaxLevel + 2;
-                            break;
+                            fileName = item.ItemID + ".png";
                         }
-                        obj = skill;
-                        fileName = "skill_" + skill.SkillID + ".png";
                     }
-                }
-                break;
-
-            case Wz_Type.Mob:
-                if((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
-                    return;
-                var mob = Mob.CreateFromNode(image.Node,PluginManager.FindWz);
-                obj = mob;
-                if(mob != null)
-                {
-                    fileName = mob.ID + ".png";
-                }
-                break;
-
-            case Wz_Type.Npc:
-                if((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
-                    return;
-                var npc = Npc.CreateFromNode(image.Node,PluginManager.FindWz);
-                obj = npc;
-                if(npc != null)
-                {
-                    fileName = npc.ID + ".png";
-                }
-                break;
-
-            case Wz_Type.Etc:
-                CharaSimLoader.LoadSetItemsIfEmpty();
-                Wz_Node setItemNode = selectedNode;
-                if(Regex.IsMatch(setItemNode.FullPathToFile,@"^Etc\\SetItemInfo.img\\-?\d+$"))
-                {
-                    SetItem setItem;
-                    if(!CharaSimLoader.LoadedSetItems.TryGetValue(Convert.ToInt32(selectedNode.Text),out setItem))
-                        return;
-                    obj = setItem;
-                    if(setItem != null)
+                    else if (Regex.IsMatch(itemNode.FullPathToFile, @"^Item\\Pet\\\d{7}.img"))
                     {
-                        fileName = setItem.SetItemID + ".png";
+                        if (CharaSimLoader.LoadedSetItems.Count == 0) //宠物 预读套装
+                        {
+                            CharaSimLoader.LoadSetItemsIfEmpty();
+                        }
+                        if ((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
+                            return;
+                        var item = Item.CreateFromNode(image.Node, PluginManager.FindWz);
+                        obj = item;
+                        if (item != null)
+                        {
+                            fileName = item.ItemID + ".png";
+                        }
                     }
-                }
-                break;
+
+                    break;
+                case Wz_Type.Skill:
+                    Wz_Node skillNode = selectedNode;
+                    //模式路径分析
+                    if (Regex.IsMatch(skillNode.FullPathToFile, @"^Skill\d*\\Recipe_\d+.img\\\d+$"))
+                    {
+                        Recipe recipe = Recipe.CreateFromNode(skillNode);
+                        obj = recipe;
+                        if (recipe != null)
+                        {
+                            fileName = "recipe_" + recipe.RecipeID + ".png";
+                        }
+                    }
+                    else if (Regex.IsMatch(skillNode.FullPathToFile, @"^Skill\d*\\\d+.img\\skill\\\d+$"))
+                    {
+                        Skill skill = Skill.CreateFromNode(skillNode, PluginManager.FindWz);
+                        if (skill != null)
+                        {
+                            switch (this.skillDefaultLevel)
+                            {
+                                case DefaultLevel.Level0:
+                                    skill.Level = 0;
+                                    break;
+                                case DefaultLevel.Level1:
+                                    skill.Level = 1;
+                                    break;
+                                case DefaultLevel.LevelMax:
+                                    skill.Level = skill.MaxLevel;
+                                    break;
+                                case DefaultLevel.LevelMaxWithCO:
+                                    skill.Level = skill.MaxLevel + 2;
+                                    break;
+                            }
+                            obj = skill;
+                            fileName = "skill_" + skill.SkillID + ".png";
+                        }
+                    }
+                    break;
+
+                case Wz_Type.Mob:
+                    if ((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
+                        return;
+                    var mob = Mob.CreateFromNode(image.Node, PluginManager.FindWz);
+                    obj = mob;
+                    if (mob != null)
+                    {
+                        fileName = mob.ID + ".png";
+                    }
+                    break;
+
+                case Wz_Type.Npc:
+                    if ((image = selectedNode.GetValue<Wz_Image>()) == null || !image.TryExtract())
+                        return;
+                    var npc = Npc.CreateFromNode(image.Node, PluginManager.FindWz);
+                    obj = npc;
+                    if (npc != null)
+                    {
+                        fileName = npc.ID + ".png";
+                    }
+                    break;
+
+                case Wz_Type.Etc:
+                    CharaSimLoader.LoadSetItemsIfEmpty();
+                    Wz_Node setItemNode = selectedNode;
+                    if (Regex.IsMatch(setItemNode.FullPathToFile, @"^Etc\\SetItemInfo.img\\-?\d+$"))
+                    {
+                        SetItem setItem;
+                        if (!CharaSimLoader.LoadedSetItems.TryGetValue(Convert.ToInt32(selectedNode.Text), out setItem))
+                            return;
+                        obj = setItem;
+                        if (setItem != null)
+                        {
+                            fileName = setItem.SetItemID + ".png";
+                        }
+                    }
+                    break;
             }
-            if(obj != null)
+            if (obj != null)
             {
                 tooltipQuickView.TargetItem = obj;
                 tooltipQuickView.ImageFileName = fileName;
@@ -3026,11 +3026,11 @@ namespace WzComparerR2
             }
         }
 
-        private void comboBoxItemLanguage_SelectedIndexChanged(object sender,EventArgs e)
+        private void comboBoxItemLanguage_SelectedIndexChanged(object sender, EventArgs e)
         {
             DevComponents.Editors.ComboItem item = comboBoxItemLanguage.SelectedItem as DevComponents.Editors.ComboItem;
 
-            if(item != null)
+            if (item != null)
             {
                 GearGraphics.SetFontFamily("宋体");
                 ConfigManager.Reload();
@@ -3039,21 +3039,21 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemClearSetItems_Click(object sender,EventArgs e)
+        private void buttonItemClearSetItems_Click(object sender, EventArgs e)
         {
             int count = CharaSimLoader.LoadedSetItems.Count;
             CharaSimLoader.LoadedSetItems.Clear();
             labelItemStatus.Text = "已經清空預讀套裝共" + count + "項。";
         }
 
-        private void buttonItemClearExclusiveEquips_Click(object sender,EventArgs e)
+        private void buttonItemClearExclusiveEquips_Click(object sender, EventArgs e)
         {
             int count = CharaSimLoader.LoadedExclusiveEquips.Count;
             CharaSimLoader.LoadedExclusiveEquips.Clear();
             labelItemStatus.Text = "無法重複穿戴的物品 " + count + "整理完畢";
         }
 
-        private void buttonItemClearCommodities_Click(object sender,EventArgs e)
+        private void buttonItemClearCommodities_Click(object sender, EventArgs e)
         {
             int count = CharaSimLoader.LoadedCommoditiesBySN.Count;
             CharaSimLoader.LoadedCommoditiesBySN.Clear();
@@ -3061,116 +3061,116 @@ namespace WzComparerR2
             labelItemStatus.Text = "現金物品 " + count + "整理完畢";
         }
 
-        private void buttonItemCharItem_CheckedChanged(object sender,EventArgs e)
+        private void buttonItemCharItem_CheckedChanged(object sender, EventArgs e)
         {
-            if(buttonItemCharItem.Checked)
+            if (buttonItemCharItem.Checked)
                 this.charaSimCtrl.UIItem.Refresh();
             this.charaSimCtrl.UIItem.Visible = buttonItemCharItem.Checked;
         }
 
-        private void buttonItemAddItem_Click(object sender,EventArgs e)
+        private void buttonItemAddItem_Click(object sender, EventArgs e)
         {
             bool success;
 
             success = this.charaSimCtrl.UIItem.AddItem(this.tooltipQuickView.TargetItem as ItemBase);
-            if(!success)
+            if (!success)
             {
                 labelItemStatus.Text = "背包加入物品失敗";
             }
         }
 
-        private void afrm_KeyDown(object sender,KeyEventArgs e)
+        private void afrm_KeyDown(object sender, KeyEventArgs e)
         {
             AfrmTooltip frm = sender as AfrmTooltip;
-            if(frm == null)
+            if (frm == null)
                 return;
 
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
-            case Keys.Escape:
-                frm.Hide();
-                break;
-            case Keys.Up:
-                frm.Top -= 1;
-                break;
-            case Keys.Down:
-                frm.Top += 1;
-                break;
-            case Keys.Left:
-                frm.Left -= 1;
-                break;
-            case Keys.Right:
-                frm.Left += 1;
-                break;
+                case Keys.Escape:
+                    frm.Hide();
+                    break;
+                case Keys.Up:
+                    frm.Top -= 1;
+                    break;
+                case Keys.Down:
+                    frm.Top += 1;
+                    break;
+                case Keys.Left:
+                    frm.Left -= 1;
+                    break;
+                case Keys.Right:
+                    frm.Left += 1;
+                    break;
             }
 
             Skill skill = frm.TargetItem as Skill;
-            if(skill != null)
+            if (skill != null)
             {
-                switch(e.KeyCode)
+                switch (e.KeyCode)
                 {
-                case Keys.Oemplus:
-                case Keys.Add:
-                    skill.Level += 1;
-                    break;
+                    case Keys.Oemplus:
+                    case Keys.Add:
+                        skill.Level += 1;
+                        break;
 
-                case Keys.OemMinus:
-                case Keys.Subtract:
-                    skill.Level -= 1;
-                    break;
+                    case Keys.OemMinus:
+                    case Keys.Subtract:
+                        skill.Level -= 1;
+                        break;
 
-                case Keys.OemOpenBrackets:
-                    skill.Level -= this.skillInterval;
-                    break;
-                case Keys.OemCloseBrackets:
-                    skill.Level += this.skillInterval;
-                    break;
+                    case Keys.OemOpenBrackets:
+                        skill.Level -= this.skillInterval;
+                        break;
+                    case Keys.OemCloseBrackets:
+                        skill.Level += this.skillInterval;
+                        break;
                 }
                 frm.Refresh();
             }
         }
 
-        private void afrm_VisibleChanged(object sender,EventArgs e)
+        private void afrm_VisibleChanged(object sender, EventArgs e)
         {
-            if(sender is AfrmItem)
+            if (sender is AfrmItem)
             {
                 buttonItemCharItem.Checked = ((AfrmItem)sender).Visible;
             }
-            else if(sender is AfrmStat)
+            else if (sender is AfrmStat)
             {
                 buttonItemCharaStat.Checked = ((AfrmStat)sender).Visible;
             }
-            else if(sender is AfrmEquip)
+            else if (sender is AfrmEquip)
             {
                 buttonItemCharaEquip.Checked = ((AfrmEquip)sender).Visible;
             }
         }
 
-        private void buttonItemCharaStat_CheckedChanged(object sender,EventArgs e)
+        private void buttonItemCharaStat_CheckedChanged(object sender, EventArgs e)
         {
-            if(buttonItemCharaStat.Checked)
+            if (buttonItemCharaStat.Checked)
             {
                 this.charaSimCtrl.UIStat.Refresh();
             }
             this.charaSimCtrl.UIStat.Visible = buttonItemCharaStat.Checked;
         }
 
-        private void buttonItemCharaEquip_CheckedChanged(object sender,EventArgs e)
+        private void buttonItemCharaEquip_CheckedChanged(object sender, EventArgs e)
         {
-            if(buttonItemCharaEquip.Checked)
+            if (buttonItemCharaEquip.Checked)
             {
                 this.charaSimCtrl.UIEquip.Refresh();
             }
             this.charaSimCtrl.UIEquip.Visible = buttonItemCharaEquip.Checked;
         }
 
-        private void buttonItemQuickViewSetting_Click(object sender,EventArgs e)
+        private void buttonItemQuickViewSetting_Click(object sender, EventArgs e)
         {
-            using(FrmQuickViewSetting frm = new FrmQuickViewSetting())
+            using (FrmQuickViewSetting frm = new FrmQuickViewSetting())
             {
                 frm.Load(CharaSimConfig.Default);
 
-                if(frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
                     ConfigManager.Reload();
                     frm.Save(CharaSimConfig.Default);
@@ -3265,59 +3265,59 @@ namespace WzComparerR2
             advTree3.AfterNodeSelect += advTree3_AfterNodeSelect_Plugin;
         }
 
-        private void advTree1_AfterNodeSelect_Plugin(object sender,AdvTreeNodeEventArgs e)
+        private void advTree1_AfterNodeSelect_Plugin(object sender, AdvTreeNodeEventArgs e)
         {
-            if(selectedNode1Changed != null)
+            if (selectedNode1Changed != null)
             {
                 var wzNode = ((PluginContextProvider)(this)).SelectedNode1;
                 var args = new WzNodeEventArgs(wzNode);
-                selectedNode1Changed(this,args);
+                selectedNode1Changed(this, args);
             }
         }
 
-        private void advTree2_AfterNodeSelect_Plugin(object sender,AdvTreeNodeEventArgs e)
+        private void advTree2_AfterNodeSelect_Plugin(object sender, AdvTreeNodeEventArgs e)
         {
-            if(selectedNode2Changed != null)
+            if (selectedNode2Changed != null)
             {
                 var wzNode = ((PluginContextProvider)(this)).SelectedNode2;
                 var args = new WzNodeEventArgs(wzNode);
-                selectedNode2Changed(this,args);
+                selectedNode2Changed(this, args);
             }
         }
 
-        private void advTree3_AfterNodeSelect_Plugin(object sender,AdvTreeNodeEventArgs e)
+        private void advTree3_AfterNodeSelect_Plugin(object sender, AdvTreeNodeEventArgs e)
         {
-            if(selectedNode3Changed != null)
+            if (selectedNode3Changed != null)
             {
                 var wzNode = ((PluginContextProvider)(this)).SelectedNode3;
                 var args = new WzNodeEventArgs(wzNode);
-                selectedNode3Changed(this,args);
+                selectedNode3Changed(this, args);
             }
         }
 
         protected virtual void OnWzOpened(WzStructureEventArgs e)
         {
-            if(wzOpened != null)
+            if (wzOpened != null)
             {
-                wzOpened(this,e);
+                wzOpened(this, e);
             }
         }
 
         protected virtual void OnWzClosing(WzStructureEventArgs e)
         {
-            if(wzClosing != null)
+            if (wzClosing != null)
             {
-                wzClosing(this,e);
+                wzClosing(this, e);
             }
         }
         #endregion
 
-        private void btnEasyCompare_Click(object sender,EventArgs e)
+        private void btnEasyCompare_Click(object sender, EventArgs e)
         {
-            if(compareThread != null)
+            if (compareThread != null)
             {
                 compareThread.Suspend();
-                if(DialogResult.Yes == MessageBoxEx.Show("在執行一個對比操作，要中止嗎?","Compare",MessageBoxButtons.YesNoCancel))
+                if (DialogResult.Yes == MessageBoxEx.Show("在執行一個對比操作，要中止嗎?", "Compare", MessageBoxButtons.YesNoCancel))
                 {
                     compareThread.Resume();
                     compareThread.Abort();
@@ -3329,16 +3329,16 @@ namespace WzComparerR2
                 return;
             }
 
-            if(openedWz.Count < 2)
+            if (openedWz.Count < 2)
             {
-                MessageBoxEx.Show("沒有成功打開兩個Base.wz。","Compare");
+                MessageBoxEx.Show("沒有成功打開兩個Base.wz。", "Compare");
                 return;
             }
 
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             dlg.Description = "請選擇輸出報告的資料夾";
 
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 compareThread = new Thread(() =>
                 {
@@ -3356,7 +3356,7 @@ namespace WzComparerR2
                         Wz_File fileNew = openedWz[0].wz_files[0];
                         Wz_File fileOld = openedWz[1].wz_files[0];
 
-                        while(true)
+                        while (true)
                         {
                             string txt = string.Format("待比較wz文件 :\r\n\r\n  new : {0} (V{1})\r\n  old : {2} (V{3})\r\n\r\n如果繼續對比請選擇Yes，如果想交換文件順序請選擇No。",
                                 fileNew.Header.FileName,
@@ -3364,32 +3364,32 @@ namespace WzComparerR2
                                 fileOld.Header.FileName,
                                 fileOld.GetMergedVersion()
                                 );
-                            switch(MessageBoxEx.Show(txt,"Easy Compare",MessageBoxButtons.YesNoCancel))
+                            switch (MessageBoxEx.Show(txt, "Easy Compare", MessageBoxButtons.YesNoCancel))
                             {
-                            case DialogResult.Yes:
-                                comparer.EasyCompareWzFiles(fileNew,fileOld,dlg.SelectedPath);
-                                return;
+                                case DialogResult.Yes:
+                                    comparer.EasyCompareWzFiles(fileNew, fileOld, dlg.SelectedPath);
+                                    return;
 
-                            case DialogResult.No:
-                                Wz_File tmp = fileNew;
-                                fileNew = fileOld;
-                                fileOld = tmp;
-                                break;
+                                case DialogResult.No:
+                                    Wz_File tmp = fileNew;
+                                    fileNew = fileOld;
+                                    fileOld = tmp;
+                                    break;
 
-                            case DialogResult.Cancel:
-                            default:
-                                return;
+                                case DialogResult.Cancel:
+                                default:
+                                    return;
                             }
                         }
 
                     }
-                    catch(ThreadAbortException)
+                    catch (ThreadAbortException)
                     {
-                        MessageBoxEx.Show(this,"比較已經中止。","Compare");
+                        MessageBoxEx.Show(this, "比較已經中止。", "Compare");
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        MessageBoxEx.Show(this,"出現異常" + ex.ToString(),"Compare");
+                        MessageBoxEx.Show(this, "出現異常" + ex.ToString(), "Compare");
                     }
                     finally
                     {
@@ -3404,45 +3404,45 @@ namespace WzComparerR2
             }
         }
 
-        void comparer_StateDetailChanged(object sender,EventArgs e)
+        void comparer_StateDetailChanged(object sender, EventArgs e)
         {
             EasyComparer comp = sender as EasyComparer;
-            if(comp != null)
+            if (comp != null)
             {
                 labelXComp1.Text = comp.StateInfo;
             }
         }
 
-        void comparer_StateInfoChanged(object sender,EventArgs e)
+        void comparer_StateInfoChanged(object sender, EventArgs e)
         {
             EasyComparer comp = sender as EasyComparer;
-            if(comp != null)
+            if (comp != null)
             {
                 labelXComp2.Text = comp.StateDetail;
             }
         }
 
-        private void buttonItemAbout_Click(object sender,EventArgs e)
+        private void buttonItemAbout_Click(object sender, EventArgs e)
         {
             new FrmAbout().ShowDialog();
         }
 
-        private void btnExportSkill_Click(object sender,EventArgs e)
+        private void btnExportSkill_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             dlg.Description = "請選擇技能列表輸出文件夾";
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if(!this.stringLinker.HasValues)
-                    this.stringLinker.Load(findStringWz(),findItemWz(),findEtcWz());
+                if (!this.stringLinker.HasValues)
+                    this.stringLinker.Load(findStringWz(), findItemWz(), findEtcWz());
 
                 DBConnection conn = new DBConnection(this.stringLinker);
                 DataSet ds = conn.GenerateSkillTable();
-                foreach(DataTable dt in ds.Tables)
+                foreach (DataTable dt in ds.Tables)
                 {
-                    FileStream fs = new FileStream(Path.Combine(dlg.SelectedPath,dt.TableName + ".csv"),FileMode.Create);
-                    StreamWriter sw = new StreamWriter(fs,Encoding.UTF8);
-                    conn.OutputCsv(sw,dt);
+                    FileStream fs = new FileStream(Path.Combine(dlg.SelectedPath, dt.TableName + ".csv"), FileMode.Create);
+                    StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
+                    conn.OutputCsv(sw, dt);
                     sw.Close();
                     fs.Dispose();
                 }
@@ -3450,14 +3450,14 @@ namespace WzComparerR2
             }
         }
 
-        private void btnExportSkillOption_Click(object sender,EventArgs e)
+        private void btnExportSkillOption_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
             dlg.Description = "選擇魂寶珠系統輸出文件夾";
-            if(dlg.ShowDialog() == DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
-                if(!this.stringLinker.HasValues)
-                    this.stringLinker.Load(findStringWz(),findItemWz(),findEtcWz());
+                if (!this.stringLinker.HasValues)
+                    this.stringLinker.Load(findStringWz(), findItemWz(), findEtcWz());
 
                 DBConnection conn = new DBConnection(this.stringLinker);
                 conn.ExportSkillOption(dlg.SelectedPath);
@@ -3465,18 +3465,18 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItemAutoQuickView_Click(object sender,EventArgs e)
+        private void buttonItemAutoQuickView_Click(object sender, EventArgs e)
         {
             ConfigManager.Reload();
             CharaSimConfig.Default.AutoQuickView = buttonItemAutoQuickView.Checked;
             ConfigManager.Save();
         }
 
-        private void panelExLeft_SizeChanged(object sender,EventArgs e)
+        private void panelExLeft_SizeChanged(object sender, EventArgs e)
         {
-            if(this.WindowState != FormWindowState.Minimized)
+            if (this.WindowState != FormWindowState.Minimized)
             {
-                if(panelExLeft.Tag is int)
+                if (panelExLeft.Tag is int)
                 {
                     int oldHeight = (int)panelExLeft.Tag;
                     advTree1.Height = (int)(1.0 * advTree1.Height / oldHeight * panelExLeft.Height);
@@ -3485,35 +3485,35 @@ namespace WzComparerR2
             }
         }
 
-        private void buttonItem1_Click(object sender,EventArgs e)
+        private void buttonItem1_Click(object sender, EventArgs e)
         {
         }
 
-        private void labelItemStatus_TextChanged(object sender,EventArgs e)
+        private void labelItemStatus_TextChanged(object sender, EventArgs e)
         {
             ribbonBar2.RecalcLayout();
         }
 
-        private void btnNodeBack_Click(object sender,EventArgs e)
+        private void btnNodeBack_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void btnNodeForward_Click(object sender,EventArgs e)
+        private void btnNodeForward_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonItemUpdate_Click(object sender,EventArgs e)
+        private void buttonItemUpdate_Click(object sender, EventArgs e)
         {
             //  System.Diagnostics.Process.Start("https://github.com/KENNYSOFT/WzComparerR2/releases");
         }
         public static Wz_Node TreeNode;
-        private void btnItemOptions_Click(object sender,System.EventArgs e)
+        private void btnItemOptions_Click(object sender, System.EventArgs e)
         {
             var frm = new FrmOptions();
             frm.Load(WcR2Config.Default);
-            if(frm.ShowDialog() == DialogResult.OK)
+            if (frm.ShowDialog() == DialogResult.OK)
             {
                 ConfigManager.Reload();
                 frm.Save(WcR2Config.Default);
@@ -3529,7 +3529,7 @@ namespace WzComparerR2
             advTree3.Nodes.Clear();
             var selectedNode = Node;
 
-            if(selectedNode != null)
+            if (selectedNode != null)
             {
                 advTree3.BeginUpdate();
                 try
@@ -3550,43 +3550,43 @@ namespace WzComparerR2
             MainForm.Instance.ExpandNode(Node);
 
         }
-        public static Wz_Node GetNode(string Path,bool Iss = false)
+        public static Wz_Node GetNode(string Path, bool Iss = false)
         {
             Wz_Node Node = PluginBase.PluginManager.FindWz(Path);
-            if(Node != null)
+            if (Node != null)
             {
-                if(Node.Value is Wz_Uol)
+                if (Node.Value is Wz_Uol)
                 {
                     Wz_Node Node2;
                     Node2 = Node.ResolveUol();
-                    if(Node2.FindNodeByPath("_outlink",true) != null)
+                    if (Node2.FindNodeByPath("_outlink", true) != null)
                     {
-                        var LinkStr = Node2.FindNodeByPath("_outlink",true).Value.ToString();
+                        var LinkStr = Node2.FindNodeByPath("_outlink", true).Value.ToString();
                         string[] Split = LinkStr.Split('/');
                         string DestPath = "";
-                        switch(Split[0])
+                        switch (Split[0])
                         {
-                        case "Mob":
-                            return PluginBase.PluginManager.FindWz(LinkStr);
-                            break;
+                            case "Mob":
+                                return PluginBase.PluginManager.FindWz(LinkStr);
+                                break;
 
-                        case "Map":
-                            return PluginBase.PluginManager.FindWz(LinkStr);
-                            /*
-                             if(Split[1] == "Map")
-                                 DestPath = LinkStr.Remove(0,4);
-                             else
-                                 DestPath = Regex.Replace(LinkStr,"Map/","");
-                             return MainForm.GetNode(DestPath);
-                             */
-                            break;
-                        case "Skill":
-                            return MainForm.GetNode(LinkStr);
-                            break;
-                        default:
-                            DestPath = Regex.Replace(LinkStr,Node.GetNodeWzFile().Type.ToString() + "/","");
-                            //   return (Node.GetNodeWzFile().WzStructure.WzNode.GetNode(DestPath).Value as Wz_Png).ExtractPng();
-                            break;
+                            case "Map":
+                                return PluginBase.PluginManager.FindWz(LinkStr);
+                                /*
+                                 if(Split[1] == "Map")
+                                     DestPath = LinkStr.Remove(0,4);
+                                 else
+                                     DestPath = Regex.Replace(LinkStr,"Map/","");
+                                 return MainForm.GetNode(DestPath);
+                                 */
+                                break;
+                            case "Skill":
+                                return MainForm.GetNode(LinkStr);
+                                break;
+                            default:
+                                DestPath = Regex.Replace(LinkStr, Node.GetNodeWzFile().Type.ToString() + "/", "");
+                                //   return (Node.GetNodeWzFile().WzStructure.WzNode.GetNode(DestPath).Value as Wz_Png).ExtractPng();
+                                break;
                         };
 
                     }
@@ -3604,14 +3604,14 @@ namespace WzComparerR2
                 string Path1 = "";
                 string Path2 = "";
                 bool HasUol = false;
-                for(int i = 1;i < Split.Length;i++)
+                for (int i = 1; i < Split.Length; i++)
                 {
 
-                    if(i == 1)
+                    if (i == 1)
                         Str = Str + Split[i];
                     else
                         Str += '/' + Split[i];
-                    if((Node2.FindNodeByPathA(Str,true) != null) && (Node2.FindNodeByPathA(Str,true).Value is Wz_Uol))
+                    if ((Node2.FindNodeByPathA(Str, true) != null) && (Node2.FindNodeByPathA(Str, true).Value is Wz_Uol))
                     {
                         HasUol = true;
                         Count = i;
@@ -3621,18 +3621,18 @@ namespace WzComparerR2
 
                 }
 
-                if(HasUol)
+                if (HasUol)
                 {
                     Str = "";
-                    for(int i = Count + 1;i < Split.Length;i++)
+                    for (int i = Count + 1; i < Split.Length; i++)
                     {
-                        if(i == Count + 1)
+                        if (i == Count + 1)
                             Str = Str + Split[i];
                         else
                             Str = Str + '/' + Split[i];
                         Path2 = Str;
                     }
-                    return Node2.FindNodeByPathA(Path1,true).ResolveUol().FindNodeByPathA(Path2,true);
+                    return Node2.FindNodeByPathA(Path1, true).ResolveUol().FindNodeByPathA(Path2, true);
                 }
             }
 
@@ -3641,21 +3641,31 @@ namespace WzComparerR2
         }
 
 
-        void DumpPngs(string FolderName,Wz_Node Entry)
+        void DumpPngs(string FolderName, Wz_Node Entry)
         {
-            if(Entry != null)
+            if (Entry != null)
             {
                 //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
                 if (Entry.Value is Wz_Png)
                 {
-                    string str = this.SplitString(SplitLastDot(Entry.GetPathD()), ".img");
-                    GetNode(Entry.FullPathToFile2()).ExtractPng().Save(FolderName + "\\" + str +".png");
-                    Console.WriteLine($"导出图片 : {str}");
+                    //string str = this.SplitString(Entry.GetPathD(), ".img");
+                    string str = Entry.GetPathD();
+                    //Console.WriteLine($"Entry.GetPathD()={Entry.GetPathD()}");
+                    //Console.WriteLine($"SplitLastDot(Entry.GetPathD())={SplitLastDot(Entry.GetPathD())}");
+                    //Console.WriteLine($"str={str}");
+
+
+                    var bitmap = GetNode(Entry.FullPathToFile2()).ExtractPng();
+                    if (bitmap.Width != 1 && bitmap.Height != 1)
+                    {
+                        bitmap.Save(FolderName + "\\" + str + ".png");
+                        Console.WriteLine($"导出图片 : {FolderName + "\\" + str + ".png"}");
+                    }
                 }
 
-                foreach(var E in Entry.Nodes)
-                    if(!(E.Value is Wz_Image))
-                        DumpPngs(FolderName,E);
+                foreach (var E in Entry.Nodes)
+                    if (!(E.Value is Wz_Image))
+                        DumpPngs(FolderName, E);
             }
         }
 
@@ -3689,44 +3699,134 @@ namespace WzComparerR2
         DevComponents.DotNetBar.ButtonItem ImageViewerButton;
         DevComponents.DotNetBar.ComboBoxItem AniNamesBox;
 
-        void DB2ButtonClick(object sender,EventArgs e)
+        void DB2ButtonClick(object sender, EventArgs e)
         {
-            if(DB2Form.Instance == null)
+            if (DB2Form.Instance == null)
                 new DB2Form().Show();
             else
                 DB2Form.Instance.Show();
         }
-        void IconsButtonClick(object sender,EventArgs e)
+        void IconsButtonClick(object sender, EventArgs e)
         {
-            if(IconsForm.Instance == null)
+            if (IconsForm.Instance == null)
                 new IconsForm().Show();
             else
                 IconsForm.Instance.Show();
         }
-        void SavePngButtonClick(object sender,EventArgs e)
+        void SavePngButtonClick(object sender, EventArgs e)
         {
             var dlg = new FolderBrowserDialog();
             dlg.SelectedPath = System.Environment.CurrentDirectory;
             dlg.Description = "選擇儲存路徑";
-            if((dlg.ShowDialog(new Form() { TopMost = true }) != DialogResult.OK))
+            if ((dlg.ShowDialog(new Form() { TopMost = true }) != DialogResult.OK))
                 return;
-            DumpPngs(dlg.SelectedPath,GetNode(SelectedNode.FullPathToFile2()));
+            DumpPngs(dlg.SelectedPath, GetNode(SelectedNode.FullPathToFile2()));
         }
 
+        //导出
         void SavePngButtonClickNew(object sender, EventArgs e)
         {
-            //var dlg = new FolderBrowserDialog();
-            //dlg.SelectedPath = System.Environment.CurrentDirectory;
-            //dlg.Description = "選擇儲存路徑";
-            //if ((dlg.ShowDialog(new Form() { TopMost = true }) != DialogResult.OK))
-            //    return;
-            
-            string p = "Character/Weapon/";
+            //OutputPng("Weapon", 01302000, 01702213);
+            //OutputPng("Cap", 01000000, 01003000);
+            //OutputPng("Cape", 01102000, 01102208);
+            //OutputPng("Coat", 01040000, 01049000);
+            //OutputPng("Longcoat", 01000000, 01053000);
+            //OutputPng("Pants", 01060000, 01063000);
+            //OutputPng("Shoes", 01070000, 01073000);
+            //OutputPng("Shield", 01090000, 01093000);
+            //OutputPng("Hair", 00030000, 00032000);
+            //OutputPng("Face", 00020000, 00023000);
+            //OutputBody("Body", 00002000, 00012100);
+            //OutputAfterImage();
+            OutputSkill();
+
+        }
+
+        void OutputSkill()
+        {
+            string p = $"Skill/";
+            for (int i = 100; i < 1512 + 1; i++)
+            {
+                string nodePath = p + i.ToString() + ".img";
+                var node = GetNode(nodePath);
+                if (node != null)
+                {
+                    string finalPath = $"D:/Games/MapleStory/WzPicture/072new/Skill/{i}";
+                    EnsureFolder(finalPath);
+                    DumpPngs(finalPath, node);
+                }
+            }
+
+            Console.WriteLine("导出完成！");
+        }
+
+        
+        void OutputPng(string equipType, int start, int end)
+        {
+            //string p = $"Character/Weapon/";
+            string p = $"Character/{equipType}/";
+            for (int i = start; i < end + 1; i++)
+            //for (int i = 1302000; i < 1302002 + 1; i++)
+            {
+                string nodePath = p + i.ToString().PadLeft(8, '0') + ".img";
+                var node = GetNode(nodePath);
+                if (node != null)
+                {
+                    string finalPath = $"D:/Games/MapleStory/WzPicture/072new/{equipType}/" + i.ToString().PadLeft(8, '0');
+                    EnsureFolder(finalPath);
+                    DumpPngs(finalPath, node);
+                }
+            }
+
+            Console.WriteLine("导出完成！");
+        }
+
+        void OutputBody(string equipType, int start, int end)
+        {
+            //string p = $"Character/Weapon/";
+            string p = $"Character/";
+            for (int i = start; i < end + 1; i++)
+            //for (int i = 1302000; i < 1302002 + 1; i++)
+            {
+                string nodePath = p + i.ToString().PadLeft(8, '0') + ".img";
+                var node = GetNode(nodePath);
+                if (node != null)
+                {
+                    string finalPath = $"D:/Games/MapleStory/WzPicture/072new/{equipType}/" + i.ToString().PadLeft(8, '0');
+                    EnsureFolder(finalPath);
+                    DumpPngs(finalPath, node);
+                }
+            }
+
+            Console.WriteLine("导出完成！");
+        }
+
+        void OutputAfterImage()
+        {
+            //string p = $"Character/Weapon/";
+            string p = $"Character/Afterimage";
+            var afterimage = GetNode(p);
+            foreach (var weapon in afterimage.Nodes)
+            {
+                string finalPath = $"D:/Games/MapleStory/WzPicture/072new/Afterimage/{weapon.Text}";
+                finalPath = this.SplitString(finalPath, ".img");
+                Console.WriteLine(finalPath);
+                EnsureFolder(finalPath);
+                DumpPngs(finalPath, weapon);
+
+            }
+            Console.WriteLine("导出完成！");
+        }
+
+
+        void SavePngButtonClick_OutputCap(object sender, EventArgs e)
+        {
+            string p = "Character/Cap/";
             for (int i = 01302000; i < 01702213 + 1; i++)
             //for (int i = 1302000; i < 1302002 + 1; i++)
             {
                 string nodePath = p + i.ToString().PadLeft(8, '0') + ".img";
-                var node =  GetNode(nodePath);
+                var node = GetNode(nodePath);
                 if (node != null)
                 {
                     string finalPath = "D:/Games/MapleStory/WzPicture/072new/Weapon/" + i.ToString().PadLeft(8, '0');
@@ -3736,6 +3836,7 @@ namespace WzComparerR2
             }
         }
 
+
         void EnsureFolder(string path)
         {
             if (!Directory.Exists(path))
@@ -3744,44 +3845,44 @@ namespace WzComparerR2
             }
         }
 
-        void SearchWzButtonClick(object sender,EventArgs e)
+        void SearchWzButtonClick(object sender, EventArgs e)
         {
-            if(SearchWzForm.Instance == null)
+            if (SearchWzForm.Instance == null)
                 new SearchWzForm().Show();
             else
                 SearchWzForm.Instance.Show();
         }
-        void MapObjButtonClick(object sender,EventArgs e)
+        void MapObjButtonClick(object sender, EventArgs e)
         {
-            if(PluginManager.FindWz(Wz_Type.Base) == null)
+            if (PluginManager.FindWz(Wz_Type.Base) == null)
             {
                 MessageBox.Show("沒有開啟Base.wz");
                 return;
             }
 
-            if(MapObjForm.Instance == null)
+            if (MapObjForm.Instance == null)
                 new MapObjForm().Show();
             else
                 MapObjForm.Instance.Show();
         }
-        void ImageViewerButtonClick(object sender,EventArgs e)
+        void ImageViewerButtonClick(object sender, EventArgs e)
         {
-            if(PluginManager.FindWz(Wz_Type.Base) == null)
+            if (PluginManager.FindWz(Wz_Type.Base) == null)
             {
                 MessageBox.Show("沒有開啟Base.wz");
                 return;
             }
 
-            if(ImageViewerForm.Instance == null)
+            if (ImageViewerForm.Instance == null)
                 new ImageViewerForm().Show();
             else
                 ImageViewerForm.Instance.Show();
         }
 
-        void AniNamesBox_SelectedIndexChanged(object sender,EventArgs e)
+        void AniNamesBox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if(FirstSearchAnim)
+            if (FirstSearchAnim)
             {
 
                 FirstSearchAnim = false;
@@ -3793,11 +3894,11 @@ namespace WzComparerR2
             string aniName = AniNamesBox.SelectedItem.ToString();
 
             //添加到动画控件
-            if(node.Text.EndsWith(".atlas",StringComparison.OrdinalIgnoreCase))
+            if (node.Text.EndsWith(".atlas", StringComparison.OrdinalIgnoreCase))
             {
                 var spineData = this.pictureBoxEx1.LoadSpineAnimation(node);
 
-                if(spineData != null)
+                if (spineData != null)
                 {
                     this.pictureBoxEx1.ShowAnimation(spineData);
                     var aniItem = this.pictureBoxEx1.Items[0] as Animation.SpineAnimator;
@@ -3817,7 +3918,7 @@ namespace WzComparerR2
             {
                 var frameData = this.pictureBoxEx1.LoadFrameAnimation(node);
 
-                if(frameData != null)
+                if (frameData != null)
                 {
                     this.pictureBoxEx1.ShowAnimation(frameData);
                     this.cmbItemAniNames.Items.Clear();
@@ -3827,7 +3928,7 @@ namespace WzComparerR2
                 {
                     var multiData = this.pictureBoxEx1.LoadMultiFrameAnimation(node);
 
-                    if(multiData != null)
+                    if (multiData != null)
                     {
                         this.pictureBoxEx1.ShowAnimation(multiData);
                         var aniItem = this.pictureBoxEx1.Items[0] as Animation.MultiFrameAnimator;
@@ -3844,73 +3945,73 @@ namespace WzComparerR2
         }
 
 
-        private void MainForm_Load(object sender,EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
 
             DB2Button = new DevComponents.DotNetBar.ButtonItem();
             DB2Button.Text = "MapleStoryDB2";
-            DB2Button.FixedSize = new Size(85,65);
+            DB2Button.FixedSize = new Size(85, 65);
             DB2Button.Click += new System.EventHandler(this.DB2ButtonClick);
             var RibbonBarDB2 = new DevComponents.DotNetBar.RibbonBar();
-            RibbonBarDB2.MinimumSize = new Size(95,50);
-            RibbonBarDB2.Location = new Point(1210,10);
+            RibbonBarDB2.MinimumSize = new Size(95, 50);
+            RibbonBarDB2.Location = new Point(1210, 10);
             RibbonBarDB2.Text = "DB2";
             RibbonBarDB2.Items.Add(DB2Button);
             this.ribbonPanel1.Controls.Add(RibbonBarDB2);
             //
             IconsButton = new DevComponents.DotNetBar.ButtonItem();
             IconsButton.Text = "圖示預覽";
-            IconsButton.FixedSize = new Size(60,65);
+            IconsButton.FixedSize = new Size(60, 65);
             IconsButton.Click += new System.EventHandler(this.IconsButtonClick);
             var RibbonBarIcons = new DevComponents.DotNetBar.RibbonBar();
-            RibbonBarIcons.MinimumSize = new Size(70,50);
-            RibbonBarIcons.Location = new Point(1410,10);
+            RibbonBarIcons.MinimumSize = new Size(70, 50);
+            RibbonBarIcons.Location = new Point(1410, 10);
             RibbonBarIcons.Text = "Icons";
             RibbonBarIcons.Items.Add(IconsButton);
             this.ribbonPanel1.Controls.Add(RibbonBarIcons);
             //
             SavePngButton = new DevComponents.DotNetBar.ButtonItem();
             SavePngButton.Text = "批量儲存PNG";
-            SavePngButton.FixedSize = new Size(81,65);
+            SavePngButton.FixedSize = new Size(81, 65);
             SavePngButton.Click += new System.EventHandler(this.SavePngButtonClick);
             var SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            SavePngRibbonBar.Location = new Point(1410,10);
+            SavePngRibbonBar.Location = new Point(1410, 10);
             SavePngRibbonBar.Text = "Batch Save Pngs";
-            SavePngRibbonBar.MinimumSize = new Size(90,50);
+            SavePngRibbonBar.MinimumSize = new Size(90, 50);
             SavePngRibbonBar.Items.Add(SavePngButton);
             this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
             //
             SearchWzButton = new DevComponents.DotNetBar.ButtonItem();
             SearchWzButton.Text = "Wz 搜尋";
-            SearchWzButton.FixedSize = new Size(54,65);
+            SearchWzButton.FixedSize = new Size(54, 65);
             SearchWzButton.Click += new System.EventHandler(this.SearchWzButtonClick);
             var SearchWzRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            SearchWzRibbonBar.Location = new Point(1610,10);
+            SearchWzRibbonBar.Location = new Point(1610, 10);
             SearchWzRibbonBar.Text = "Search Wz";
-            SearchWzRibbonBar.MinimumSize = new Size(65,50);
+            SearchWzRibbonBar.MinimumSize = new Size(65, 50);
             SearchWzRibbonBar.Items.Add(SearchWzButton);
             this.ribbonPanel1.Controls.Add(SearchWzRibbonBar);
             //
             MapObjButton = new DevComponents.DotNetBar.ButtonItem();
             MapObjButton.Text = "地圖物件";
-            MapObjButton.FixedSize = new Size(58,65);
+            MapObjButton.FixedSize = new Size(58, 65);
             MapObjButton.Click += new System.EventHandler(this.MapObjButtonClick);
             var MapObjRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            MapObjRibbonBar.Location = new Point(1710,10);
+            MapObjRibbonBar.Location = new Point(1710, 10);
             MapObjRibbonBar.Text = "Map Objs";
-            MapObjRibbonBar.MinimumSize = new Size(69,50);
+            MapObjRibbonBar.MinimumSize = new Size(69, 50);
             MapObjRibbonBar.Items.Add(MapObjButton);
             this.ribbonPanel1.Controls.Add(MapObjRibbonBar);
             //
 
             ImageViewerButton = new DevComponents.DotNetBar.ButtonItem();
             ImageViewerButton.Text = "圖片瀏覽";
-            ImageViewerButton.FixedSize = new Size(1810,50);
+            ImageViewerButton.FixedSize = new Size(1810, 50);
             ImageViewerButton.Click += new System.EventHandler(this.ImageViewerButtonClick);
             var ImageViewerRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            ImageViewerRibbonBar.Location = new Point(1910,10);
+            ImageViewerRibbonBar.Location = new Point(1910, 10);
             ImageViewerRibbonBar.Text = "Pic Viewer";
-            ImageViewerRibbonBar.MinimumSize = new Size(69,50);
+            ImageViewerRibbonBar.MinimumSize = new Size(69, 50);
             ImageViewerRibbonBar.Items.Add(ImageViewerButton);
             this.ribbonPanel1.Controls.Add(ImageViewerRibbonBar);
             this.expandableSplitter2.SplitPosition = 290;
@@ -3948,7 +4049,7 @@ namespace WzComparerR2
     public static class DictionaryExtension
     {
 
-        public static Dictionary<TKey,TValue> AddOrReplace<TKey, TValue>(this Dictionary<TKey,TValue> dict,TKey key,TValue value)
+        public static Dictionary<TKey, TValue> AddOrReplace<TKey, TValue>(this Dictionary<TKey, TValue> dict, TKey key, TValue value)
         {
             dict[key] = value;
             return dict;

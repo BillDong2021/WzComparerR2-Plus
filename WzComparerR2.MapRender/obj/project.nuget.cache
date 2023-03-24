@@ -1,21 +1,21 @@
 {
   "version": 2,
-  "dgSpecHash": "IjjNjN0r7zhh7pFGjWZBzorTcIMAOtAbvkiXhcplQnG4DYA24KFuvs+viV0vasZ4t8skMiQdr0h4aRvUDUDLqQ==",
+  "dgSpecHash": "PQFq6M70e6omPLQ954j1L87cN18DPkxNxoKV0UJZ0JgSGwa8RwxVkv97WOQctKfj7NgoJaimN0zqAJbw7lt9dg==",
   "success": true,
   "projectFilePath": "D:\\GitHub\\WzComparerR2-Plus\\WzComparerR2.MapRender\\WzComparerR2.MapRender.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\admin\\.nuget\\packages\\managedbass\\3.1.0\\managedbass.3.1.0.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\monogame.framework.windowsdx\\3.8.0.1641\\monogame.framework.windowsdx.3.8.0.1641.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx\\4.0.1\\sharpdx.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.direct2d1\\4.0.1\\sharpdx.direct2d1.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.direct3d11\\4.0.1\\sharpdx.direct3d11.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.direct3d9\\4.0.1\\sharpdx.direct3d9.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.dxgi\\4.0.1\\sharpdx.dxgi.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.mathematics\\4.0.1\\sharpdx.mathematics.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.mediafoundation\\4.0.1\\sharpdx.mediafoundation.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.rawinput\\4.0.1\\sharpdx.rawinput.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.xaudio2\\4.0.1\\sharpdx.xaudio2.4.0.1.nupkg.sha512",
-    "C:\\Users\\admin\\.nuget\\packages\\sharpdx.xinput\\4.0.1\\sharpdx.xinput.4.0.1.nupkg.sha512"
+    "C:\\Users\\45486\\.nuget\\packages\\managedbass\\3.1.0\\managedbass.3.1.0.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\monogame.framework.windowsdx\\3.8.0.1641\\monogame.framework.windowsdx.3.8.0.1641.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx\\4.0.1\\sharpdx.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.direct2d1\\4.0.1\\sharpdx.direct2d1.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.direct3d11\\4.0.1\\sharpdx.direct3d11.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.direct3d9\\4.0.1\\sharpdx.direct3d9.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.dxgi\\4.0.1\\sharpdx.dxgi.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.mathematics\\4.0.1\\sharpdx.mathematics.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.mediafoundation\\4.0.1\\sharpdx.mediafoundation.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.rawinput\\4.0.1\\sharpdx.rawinput.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.xaudio2\\4.0.1\\sharpdx.xaudio2.4.0.1.nupkg.sha512",
+    "C:\\Users\\45486\\.nuget\\packages\\sharpdx.xinput\\4.0.1\\sharpdx.xinput.4.0.1.nupkg.sha512"
   ],
   "logs": []
 }
