@@ -29,6 +29,7 @@ using WzComparerR2.Animation;
 using static Microsoft.Xna.Framework.MathHelper;
 using WinFormsApp1;
 using System.Runtime.InteropServices;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace WzComparerR2
 {
@@ -3723,7 +3724,67 @@ namespace WzComparerR2
             DumpPngs(dlg.SelectedPath, GetNode(SelectedNode.FullPathToFile2()));
         }
 
-        //导出
+        void SavePngOriginButtonClickNew(object sender, EventArgs e)
+        {
+            OutputSkillPngOrigin();
+        }
+
+        private void OutputSkillPngOrigin()
+        {
+            RootData rootData = new RootData();
+
+            string p = $"Skill/";
+            for (int i = 100; i < 9999 ; i++)
+            {
+                string nodePath = p + i.ToString() + ".img";
+                var node = GetNode(nodePath);
+                if (node != null)
+                {
+                    //string finalPath = $"D:/Games/MapleStory/WzPicture/072new/Skill/{i}";
+                    //EnsureFolder(finalPath);
+                    AddXmlData(node, rootData);
+                }
+                else
+                {
+                    Console.WriteLine($"{nodePath}为空");
+                }
+            }
+
+            rootData.Save("D:\\Games\\MapleStory\\Pivot\\Skill.xml");
+
+            Console.WriteLine("导出完成！");
+        }
+
+
+        void AddXmlData(Wz_Node Entry, RootData rootData)
+        {
+            if (Entry != null)
+            {
+                //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
+                if (Entry.Value is Wz_Png png)
+                {
+                    string spriteName = Entry.GetPathD();
+                    if (Entry.Text.Contains("icon"))
+                        return;
+                    Vector2 size = new Vector2(png.Width, png.Height);
+                    Wz_Vector vector = Entry.Nodes["origin"].Value as Wz_Vector;
+                    Vector2 origin = new Vector2(vector.X, vector.Y);
+                    Vector2 pivot = new Vector2(origin.X / size.X, 1 - origin.Y / size.Y);
+
+                    rootData.dataList.Add(new Data(spriteName, pivot));
+                    Console.WriteLine($"spriteName={spriteName}, size={size}, origin={origin}, pivot={pivot}");
+
+                    //Console.WriteLine($"delay: {Entry.Nodes["delay"].Value.GetType()}");
+
+                }
+
+                foreach (var E in Entry.Nodes)
+                    if (!(E.Value is Wz_Image))
+                        AddXmlData(E, rootData);
+            }
+        }
+
+        //导出图片
         void SavePngButtonClickNew(object sender, EventArgs e)
         {
             //OutputPng("Weapon", 01302000, 01702213);
@@ -3738,11 +3799,11 @@ namespace WzComparerR2
             //OutputPng("Face", 00020000, 00023000);
             //OutputBody("Body", 00002000, 00012100);
             //OutputAfterImage();
-            OutputSkill();
+            OutputSkillPng();
 
         }
 
-        void OutputSkill()
+        void OutputSkillPng()
         {
             string p = $"Skill/";
             for (int i = 100; i < 1512 + 1; i++)
@@ -4032,6 +4093,18 @@ namespace WzComparerR2
             SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
             SavePngRibbonBar.Location = new Point(1410, 10);
             SavePngRibbonBar.Text = "Batch Save Pngs";
+            SavePngRibbonBar.MinimumSize = new Size(90, 50);
+            SavePngRibbonBar.Items.Add(SavePngButton);
+            this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
+
+            //
+            SavePngButton = new DevComponents.DotNetBar.ButtonItem();
+            SavePngButton.Text = "导出所有图片的origin";
+            SavePngButton.FixedSize = new Size(101, 65);
+            SavePngButton.Click += new System.EventHandler(this.SavePngOriginButtonClickNew);
+            SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
+            SavePngRibbonBar.Location = new Point(1410, 10);
+            SavePngRibbonBar.Text = "Batch Save Png Origin";
             SavePngRibbonBar.MinimumSize = new Size(90, 50);
             SavePngRibbonBar.Items.Add(SavePngButton);
             this.ribbonPanel1.Controls.Add(SavePngRibbonBar);

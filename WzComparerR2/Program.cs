@@ -14,6 +14,11 @@ namespace WzComparerR2
         [STAThread]
         static void Main()
         {
+            //测试代码
+            //SpritePivotProcessor.SaveSkillXml();
+            //测试代码
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;

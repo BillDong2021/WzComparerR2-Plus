@@ -317,6 +317,8 @@
     <Compile Include="SoundPlayer\PlayState.cs" />
     <Compile Include="HistoryList.cs" />
     <Compile Include="CharaSimControl\TooltipRender.cs" />
+    <Compile Include="Unity\Data.cs" />
+    <Compile Include="Unity\SpritePivotProcessor.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Comparer\WzFileComparer.cs" />
     <Compile Include="Patcher\WzPatcher.cs" />
@@ -455,6 +457,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(ProjectDir)..\References\x86\*" "$(TargetDir)Lib\x86" /Y /I
