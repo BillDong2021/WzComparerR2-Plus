@@ -3644,41 +3644,33 @@ namespace WzComparerR2
 
         void DumpPngs(string FolderName, Wz_Node Entry)
         {
-            if (Entry != null)
+            try
             {
-                //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
-                if (Entry.Value is Wz_Png)
+                if (Entry != null)
                 {
-                    //string str = this.SplitString(Entry.GetPathD(), ".img");
-                    string str = Entry.GetPathD();
-                    //Console.WriteLine($"Entry.GetPathD()={Entry.GetPathD()}");
-                    //Console.WriteLine($"SplitLastDot(Entry.GetPathD())={SplitLastDot(Entry.GetPathD())}");
-                    //Console.WriteLine($"str={str}");
-
-
-                    var bitmap = GetNode(Entry.FullPathToFile2()).ExtractPng();
-                    if (bitmap.Width != 1 && bitmap.Height != 1)
+                    //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
+                    if (Entry.Value is Wz_Png)
                     {
-                        bitmap.Save(FolderName + "\\" + str + ".png");
-                        Console.WriteLine($"导出图片 : {FolderName + "\\" + str + ".png"}");
+                        string str = Entry.GetPathD();
+                        var bitmap = GetNode(Entry.FullPathToFile2()).ExtractPng();
+                        if (bitmap.Width != 1 && bitmap.Height != 1)
+                        {
+                            bitmap.Save(FolderName + "\\" + str + ".png");
+                            Console.WriteLine($"导出图片 : {FolderName + "\\" + str + ".png"}");
+                        }
                     }
+
+                    foreach (var E in Entry.Nodes)
+                        if (!(E.Value is Wz_Image))
+                            DumpPngs(FolderName, E);
                 }
-
-                foreach (var E in Entry.Nodes)
-                    if (!(E.Value is Wz_Image))
-                        DumpPngs(FolderName, E);
             }
+            catch (Exception)
+            {
+            }
+
         }
 
-        //除去字符串中最后一个.之后的内容
-        public string SplitLastDot(string str)
-        {
-            int index = str.LastIndexOf('.');
-            if (index > 0)
-                return str.Substring(0, index);
-            else
-                return str;
-        }
 
         //除去字符串中间的给定的字符串
         public string SplitString(string str, string split)
@@ -3734,7 +3726,7 @@ namespace WzComparerR2
             RootData rootData = new RootData();
 
             string p = $"Skill/";
-            for (int i = 100; i < 9999 ; i++)
+            for (int i = 100; i < 120+1 ; i++)
             {
                 string nodePath = p + i.ToString() + ".img";
                 var node = GetNode(nodePath);
@@ -3750,7 +3742,7 @@ namespace WzComparerR2
                 }
             }
 
-            rootData.Save("D:\\Games\\MapleStory\\Pivot\\Skill.xml");
+            //rootData.Save("D:\\Games\\MapleStory\\Pivot\\Skill.xml");
 
             Console.WriteLine("导出完成！");
         }
@@ -3760,6 +3752,11 @@ namespace WzComparerR2
         {
             if (Entry != null)
             {
+                if (Entry.Value != null)
+                {
+                    Console.WriteLine($"Entry.Value.GetType()={Entry.Value.GetType()} ");
+                }
+
                 //if(Entry.Value is Wz_Png || Entry.Value is Wz_Uol)
                 if (Entry.Value is Wz_Png png)
                 {
@@ -3779,15 +3776,18 @@ namespace WzComparerR2
                 }
 
                 foreach (var E in Entry.Nodes)
-                    if (!(E.Value is Wz_Image))
+                    if (!(E.Value is Wz_Image) && (E.Value != null))
+                    {
+                        Console.WriteLine($"E.Value.GetType()={E.Value.GetType()} ");
                         AddXmlData(E, rootData);
+                    }
             }
         }
 
         //导出图片
         void SavePngButtonClickNew(object sender, EventArgs e)
         {
-            //OutputPng("Weapon", 01302000, 01702213);
+            OutputAllPng();
             //OutputPng("Cap", 01000000, 01003000);
             //OutputPng("Cape", 01102000, 01102208);
             //OutputPng("Coat", 01040000, 01049000);
@@ -3799,8 +3799,7 @@ namespace WzComparerR2
             //OutputPng("Face", 00020000, 00023000);
             //OutputBody("Body", 00002000, 00012100);
             //OutputAfterImage();
-            OutputSkillPng();
-
+            //OutputSkillPng();
         }
 
         void OutputSkillPng()
@@ -3821,7 +3820,40 @@ namespace WzComparerR2
             Console.WriteLine("导出完成！");
         }
 
-        
+
+        void OutputAllPng()
+        {
+            Wz_Structure wz_Structure = this.openedWz.First();
+            OutputSinglePng(wz_Structure.WzNode, "");
+            Console.WriteLine("导出完成！");
+        }
+
+        void OutputSinglePng(Wz_Node node, string str)
+        {
+            if (node.Text == "Character" || node.Text == "Effect" || node.Text == "Etc" || node.Text == "Item" || node.Text == "Map")
+            {
+                return;
+            }
+
+            string name = str + node.Text + "/";
+            foreach (var subNode in node.Nodes)
+            {
+                if (subNode.Value is Wz_Image wz_Image)
+                {
+                    wz_Image.TryExtract();
+                    string temp = "D:/Games/MapleStory/WzPicture/072new0330/" + name + subNode.Text;
+                    string folderPath = temp.Substring(0, temp.Length - 4);
+                    EnsureFolder(folderPath);
+                    DumpPngs(folderPath, wz_Image.Node);
+                    Console.WriteLine($"导出完成{folderPath}");
+                }
+                else
+                {
+                    OutputSinglePng(subNode, name);
+                }
+            }
+        }
+
         void OutputPng(string equipType, int start, int end)
         {
             //string p = $"Character/Weapon/";
@@ -3839,43 +3871,6 @@ namespace WzComparerR2
                 }
             }
 
-            Console.WriteLine("导出完成！");
-        }
-
-        void OutputBody(string equipType, int start, int end)
-        {
-            //string p = $"Character/Weapon/";
-            string p = $"Character/";
-            for (int i = start; i < end + 1; i++)
-            //for (int i = 1302000; i < 1302002 + 1; i++)
-            {
-                string nodePath = p + i.ToString().PadLeft(8, '0') + ".img";
-                var node = GetNode(nodePath);
-                if (node != null)
-                {
-                    string finalPath = $"D:/Games/MapleStory/WzPicture/072new/{equipType}/" + i.ToString().PadLeft(8, '0');
-                    EnsureFolder(finalPath);
-                    DumpPngs(finalPath, node);
-                }
-            }
-
-            Console.WriteLine("导出完成！");
-        }
-
-        void OutputAfterImage()
-        {
-            //string p = $"Character/Weapon/";
-            string p = $"Character/Afterimage";
-            var afterimage = GetNode(p);
-            foreach (var weapon in afterimage.Nodes)
-            {
-                string finalPath = $"D:/Games/MapleStory/WzPicture/072new/Afterimage/{weapon.Text}";
-                finalPath = this.SplitString(finalPath, ".img");
-                Console.WriteLine(finalPath);
-                EnsureFolder(finalPath);
-                DumpPngs(finalPath, weapon);
-
-            }
             Console.WriteLine("导出完成！");
         }
 

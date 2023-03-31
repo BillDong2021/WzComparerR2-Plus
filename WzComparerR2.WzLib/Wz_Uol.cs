@@ -24,7 +24,7 @@ namespace WzComparerR2.WzLib
 
         public Wz_Node HandleUol(Wz_Node currentNode)
         {
-            if (currentNode == null || currentNode.ParentNode == null || string.IsNullOrEmpty(uol))
+            if (currentNode == null || currentNode.ParentNode == null || string.IsNullOrEmpty(uol) || !(currentNode.Value is Wz_Uol))
                 return null;
             string[] dirs = this.uol.Split('/');
             currentNode = currentNode.ParentNode;

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace WzComparerR2.WzLib
 {
@@ -97,12 +98,13 @@ namespace WzComparerR2.WzLib
         public WzNodeCollection Nodes
         {
             get { return this.nodes; }
+            set { this.nodes = value; }
         }
 
         public Wz_Node ParentNode
         {
             get { return parentNode; }
-            private set { parentNode = value; }
+            set { parentNode = value; }
         }
 
         //methods
@@ -177,6 +179,52 @@ namespace WzComparerR2.WzLib
                 }
             }
             return node;
+        }
+
+        /// <summary>
+        /// 通过路径获取子节点，如果不存在则返回null，如果有img节点则自动解压且把img里面的所有子节点解压到原节点的Nodes里，如果有uol节点则自动转到uol对应的节点
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <param name="extractImage"></param>
+        /// <returns></returns>
+        public Wz_Node GetChild(string fullPath, bool extractImage)
+        {
+            try
+            {
+                string[] patten = fullPath.Split('\\');
+
+                Wz_Node node = this;
+                if (extractImage)
+                {
+                    this.TryExtract();
+                }
+                if (node.Value is Wz_Uol wz_Uol)
+                {
+                    node = wz_Uol.HandleUol(node);
+                }
+
+                foreach (string txt in patten)
+                {
+                    node = node.nodes[txt];
+                    if (node == null)
+                    {
+                        return null;
+                    }
+                    if (extractImage)
+                    {
+                        node.TryExtract();
+                    }
+                    if (node.Value is Wz_Uol uol)
+                    {
+                        node = uol.HandleUol(node);
+                    }
+                }
+                return node;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public T GetValue<T>(T defaultValue)
@@ -467,6 +515,25 @@ namespace WzComparerR2.WzLib
 
     public static class Wz_NodeExtension
     {
+        public static bool TryExtract(this Wz_Node node)
+        {
+            if (node?.Value != null && node.Value is Wz_Image img)
+            {
+                if (img.TryExtract() && img.Node.Nodes != null)
+                {
+                    node.Nodes = img.Node.Nodes;
+
+                    foreach (var subNode in node.Nodes)
+                    {
+                        subNode.ParentNode = node;
+                    }
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static T GetValueEx<T>(this Wz_Node node, T defaultValue)
         {
             if (node == null)
