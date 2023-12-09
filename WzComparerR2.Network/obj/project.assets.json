@@ -101,6 +101,56 @@
         }
       }
     },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WzComparerR2.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        }
+      },
+      "WzComparerR2.PluginBase/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "WzComparerR2.Common": "1.0.0",
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        }
+      },
+      "WzComparerR2.WzLib/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        }
+      }
+    },
     ".NETFramework,Version=v4.8/win-x64": {
       "Newtonsoft.Json/13.0.1": {
         "type": "package",
@@ -307,6 +357,9 @@
     },
     "runtimes": {
       "win": {
+        "#import": []
+      },
+      "win-arm64": {
         "#import": []
       },
       "win-x64": {

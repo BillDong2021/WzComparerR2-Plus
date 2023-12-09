@@ -3687,6 +3687,7 @@ namespace WzComparerR2
         DevComponents.DotNetBar.ButtonItem DB2Button;
         DevComponents.DotNetBar.ButtonItem IconsButton;
         DevComponents.DotNetBar.ButtonItem SavePngButton;
+        DevComponents.DotNetBar.ButtonItem SaveMp3Button;
         DevComponents.DotNetBar.ButtonItem SearchWzButton;
         DevComponents.DotNetBar.ButtonItem MapObjButton;
         DevComponents.DotNetBar.ButtonItem ImageViewerButton;
@@ -3714,6 +3715,56 @@ namespace WzComparerR2
             if ((dlg.ShowDialog(new Form() { TopMost = true }) != DialogResult.OK))
                 return;
             DumpPngs(dlg.SelectedPath, GetNode(SelectedNode.FullPathToFile2()));
+        }
+
+        void SaveAllMp3ButtonClickNew(object sender, EventArgs e)
+        {
+            Wz_Structure wz_Structure = this.openedWz.First();
+            Wz_Node n = wz_Structure.WzNode.GetChild("Sound", true);
+            foreach (var node in n.Nodes)
+            {
+                string name = node.Text;
+                Wz_Node temp = n.GetChild(name, true);
+                Console.WriteLine($"name={name}, count={node.Nodes.Count}");
+                foreach (var c in temp.Nodes)
+                {
+                    Console.WriteLine($"c={c.FullPath}");
+                    SaveSoundNode(c, name);
+                }
+            }
+        }
+        
+
+        
+        void SaveSoundNode(Wz_Node node, string imgName)
+        {
+            bool b = false;
+            if (!(node.Value is Wz_Sound))
+            {
+                node = node.Nodes[0];
+                b = true;
+            }
+            
+            if (node.Value is Wz_Sound s)
+            {
+                byte[] data = s.ExtractSound();
+                if (data == null || data.Length == 0)
+                {
+                    Console.WriteLine($"node==null: {node.FullPath}");
+                    return;
+                }
+
+                string path = $"D:\\Games\\MapleStory\\Sound\\{imgName}";
+                EnsureFolder(path);
+                string file = b ? $"{path}\\{node.ParentNode.Text}.{node.Text}.mp3" : $"{path}\\{node.Text}.mp3";
+                if (!File.Exists(file))
+                {
+                    FileStream fs = new FileStream(file, FileMode.Create);
+                    fs.Write(data, 0, data.Length);
+                }
+            }
+
+
         }
 
         void SavePngOriginButtonClickNew(object sender, EventArgs e)
@@ -4093,15 +4144,15 @@ namespace WzComparerR2
             this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
 
             //
-            SavePngButton = new DevComponents.DotNetBar.ButtonItem();
-            SavePngButton.Text = "导出所有图片的origin";
-            SavePngButton.FixedSize = new Size(101, 65);
-            SavePngButton.Click += new System.EventHandler(this.SavePngOriginButtonClickNew);
+            SaveMp3Button = new DevComponents.DotNetBar.ButtonItem();
+            SaveMp3Button.Text = "导出音频";
+            SaveMp3Button.FixedSize = new Size(81, 65);
+            SaveMp3Button.Click += new System.EventHandler(this.SaveAllMp3ButtonClickNew);
             SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
             SavePngRibbonBar.Location = new Point(1410, 10);
-            SavePngRibbonBar.Text = "Batch Save Png Origin";
+            SavePngRibbonBar.Text = "Batch Save Mp3";
             SavePngRibbonBar.MinimumSize = new Size(90, 50);
-            SavePngRibbonBar.Items.Add(SavePngButton);
+            SavePngRibbonBar.Items.Add(SaveMp3Button);
             this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
         }
     }

@@ -475,6 +475,243 @@
         }
       }
     },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "ManagedBass/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/ManagedBass.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "MonoGame.Framework.WindowsDX/3.8.0.1641": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1",
+          "SharpDX.DXGI": "4.0.1",
+          "SharpDX.Direct2D1": "4.0.1",
+          "SharpDX.Direct3D11": "4.0.1",
+          "SharpDX.MediaFoundation": "4.0.1",
+          "SharpDX.XAudio2": "4.0.1",
+          "SharpDX.XInput": "4.0.1"
+        },
+        "compile": {
+          "lib/net452/MonoGame.Framework.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net452/_._": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/MonoGame.Framework.WindowsDX.targets": {}
+        }
+      },
+      "SharpDX/4.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/SharpDX.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.Direct2D1/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1",
+          "SharpDX.DXGI": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.Direct2D1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.Direct3D11/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1",
+          "SharpDX.DXGI": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.Direct3D11.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.Direct3D9/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.Direct3D9.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.DXGI/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.DXGI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.Mathematics/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.Mathematics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.MediaFoundation/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1",
+          "SharpDX.DXGI": "4.0.1",
+          "SharpDX.Direct3D9": "4.0.1",
+          "SharpDX.Mathematics": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.MediaFoundation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.RawInput/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.RawInput.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/SharpDX.RawInput.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.XAudio2/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.XAudio2.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "SharpDX.XInput/4.0.1": {
+        "type": "package",
+        "dependencies": {
+          "SharpDX": "4.0.1"
+        },
+        "compile": {
+          "lib/net45/SharpDX.XInput.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/_._": {
+            "related": ".xml"
+          }
+        }
+      },
+      "WzComparerR2.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        }
+      },
+      "WzComparerR2.PluginBase/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "WzComparerR2.Common": "1.0.0",
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        }
+      },
+      "WzComparerR2.WzLib/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        }
+      }
+    },
     ".NETFramework,Version=v4.8/win-x64": {
       "ManagedBass/3.1.0": {
         "type": "package",
@@ -1296,6 +1533,9 @@
     },
     "runtimes": {
       "win": {
+        "#import": []
+      },
+      "win-arm64": {
         "#import": []
       },
       "win-x64": {

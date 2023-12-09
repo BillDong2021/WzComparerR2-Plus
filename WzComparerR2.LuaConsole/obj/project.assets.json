@@ -215,6 +215,83 @@
         }
       }
     },
+    ".NETFramework,Version=v4.8/win-arm64": {
+      "ICSharpCode.TextEditor/3.2.1.6466": {
+        "type": "package",
+        "compile": {
+          "lib/Net20/ICSharpCode.TextEditor.dll": {}
+        },
+        "runtime": {
+          "lib/Net20/ICSharpCode.TextEditor.dll": {}
+        }
+      },
+      "KeraLua/1.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net46/KeraLua.dll": {
+            "related": ".xml"
+          }
+        },
+        "native": {
+          "runtimes/win-arm64/native/lua54.dll": {}
+        },
+        "build": {
+          "build/net46/KeraLua.targets": {}
+        }
+      },
+      "NLua/1.6.0": {
+        "type": "package",
+        "dependencies": {
+          "KeraLua": "1.3.1"
+        },
+        "compile": {
+          "lib/net46/NLua.dll": {}
+        },
+        "runtime": {
+          "lib/net46/NLua.dll": {}
+        }
+      },
+      "WzComparerR2.Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.Common.dll": {}
+        }
+      },
+      "WzComparerR2.PluginBase/1.0.0": {
+        "type": "project",
+        "dependencies": {
+          "WzComparerR2.Common": "1.0.0",
+          "WzComparerR2.WzLib": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.PluginBase.dll": {}
+        }
+      },
+      "WzComparerR2.WzLib/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WzComparerR2.WzLib.dll": {}
+        }
+      }
+    },
     ".NETFramework,Version=v4.8/win-x64": {
       "ICSharpCode.TextEditor/3.2.1.6466": {
         "type": "package",
@@ -556,6 +633,9 @@
     },
     "runtimes": {
       "win": {
+        "#import": []
+      },
+      "win-arm64": {
         "#import": []
       },
       "win-x64": {
