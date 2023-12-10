@@ -3754,7 +3754,7 @@ namespace WzComparerR2
                     return;
                 }
 
-                string path = $"D:\\Games\\MapleStory\\Sound\\{imgName}";
+                string path = $"D:\\Games\\MapleStory\\Sound\\{imgName.Split('.').First()}";
                 EnsureFolder(path);
                 string file = b ? $"{path}\\{node.ParentNode.Text}.{node.Text}.mp3" : $"{path}\\{node.Text}.mp3";
                 if (!File.Exists(file))
@@ -3875,34 +3875,34 @@ namespace WzComparerR2
         void OutputAllPng()
         {
             Wz_Structure wz_Structure = this.openedWz.First();
-            OutputSinglePng(wz_Structure.WzNode, "");
+            OutputSinglePng(wz_Structure.WzNode.GetChild("Skill",true), "");
+            OutputSinglePng(wz_Structure.WzNode.GetChild("Item",true), "");
+            OutputSinglePng(wz_Structure.WzNode.GetChild("Mob",true), "");
+            OutputSinglePng(wz_Structure.WzNode.GetChild("Morph", true), "");
+            OutputSinglePng(wz_Structure.WzNode.GetChild("Etc", true), "");
+            //OutputSinglePng(wz_Structure.WzNode.GetChild("Character",true), "");
             Console.WriteLine("导出完成！");
         }
 
         void OutputSinglePng(Wz_Node node, string str)
         {
-            if (node.Text == "Character" || node.Text == "Effect" || node.Text == "Etc" || node.Text == "Item" || node.Text == "Map")
-            {
-                return;
-            }
-
             string name = str + node.Text + "/";
             foreach (var subNode in node.Nodes)
             {
                 if (subNode.Value is Wz_Image wz_Image)
                 {
                     wz_Image.TryExtract();
-                    string temp = "D:/Games/MapleStory/WzPicture/072new0330/" + name + subNode.Text;
+                    string temp = "D:/Games/MapleStory/WzPicture/GMS083/" + name + subNode.Text;
                     string folderPath = temp.Substring(0, temp.Length - 4);
                     EnsureFolder(folderPath);
                     DumpPngs(folderPath, wz_Image.Node);
-                    Console.WriteLine($"导出完成{folderPath}");
                 }
                 else
                 {
                     OutputSinglePng(subNode, name);
                 }
             }
+            Console.WriteLine($"导出完成: {name}");
         }
 
         void OutputPng(string equipType, int start, int end)
@@ -4133,7 +4133,7 @@ namespace WzComparerR2
             this.ribbonBar5.Items.Add(AniNamesBox);
             //
             SavePngButton = new DevComponents.DotNetBar.ButtonItem();
-            SavePngButton.Text = "批量存储PNG";
+            SavePngButton.Text = "批量存储PNG 1";
             SavePngButton.FixedSize = new Size(81, 65);
             SavePngButton.Click += new System.EventHandler(this.SavePngButtonClickNew);
             SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
