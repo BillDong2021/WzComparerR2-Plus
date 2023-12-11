@@ -515,6 +515,19 @@ namespace WzComparerR2.WzLib
 
     public static class Wz_NodeExtension
     {
+        public static string GetSoundPath(this Wz_Node node)
+        {
+            if (node == null || !(node.Value is Wz_Sound))
+            {
+                return string.Empty;
+            }
+
+            string input = node.FullPathToFile;
+            int imgIndex = input.IndexOf(".img");
+            string path = "D:\\Games\\MapleStory\\" + input.Substring(0, imgIndex) + "\\" + $"{input.Substring(imgIndex + 5, input.Length - imgIndex - 5).Replace("\\", ".")}.mp3";
+            return path;
+        }
+        
         public static bool TryExtract(this Wz_Node node)
         {
             if (node?.Value != null && node.Value is Wz_Image img)

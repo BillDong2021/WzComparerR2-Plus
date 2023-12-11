@@ -3723,26 +3723,32 @@ namespace WzComparerR2
             Wz_Node n = wz_Structure.WzNode.GetChild("Sound", true);
             foreach (var node in n.Nodes)
             {
-                string name = node.Text;
-                Wz_Node temp = n.GetChild(name, true);
-                Console.WriteLine($"name={name}, count={node.Nodes.Count}");
+                string name = node.Text.Split('.').First();
+                Wz_Node temp = n.GetChild(node.Text, true);
+                //Console.WriteLine($"name={name}, count={node.Nodes.Count}");
                 foreach (var c in temp.Nodes)
                 {
-                    Console.WriteLine($"c={c.FullPath}");
-                    SaveSoundNode(c, name);
+                    //Console.WriteLine($"c={c.FullPath}");
+                    SaveSoundNode(c);
                 }
             }
         }
         
 
         
-        void SaveSoundNode(Wz_Node node, string imgName)
+        void SaveSoundNode(Wz_Node node)
         {
-            bool b = false;
             if (!(node.Value is Wz_Sound))
             {
-                node = node.Nodes[0];
-                b = true;
+                for (int i = 0; i < node.Nodes.Count; i++)
+                {
+                    string text = node.Nodes[i].Text;
+                    var n = node.GetChild(text, true);
+                    if (n != null)
+                    {
+                        SaveSoundNode(n);
+                    }
+                }
             }
             
             if (node.Value is Wz_Sound s)
@@ -3754,12 +3760,13 @@ namespace WzComparerR2
                     return;
                 }
 
-                string path = $"D:\\Games\\MapleStory\\Sound\\{imgName}";
-                EnsureFolder(path);
-                string file = b ? $"{path}\\{node.ParentNode.Text}.{node.Text}.mp3" : $"{path}\\{node.Text}.mp3";
-                if (!File.Exists(file))
+                string path = node.GetSoundPath();
+                EnsureFileFolder(node.GetSoundPath());
+
+                Console.WriteLine($"path={path}" );
+                if (!File.Exists(path))
                 {
-                    FileStream fs = new FileStream(file, FileMode.Create);
+                    FileStream fs = new FileStream(path, FileMode.Create);
                     fs.Write(data, 0, data.Length);
                 }
             }
@@ -3949,6 +3956,21 @@ namespace WzComparerR2
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
+            }
+        }
+
+        void EnsureFileFolder(string path)
+        {
+            string directoryPath = Path.GetDirectoryName(path);
+
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+                Console.WriteLine("文件夹已创建");
+            }
+            else
+            {
+                Console.WriteLine("文件夹已存在");
             }
         }
 
