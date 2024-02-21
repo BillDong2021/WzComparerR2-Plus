@@ -3691,6 +3691,7 @@ namespace WzComparerR2
         DevComponents.DotNetBar.ButtonItem SearchWzButton;
         DevComponents.DotNetBar.ButtonItem MapObjButton;
         DevComponents.DotNetBar.ButtonItem ImageViewerButton;
+        DevComponents.DotNetBar.ButtonItem TestButton;
         DevComponents.DotNetBar.ComboBoxItem AniNamesBox;
 
         void DB2ButtonClick(object sender, EventArgs e)
@@ -3733,9 +3734,16 @@ namespace WzComparerR2
                 }
             }
         }
-        
 
-        
+
+        void Test(object sender, EventArgs e)
+        {
+            Console.WriteLine("Test!!");
+            ExcelExporter.OutputExcel();
+        }
+
+
+
         void SaveSoundNode(Wz_Node node, string imgName)
         {
             bool b = false;
@@ -4137,7 +4145,7 @@ namespace WzComparerR2
             SavePngButton.FixedSize = new Size(81, 65);
             SavePngButton.Click += new System.EventHandler(this.SavePngButtonClickNew);
             SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            SavePngRibbonBar.Location = new Point(1410, 10);
+            SavePngRibbonBar.Location = new Point(1910, 10);
             SavePngRibbonBar.Text = "Batch Save Pngs";
             SavePngRibbonBar.MinimumSize = new Size(90, 50);
             SavePngRibbonBar.Items.Add(SavePngButton);
@@ -4149,11 +4157,23 @@ namespace WzComparerR2
             SaveMp3Button.FixedSize = new Size(81, 65);
             SaveMp3Button.Click += new System.EventHandler(this.SaveAllMp3ButtonClickNew);
             SavePngRibbonBar = new DevComponents.DotNetBar.RibbonBar();
-            SavePngRibbonBar.Location = new Point(1410, 10);
+            SavePngRibbonBar.Location = new Point(2010, 10);
             SavePngRibbonBar.Text = "Batch Save Mp3";
             SavePngRibbonBar.MinimumSize = new Size(90, 50);
             SavePngRibbonBar.Items.Add(SaveMp3Button);
             this.ribbonPanel1.Controls.Add(SavePngRibbonBar);
+
+            //
+            TestButton = new DevComponents.DotNetBar.ButtonItem();
+            TestButton.Text = "TestButton";
+            TestButton.FixedSize = new Size(81, 65);
+            TestButton.Click += new System.EventHandler(this.Test);
+            var testRibbonBar = new DevComponents.DotNetBar.RibbonBar();
+            testRibbonBar.Location = new Point(2110, 10);
+            testRibbonBar.Text = "Batch Save Mp3";
+            testRibbonBar.MinimumSize = new Size(90, 50);
+            testRibbonBar.Items.Add(TestButton);
+            this.ribbonPanel1.Controls.Add(testRibbonBar);
         }
     }
 
